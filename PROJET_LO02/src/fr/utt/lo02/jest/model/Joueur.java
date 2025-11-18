@@ -1,6 +1,14 @@
 package fr.utt.lo02.jest.model;
 import java.util.*;
 
+/**
+ * Classe représentant un joueur dans le jeu Jest.
+ * Un joueur possède un nom, une main de cartes et peut jouer des cartes.
+ * Cette classe supporte le pattern Visitor via la méthode accept().
+ * 
+ * @author Projet LO02
+ * @version 1.0
+ */
 public class Joueur {
 	
 	// attributs d'un joueur
@@ -36,6 +44,11 @@ public class Joueur {
 		return derniereCarteJouee;
 	}
 	
+	// setter de derniereCarteJouee (pour les stratégies)
+	protected void setDerniereCarteJouee(Carte carte) {
+		this.derniereCarteJouee = carte;
+	}
+	
 	// le joueur gagne s'il a toutes les cartes dans sa main.
 	// JeuCartes.nbrCartes représente toutes les cartes
 	public boolean isWinner(){
@@ -61,6 +74,15 @@ public class Joueur {
 		sb.append(main);
 		sb.append("\n ******************************************* \n");
 		return sb.toString();
+	}
+	
+	/**
+	 * Méthode accept du pattern Visitor
+	 * Permet à un visiteur de traiter ce joueur
+	 * @param visitor Le visiteur qui va traiter ce joueur
+	 */
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
 	}
 }
 

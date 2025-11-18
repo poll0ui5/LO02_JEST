@@ -1,9 +1,13 @@
-/**
- * 
- */
 package fr.utt.lo02.jest.model;
 
-
+/**
+ * Classe représentant une carte du jeu Jest.
+ * Une carte possède une valeur (SEPT à AS) et une couleur (TREFLE, CARREAU, COEUR, PIQUE).
+ * Cette classe supporte le pattern Visitor via la méthode accept().
+ * 
+ * @author Projet LO02
+ * @version 1.0
+ */
 public class Carte {
 	
     private Couleur couleur;
@@ -36,6 +40,15 @@ public class Carte {
 	sb.append(" de ");
 	sb.append(this.couleur);
 	return sb.toString();
+    }
+    
+    /**
+     * Méthode accept du pattern Visitor
+     * Permet à un visiteur de traiter cette carte
+     * @param visitor Le visiteur qui va traiter cette carte
+     */
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }   
 	
     public static void main(String[]args){

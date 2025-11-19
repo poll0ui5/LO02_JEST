@@ -17,6 +17,7 @@ public class Joueur {
 	private String nom;
 	private LinkedList<Carte> main;
 	private Carte derniereCarteJouee;
+	private static int nbJoueur;
 	
 	// constructeur
 	public Joueur(String nom){

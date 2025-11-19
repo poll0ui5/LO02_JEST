@@ -54,8 +54,8 @@ public class Carte {
     }   
 	
     public static void main(String[]args){
-    	Carte c1=new Carte(Valeur.DIX, Couleur.COEUR);
-    	Carte c2=new Carte(Valeur.ROI, Couleur.COEUR);   
+    	Carte c1=new Carte(Valeur.DEUX, Couleur.COEUR);
+    	Carte c2=new Carte(Valeur.TROIS, Couleur.COEUR);   
     	
     	System.out.println(c1);
     	System.out.println(c2);

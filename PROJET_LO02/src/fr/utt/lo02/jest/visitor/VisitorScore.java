@@ -56,26 +56,14 @@ public class VisitorScore implements Visitor {
     public void visit(Carte carte) {
         // Règles de base du jeu Jest (à adapter selon vos règles exactes)
         switch (carte.getValeur()) {
-            case SEPT:
+            case DEUX:
                 scoreActuel += 7;
                 break;
-            case HUIT:
+            case TROIS:
                 scoreActuel += 8;
                 break;
-            case NEUF:
+            case QUATRE:
                 scoreActuel += 9;
-                break;
-            case DIX:
-                scoreActuel += 10;
-                break;
-            case VALET:
-                scoreActuel += 11;
-                break;
-            case DAME:
-                scoreActuel += 12;
-                break;
-            case ROI:
-                scoreActuel += 13;
                 break;
             case AS:
                 scoreActuel += 1;

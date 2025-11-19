@@ -17,7 +17,8 @@ public class Partie {
 	// attributs d'une Partie
 	private ArrayList<Joueur> listJ;
 	private JeuCartes jeu;
-	
+	private ArrayList <Trophee> trophees;
+	private static int mancheCourante;
 
 	/**
 	 * Constructeur de Partie
@@ -26,6 +27,7 @@ public class Partie {
 	public Partie(){
 		this.listJ = new ArrayList<Joueur>();
 		this.jeu = new JeuCartes();
+		this.trophees = new ArrayList<Trophee>();
 	}
 
 	/**

@@ -1,5 +1,7 @@
 package fr.utt.lo02.jest.model;
 
+import fr.utt.lo02.jest.visitor.Visitor;
+
 /**
  * Classe représentant une carte du jeu Jest.
  * Une carte possède une valeur (SEPT à AS) et une couleur (TREFLE, CARREAU, COEUR, PIQUE).

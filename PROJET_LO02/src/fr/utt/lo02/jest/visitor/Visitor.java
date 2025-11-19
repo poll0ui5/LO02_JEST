@@ -1,4 +1,8 @@
-package fr.utt.lo02.jest.model;
+package fr.utt.lo02.jest.visitor;
+
+import fr.utt.lo02.jest.model.Carte;
+import fr.utt.lo02.jest.model.Joueur;
+import fr.utt.lo02.jest.model.Trophee;
 
 /**
  * Interface Visitor pour le pattern Visitor.

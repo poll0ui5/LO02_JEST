@@ -1,4 +1,6 @@
-package fr.utt.lo02.jest.model;
+package fr.utt.lo02.jest.strategy;
+
+import fr.utt.lo02.jest.model.JoueurVirtuel;
 
 /**
  * Interface Strategy pour définir le comportement de jeu des joueurs virtuels.

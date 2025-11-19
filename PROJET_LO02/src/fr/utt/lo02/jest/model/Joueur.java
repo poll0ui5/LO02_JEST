@@ -1,5 +1,7 @@
 package fr.utt.lo02.jest.model;
+
 import java.util.*;
+import fr.utt.lo02.jest.visitor.Visitor;
 
 /**
  * Classe représentant un joueur dans le jeu Jest.
@@ -45,7 +47,7 @@ public class Joueur {
 	}
 	
 	// setter de derniereCarteJouee (pour les stratégies)
-	protected void setDerniereCarteJouee(Carte carte) {
+	public void setDerniereCarteJouee(Carte carte) {
 		this.derniereCarteJouee = carte;
 	}
 	

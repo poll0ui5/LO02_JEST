@@ -1,4 +1,7 @@
-package fr.utt.lo02.jest.model;
+package fr.utt.lo02.jest.strategy;
+
+import fr.utt.lo02.jest.model.Carte;
+import fr.utt.lo02.jest.model.JoueurVirtuel;
 
 /**
  * Stratégie défensive : le joueur virtuel joue de manière conservatrice.

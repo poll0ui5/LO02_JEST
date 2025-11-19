@@ -1,7 +1,11 @@
-package fr.utt.lo02.jest.model;
+package fr.utt.lo02.jest.visitor;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import fr.utt.lo02.jest.model.Carte;
+import fr.utt.lo02.jest.model.Joueur;
+import fr.utt.lo02.jest.model.Trophee;
 
 /**
  * Visiteur concret pour calculer les scores des joueurs.

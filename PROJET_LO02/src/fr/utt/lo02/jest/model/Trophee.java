@@ -1,5 +1,7 @@
 package fr.utt.lo02.jest.model;
 
+import fr.utt.lo02.jest.visitor.Visitor;
+
 /**
  * Classe représentant un trophée dans le jeu Jest
  * Un trophée a une carte associée et des conditions pour être gagné

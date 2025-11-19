@@ -1,5 +1,7 @@
 package fr.utt.lo02.jest.model;
 
+import fr.utt.lo02.jest.strategy.Strategie;
+
 /**
  * Joueur virtuel (bot) qui utilise une stratégie de jeu.
  * Hérite de Joueur et délègue son comportement de jeu à une stratégie.

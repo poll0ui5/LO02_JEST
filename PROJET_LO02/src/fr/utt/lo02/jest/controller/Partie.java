@@ -1,5 +1,17 @@
-package fr.utt.lo02.jest.model;
+package fr.utt.lo02.jest.controller;
+
 import java.util.*;
+
+import fr.utt.lo02.jest.model.*;
+import fr.utt.lo02.jest.view.Terminal;
+
+/**
+ * Contrôleur principal du jeu Jest.
+ * Gère le déroulement d'une partie : distribution, tours de jeu, détermination du gagnant.
+ * 
+ * @author Projet LO02
+ * @version 1.0
+ */
 public class Partie {
 
 	// attributs d'une Partie
@@ -7,54 +19,55 @@ public class Partie {
 	private JeuCartes jeu;
 	
 
-	// constructeur de Partie
+	/**
+	 * Constructeur de Partie
+	 * Initialise la liste des joueurs et le jeu de cartes
+	 */
 	public Partie(){
-		// instanciez la liste de joueurs : listJ
-		/* ..... */
 		this.listJ = new ArrayList<Joueur>();
-		// instanciez le jeu de cartes : jeu
-		/* ..... */
 		this.jeu = new JeuCartes();
 	}
 
-	// ajout d'un joueur à la liste des joueurs
+	/**
+	 * Ajoute un joueur à la partie
+	 * @param joueur Le joueur à ajouter
+	 */
 	public void ajouterUnJoueur(Joueur joueur){
-		// ajoute un joueur à la liste des joueurs
-		/* ..... */
 		this.listJ.add(joueur);
 	}
 
-    // On mélange le jeu puis on on distribue les cartes aux joueurs 
+	/**
+	 * Mélange le jeu et distribue les cartes aux joueurs
+	 */
 	public void distribuerCartes(){
 		jeu.melanger();
 		while (jeu.estVide() == false){
 			Iterator<Joueur> it =listJ.iterator();
 			while(it.hasNext()){
-				// on sort une carte du jeu
-				/* ..... */
 				Carte carteADistrib = jeu.distribuerUneCarte();
-				// le joueur pointé par l'itérateur ramasse la carte
-				/* ..... */
 				it.next().ramasserCarte(carteADistrib);
 			}
 		}		
 	}
 	
-	// Chaque joueur jette une et une seule carte sur la table.
-	// Les cartes jouées se retrouvent dans la liste cartesJouees
-	// On ne teste pas le cas où les joueurs jettent une carte de même valeur.
+	/**
+	 * Chaque joueur joue une carte
+	 * @return La liste des cartes jouées
+	 */
 	public ArrayList<Carte> jouerVosCartes(){
 		ArrayList<Carte> cartesJouees = new ArrayList<Carte> ();
 		Iterator<Joueur> it = listJ.iterator();
 		while(it.hasNext()) {
-			// ajoute à la liste carteJouees la carte jouée par le joueur pointé par l'itérateur.
-			/* ..... */
 			cartesJouees.add(it.next().jouerCarte());
 		}
 		return cartesJouees;
 	}
 	
-	// Parmi les cartes jouées, laquelle est gagnante?
+	/**
+	 * Détermine la carte gagnante parmi les cartes jouées
+	 * @param cartes Les cartes jouées
+	 * @return La carte ayant la plus grande valeur
+	 */
 	public Carte carteGagnante(List<Carte> cartes) {
 		Carte meilleureCarte = cartes.get(0);
 		System.out.println(meilleureCarte);
@@ -68,9 +81,11 @@ public class Partie {
 		return meilleureCarte;
 	}
 	
-	// Quel joueur a joué la carte gagnante?
-	// Par souci de simplicité, on parcourt la liste des joueurs et on prend le premier joueur qui a posé la carte gagnante
-	// même si plusieurs joueurs ont posé une carte de même valeur.
+	/**
+	 * Détermine quel joueur a joué la carte gagnante
+	 * @param carte La carte gagnante
+	 * @return Le joueur ayant joué cette carte
+	 */
 	public Joueur joueurGagnant(Carte carte) {
 		boolean leGagnantEst = false;
 		Iterator<Joueur> it =listJ.iterator();
@@ -83,17 +98,22 @@ public class Partie {
 		return gagnant;	
 	}
 	
-	// Le gagnant ramasse toutes les cartes jouees 
+	/**
+	 * Le gagnant du tour ramasse toutes les cartes jouées
+	 * @param gagnantj Le joueur gagnant
+	 * @param cartesJouees Les cartes à ramasser
+	 */
     public void recupererCartesJouees(Joueur gagnantj, ArrayList<Carte> cartesJouees) {
-    	// le joueur gagnant ramasse toutes les cartes
-		/* ..... */
     	Iterator<Carte> it1 = cartesJouees.iterator();
     	while (it1.hasNext()) {
     		gagnantj.ramasserCarte(it1.next());
     	}
     }
     	
-	// la partie est terminée quand un vainqueur est trouvé
+	/**
+	 * Vérifie si la partie est terminée (un joueur a toutes les cartes)
+	 * @return true si un joueur a gagné
+	 */
 	public boolean partieTerminee() {
 		boolean fin =false;
 		Iterator<Joueur> it =listJ.iterator();
@@ -104,10 +124,15 @@ public class Partie {
 		return fin;		
 	}
 
+	@Override
 	public String toString(){
 		return listJ.toString();
 	}
 				
+	/**
+	 * Point d'entrée principal pour lancer une partie
+	 * @param args Arguments de la ligne de commande
+	 */
 	public static void main(String[] args) {
 
 		// création d'une partie de Bataille
@@ -131,8 +156,7 @@ public class Partie {
 		System.out.println(bataille.listJ.get(0));
 		System.out.println(bataille.listJ.get(1));
 		
-		// ces 2 lignes peuvent être omises: elles vont nous servir à dérouler la partie en mode pas à pas
-		// vous pouvez les mettre en commentaire. si c'est le cas, mettre également  en commentaire  //saisieClavier=terminal.lireChaine();
+		// Mode pas à pas avec Terminal
 		Terminal terminal = new Terminal();
 		String saisieClavier = new String();
 
@@ -146,5 +170,3 @@ public class Partie {
 		}		
 	}
 }
-		
- 

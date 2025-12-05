@@ -1,91 +1,115 @@
 package fr.utt.lo02.jest.model;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import fr.utt.lo02.jest.visitor.Visitor;
 
-/**
- * Classe représentant un joueur dans le jeu Jest.
- * Un joueur possède un nom, une main de cartes et peut jouer des cartes.
- * Cette classe supporte le pattern Visitor via la méthode accept().
- * 
- * @author Projet LO02
- * @version 1.0
- */
-public class Joueur {
-	
-	// attributs d'un joueur
-	private String nom;
-	private LinkedList<Carte> main;
-	private Carte derniereCarteJouee;
-	private static int nbJoueur;
-	
-	// constructeur
-	public Joueur(String nom){
-		// initialise le nom du joueur
-	    /* ..... */
-		this.nom = nom;
-		// instancie la main du joueur
-		/* .... */ 	
-		this.main = new LinkedList<Carte>();
-	}
-	
-	// le joueur ramasse la carte et l'ajoute en dessous des cartes déjà existantes dans la main
-	public void ramasserCarte(Carte carte){
-		/* .... */ 
-		this.main.addLast(carte);
-	}
+public abstract class Joueur {
 
-	// le joueur retire la premiere carte de sa main.Cette carte est donc la dernière carte jouée.  
-	public Carte jouerCarte(){
-		derniereCarteJouee = this.main.getFirst() /* ..... */ ;
-		this.main.remove(derniereCarteJouee);
-		System.out.println(this.nom + " joue " + this.derniereCarteJouee);
-		return derniereCarteJouee;
-	}
-	// getter de derniereCarteJouee;
-	public Carte getDerniereCarteJouee() {
-		return derniereCarteJouee;
-	}
-	
-	// setter de derniereCarteJouee (pour les stratégies)
-	public void setDerniereCarteJouee(Carte carte) {
-		this.derniereCarteJouee = carte;
-	}
-	
-	// le joueur gagne s'il a toutes les cartes dans sa main.
-	// JeuCartes.nbrCartes représente toutes les cartes
-	public boolean isWinner(){
-		boolean jaigagne = false;
-		if (main.size()==32)
-			jaigagne=true;
-		return jaigagne;
-	}
-	
-	public LinkedList<Carte> getMain(){
-		return main;
-	}
-	
-	public String getNom(){
-		return nom;
-	}
-	
-	// Description d'un joueur avec sa main
-	public String toString(){
-		StringBuffer sb = new StringBuffer();
-		sb.append("\n ******************************************* \n");		
-		sb.append(nom + " a  " +  main.size() + " cartes dans sa main \n");
-		sb.append(main);
-		sb.append("\n ******************************************* \n");
-		return sb.toString();
-	}
-	
-	/**
-	 * Méthode accept du pattern Visitor
-	 * Permet à un visiteur de traiter ce joueur
-	 * @param visitor Le visiteur qui va traiter ce joueur
-	 */
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
-	}
+    protected String nom;
+    protected List<Carte> main; // Cartes "physiques" en main
+    protected List<Carte> jest; // Cartes gagnées
+    protected int score;
+
+    // CHANGEMENT ICI : L'offre est un tableau de CarteOffre
+    protected CarteOffre[] offre; 
+
+    public Joueur(String nom) {
+        this.nom = nom;
+        this.main = new ArrayList<>();
+        this.jest = new ArrayList<>();
+        this.offre = new CarteOffre[2]; // Toujours 2 cartes dans l'offre au départ
+        this.score = 0;
+    }
+    
+    /**
+     * Retourne la main actuelle du joueur (les cartes qu'il tient).
+     * @return La liste des cartes en main.
+     */
+    public List<Carte> getMain() {
+        return this.main;
+    }
+
+    // --- Gestion de l'offre ---
+
+    /**
+     * Crée l'offre en transformant 2 cartes de la main en CarteOffre.
+     * @param indexCarteVisible index de la carte dans la main à mettre face visible
+     * @param indexCarteCachee index de la carte dans la main à mettre face cachée
+     */
+    public void creerOffre(int indexCarteVisible, int indexCarteCachee) {
+        // On récupère les objets Carte
+        Carte c1 = main.get(indexCarteVisible);
+        Carte c2 = main.get(indexCarteCachee);
+        
+        // On crée les CarteOffre (Wrapper)
+        this.offre[0] = new CarteOffre(c1, true);  // Celle-ci sera visible
+        this.offre[1] = new CarteOffre(c2, false); // Celle-ci sera cachée
+        
+        // On vide la main (car les cartes sont maintenant sur la table)
+        this.main.clear();
+    }
+    
+    /**
+     * Renvoie la carte visible de l'offre pour déterminer qui joue en premier.
+     * Si l'offre est vide ou ne contient que la cachée (cas fin de tour), gère null.
+     */
+    public CarteOffre getCarteVisibleDeLOffre() {
+        for (CarteOffre co : offre) {
+            if (co != null && co.getEstVisible()) {
+                return co;
+            }
+        }
+        return null; // Cas où la visible a déjà été prise
+    }
+    
+    public CarteOffre[] getOffre() {
+        return offre;
+    }
+
+    // --- Méthodes communes inchangées ---
+    
+    public void ramasserCarte(Carte c) {
+        this.main.add(c);
+    }
+    
+    public void ajouterAuJest(Carte c) {
+        this.jest.add(c);
+    }
+    
+    public String getNom() { 
+    	return nom; 
+    }
+    
+    public List<Carte> getJest() { 
+    	return jest; 
+    }
+    public void setScore(int s) { 
+    	this.score = s; 
+    }
+    public int getScore() { 
+    	return score; 
+    }
+
+    public void accept(Visitor v) {
+        v.visit(this);
+    }
+
+    /**
+     * Fin de partie : on récupère ce qui reste sur la table.
+     */
+    public void recupererDerniereCarteDeLOffre() {
+        for (int i = 0; i < offre.length; i++) {
+            if (offre[i] != null) {
+                // Le polymorphisme permet de mettre une CarteOffre dans une List<Carte>
+                this.jest.add(offre[i]); 
+                offre[i] = null;
+            }
+        }
+    }
+
+    // Méthodes abstraites
+    public abstract void faireOffre();
+    public abstract Joueur choisirAdversaire(List<Joueur> joueurs);
+    public abstract Carte prendreCarteDansOffre(Joueur cible);
 }
-

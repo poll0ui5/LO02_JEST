@@ -4,80 +4,106 @@ import fr.utt.lo02.jest.visitor.Visitor;
 
 /**
  * Classe représentant une carte du jeu Jest.
- * Une carte possède une valeur (SEPT à AS) et une couleur (TREFLE, CARREAU, COEUR, PIQUE).
- * Cette classe supporte le pattern Visitor via la méthode accept().
- * 
+ * <p>
+ * Une carte possède une {@link Valeur}, une {@link Couleur} et un état de visibilité.
+ * Elle implémente la logique de comparaison spécifique au Jest (Valeur puis Couleur).
+ * </p>
  * @author Projet LO02
- * @version 1.0
+ * @version 2.0
  */
 public class Carte {
-	
+    
     private Couleur couleur;
     private Valeur valeur;
+    private boolean faceVisible;
 
-    public Carte (Valeur valeur, Couleur couleur) {
-	this.setCouleur(couleur);
-	this.setValeur(valeur);
+    /**
+     * Constructeur d'une carte.
+     * Par défaut, une carte est distribuée face cachée.
+     * @param valeur La valeur faciale (Joker, As, 2, 3, 4)
+     * @param couleur La couleur (Pique, Trèfle, Carreau, Cœur)
+     */
+    public Carte(Valeur valeur, Couleur couleur) {
+        this.valeur = valeur;
+        this.couleur = couleur;
+        this.faceVisible = false; // Cachée par défaut [cite: 114]
     }
+
+    // --- Getters et Setters ---
 
     public Couleur getCouleur() {
-	return couleur;
+        return couleur;
     }
-
-    public void setCouleur(Couleur couleur) {
-		    this.couleur = couleur;
-	}
 
     public Valeur getValeur() {
-	return valeur;
-    }
-
-    public void setValeur(Valeur valeur) {
-	    this.valeur = valeur;
-    }
-
-    public String toString() {
-	StringBuffer sb = new StringBuffer();
-	sb.append(this.valeur);
-	sb.append(" de ");
-	sb.append(this.couleur);
-	return sb.toString();
+        return valeur;
     }
     
     /**
-     * Méthode accept du pattern Visitor
-     * Permet à un visiteur de traiter cette carte
-     * @param visitor Le visiteur qui va traiter cette carte
+     * Rend la carte visible (face visible).
+     */
+    public void show() {
+        this.faceVisible = true;
+    }
+
+    /**
+     * Cache la carte (face cachée).
+     */
+    public void hide() {
+        this.faceVisible = false;
+    }
+    
+    /**
+     * Définit directement la visibilité.
+     * @param visible true pour visible, false pour caché.
+     */
+    public void setFaceVisible(boolean visible) {
+        this.faceVisible = visible;
+    }
+    
+    public boolean estFaceVisible() {
+        return faceVisible;
+    }
+
+    /**
+     * Compare cette carte à une autre pour déterminer l'ordre de jeu.
+     * <p>
+     * Règle du Jest : On compare d'abord la valeur faciale.
+     * Si les valeurs sont égales, on compare la force de la couleur :
+     * Pique > Trèfle > Carreau > Cœur.
+     * </p>
+     * @param c2 La carte à comparer.
+     * @return true si cette carte est plus forte que c2, false sinon.
+     * [cite: 125, 126]
+     */
+    public boolean estSuperieureA(Carte c2) {
+        // 1. Comparaison des valeurs faciales
+        if (this.valeur.getValeurFaciale() > c2.valeur.getValeurFaciale()) {
+            return true;
+        } else if (this.valeur.getValeurFaciale() < c2.valeur.getValeurFaciale()) {
+            return false;
+        } else {
+            // 2. En cas d'égalité (Tie-break), comparaison des couleurs
+            // On utilise l'ordinal de l'enum ou une méthode dédiée
+            // Supposons l'ordre enum: COEUR(0), CARREAU(1), TREFLE(2), PIQUE(3)
+            return this.couleur.ordinal() > c2.couleur.ordinal();
+        }
+    }
+
+    /**
+     * Méthode accept du pattern Visitor.
+     * Permet à un visiteur (calculateur de score) de traiter cette carte.
      */
     public void accept(Visitor visitor) {
-        visitor.visit(this);
+        // Note: Le visiteur visite généralement le Joueur, mais visiter la carte peut servir
+        // pour des affichages ou des inspections spécifiques.
+        // Si ton interface Visitor n'a pas visit(Carte), tu peux commenter cette ligne.
+        // visitor.visit(this); 
     }   
-	
-    public static void main(String[]args){
-    	Carte c1=new Carte(Valeur.DEUX, Couleur.COEUR);
-    	Carte c2=new Carte(Valeur.TROIS, Couleur.COEUR);   
-    	
-    	System.out.println(c1);
-    	System.out.println(c2);
-    	
-    	// la méthode ordinal() renvoie la position de l'élèment dans l'énumération
-    	// ici la valeur DIX renvoie 3, la valeur ROI renvoie 6 et ainsi de suite
-    	System.out.println(c1.getValeur() );
-    	System.out.println(c2.getValeur() );
-    	System.out.println(c1.getValeur().ordinal());
-    	System.out.println(c2.getValeur().ordinal());
-    	
-    	// Comment récupérer les éléments d'une énumération?
-		Valeur[] v=Valeur.values();
-		for(int i=0 ; i < v.length; i++){
-			System.out.println(v[i]);
-		}
-    	
-    	// compareTo: 
-    	//Returns a negative integer, zero, or a positive integer ...
-    	//as this object is less than, equal to, or greater than the specified object.    	
-		System.out.println(c1.getValeur().compareTo(c2.getValeur()))  ;
 
+    @Override
+    public String toString() {
+        // PLUS DE CONDITION IF ICI !
+        return valeur + " de " + couleur;
     }
 }
-

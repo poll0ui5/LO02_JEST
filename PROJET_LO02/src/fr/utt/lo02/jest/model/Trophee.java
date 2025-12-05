@@ -51,9 +51,7 @@ public class Trophee {
      * Méthode accept du pattern Visitor
      * @param visitor Le visiteur qui va traiter ce trophée
      */
-    public void accept(Visitor visitor) {
-        visitor.visit(this);
-    }
+
     
     // Getters et Setters
     

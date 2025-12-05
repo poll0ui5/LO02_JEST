@@ -1,1 +1,16 @@
-/bin/
+# --- Configuration locale Eclipse (L'origine de ton erreur) ---
+.metadata/
+.recommenders/
+
+# --- Fichiers compilés (ne jamais versionner ça) ---
+bin/
+classes/
+*.class
+
+# --- Fichiers systèmes inutiles ---
+.DS_Store
+Thumbs.db
+
+# --- Archives (optionnel) ---
+*.zip
+*.jar

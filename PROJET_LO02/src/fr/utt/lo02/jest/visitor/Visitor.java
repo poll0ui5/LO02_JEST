@@ -32,5 +32,5 @@ public interface Visitor {
      * Visite un trophée pour effectuer un traitement
      * @param trophee Le trophée à visiter
      */
-    void visit(Trophee trophee);
+    
 }

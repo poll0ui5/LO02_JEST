@@ -1,0 +1,11 @@
+# Ignorer les dossiers de configuration Eclipse (Workspace)
+.metadata/
+
+# Ignorer les fichiers compilés (le dossier bin ou classes)
+bin/
+classes/
+*.class
+
+# Ignorer les fichiers systèmes
+.DS_Store
+Thumbs.db

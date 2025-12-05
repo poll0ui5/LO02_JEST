@@ -1,21 +1,42 @@
 package fr.utt.lo02.jest.strategy;
 
+import java.util.List;
+import fr.utt.lo02.jest.model.Carte;
+import fr.utt.lo02.jest.model.Joueur;
 import fr.utt.lo02.jest.model.JoueurVirtuel;
 
 /**
- * Interface Strategy pour définir le comportement de jeu des joueurs virtuels.
- * Permet de changer dynamiquement la stratégie d'un joueur virtuel sans modifier son code.
- * 
- * Pattern de conception : Strategy
- * 
- * @author Projet LO02
- * @version 1.0
+ * Interface définissant le comportement d'un joueur virtuel (Bot).
+ * <p>
+ * Le pattern Strategy permet de définir plusieurs niveaux d'intelligence
+ * (Aléatoire, Défensif, Offensif) interchangeables à la volée.
+ * </p>
+ * Chaque méthode correspond à une phase de décision du jeu Jest.
+ * * @author Projet LO02
+ * @version 2.0
  */
 public interface Strategie {
-    
+
     /**
-     * Méthode pour faire jouer le joueur selon sa stratégie
-     * @param joueur Le joueur virtuel qui utilise cette stratégie
+     * Le bot doit décider comment constituer son offre (quelle carte visible/cachée).
+     * Doit appeler bot.creerOffre(...) pour valider le choix.
+     * @param bot Le joueur virtuel concerné.
      */
-    void jouer(JoueurVirtuel joueur);
+    void faireOffre(JoueurVirtuel bot);
+
+    /**
+     * Le bot doit choisir quel adversaire attaquer.
+     * @param bot Le joueur virtuel qui joue.
+     * @param joueurs La liste de tous les joueurs de la partie.
+     * @return Le joueur cible choisi.
+     */
+    Joueur choisirAdversaire(JoueurVirtuel bot, List<Joueur> joueurs);
+
+    /**
+     * Le bot doit choisir quelle carte prendre dans l'offre de la cible.
+     * @param bot Le joueur virtuel qui joue.
+     * @param cible Le joueur adverse choisi précédemment.
+     * @return La carte choisie.
+     */
+    Carte choisirCarte(JoueurVirtuel bot, Joueur cible);
 }

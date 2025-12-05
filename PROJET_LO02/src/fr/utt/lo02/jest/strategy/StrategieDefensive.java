@@ -1,42 +1,135 @@
 package fr.utt.lo02.jest.strategy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.utt.lo02.jest.model.Carte;
+import fr.utt.lo02.jest.model.CarteOffre;
+import fr.utt.lo02.jest.model.Couleur;
+import fr.utt.lo02.jest.model.Joueur;
 import fr.utt.lo02.jest.model.JoueurVirtuel;
 
 /**
- * Stratégie défensive : le joueur virtuel joue de manière conservatrice.
- * Privilégie les cartes de faible valeur pour minimiser les risques.
- * 
- * Comportement : Choisit toujours la carte ayant la plus petite valeur dans la main.
- * 
- * Pattern de conception : Strategy (implémentation concrète)
- * 
+ * Stratégie défensive pour un joueur virtuel.
+ * <p>
+ * Philosophie : "Prudence et Sécurité".
+ * <ul>
+ * <li><b>Offre :</b> Cache la carte la plus forte pour essayer de la garder pour son propre Jest.</li>
+ * <li><b>Cible :</b> Attaque le joueur présentant la carte visible la plus faible (le moins dangereux).</li>
+ * <li><b>Prise :</b> Privilégie la prise de cartes visibles (connues) pour éviter les mauvaises surprises des cartes cachées.</li>
+ * </ul>
+ * </p>
  * @author Projet LO02
- * @version 1.0
+ * @version 2.0
  */
 public class StrategieDefensive implements Strategie {
-    
+
+    /**
+     * Comportement défensif : Cache la carte la plus forte.
+     * Le bot espère que personne ne prendra sa carte cachée, pour pouvoir la récupérer à la fin.
+     */
     @Override
-    public void jouer(JoueurVirtuel joueur) {
-        // Implémentation de la stratégie défensive
-        // Le joueur choisit la carte de plus faible valeur dans sa main
-        
-        if (joueur.getMain().isEmpty()) {
-            System.out.println(joueur.getNom() + " n'a plus de cartes à jouer");
-            return;
+    public void faireOffre(JoueurVirtuel bot) {
+        // Le bot a 2 cartes en main (index 0 et 1)
+        Carte c1 = bot.getMain().get(0);
+        Carte c2 = bot.getMain().get(1);
+
+        // On compare les cartes. Rappel : estSuperieureA utilise Valeur puis Couleur.
+        if (c1.estSuperieureA(c2)) {
+            // c1 est plus forte, on la cache.
+            // Visible : c2 (index 1), Cachée : c1 (index 0)
+            bot.creerOffre(1, 0);
+        } else {
+            // c2 est plus forte (ou égale), on la cache.
+            // Visible : c1 (index 0), Cachée : c2 (index 1)
+            bot.creerOffre(0, 1);
         }
         
-        // Trouve la carte avec la plus petite valeur
-        Carte carteAJouer = joueur.getMain().getFirst();
-        for (Carte carte : joueur.getMain()) {
-            if (carte.getValeur().ordinal() < carteAJouer.getValeur().ordinal()) {
-                carteAJouer = carte;
+        System.out.println(bot.getNom() + " (Défensif) a fait son offre (a caché sa carte forte).");
+    }
+
+    /**
+     * Comportement défensif : Choisit l'adversaire avec la carte visible la plus faible.
+     * Cela minimise le risque de donner la main à un joueur fort au tour suivant.
+     */
+    @Override
+    public Joueur choisirAdversaire(JoueurVirtuel bot, List<Joueur> joueurs) {
+        Joueur cible = null;
+        Carte meilleurCarteFaible = null;
+
+        for (Joueur j : joueurs) {
+            // On ne s'attaque pas soi-même et on vérifie qu'il reste des cartes
+            boolean aDesCartes = (j.getOffre()[0] != null || j.getOffre()[1] != null);
+            
+            if (j != bot && aDesCartes) {
+                // On regarde la carte visible de cet adversaire
+                Carte visible = j.getCarteVisibleDeLOffre();
+                
+                // Si c'est le premier qu'on examine, on le prend par défaut
+                if (cible == null) {
+                    cible = j;
+                    meilleurCarteFaible = visible;
+                } else {
+                    // Sinon, on compare : on cherche la PLUS PETITE carte visible
+                    // Si 'visible' est plus faible que 'meilleurCarteFaible', on change de cible
+                    if (visible != null && meilleurCarteFaible != null) {
+                        if (meilleurCarteFaible.estSuperieureA(visible)) {
+                            cible = j;
+                            meilleurCarteFaible = visible;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Sécurité : si on n'a trouvé personne (cas rare), on retourne le bot lui-même
+        if (cible == null) return bot;
+        
+        return cible;
+    }
+
+    /**
+     * Comportement défensif : Prend la carte visible si elle est sûre.
+     * Évite la carte cachée (peur du Joker ou d'un mauvais coup).
+     */
+    @Override
+    public Carte choisirCarte(JoueurVirtuel bot, Joueur cible) {
+        CarteOffre[] offre = cible.getOffre();
+        CarteOffre visible = null;
+        CarteOffre cachee = null;
+        
+        // Identifier quelle carte est visible et laquelle est cachée (si elles existent encore)
+        if (offre[0] != null) {
+            if (offre[0].getEstVisible()) visible = offre[0];
+            else cachee = offre[0];
+        }
+        if (offre[1] != null) {
+            if (offre[1].getEstVisible()) visible = offre[1];
+            else cachee = offre[1];
+        }
+
+        // LOGIQUE DÉCISIONNELLE :
+        
+        // 1. Si la carte visible est disponible
+        if (visible != null) {
+            // Un joueur défensif n'aime pas les Carreaux (points négatifs)
+            if (visible.getCouleur() == Couleur.CARREAU) {
+                // Si la visible est un Carreau, on prend le risque de prendre la cachée (si elle existe)
+                if (cachee != null) return cachee;
+                else return visible; // Pas le choix
+            } 
+            // Si ce n'est pas un carreau, on prend la visible (sécurité)
+            else {
+                return visible;
             }
         }
         
-        // Retire la carte de la main et la définit comme dernière carte jouée
-        joueur.getMain().remove(carteAJouer);
-        joueur.setDerniereCarteJouee(carteAJouer);
-        System.out.println(joueur.getNom() + " (Défensif) joue " + carteAJouer);
+        // 2. Si seule la carte cachée est dispo, on la prend
+        if (cachee != null) {
+            return cachee;
+        }
+
+        // 3. Fallback (ne devrait pas arriver si la logique est bonne)
+        return null; 
     }
 }

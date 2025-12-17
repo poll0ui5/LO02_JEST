@@ -1,5 +1,6 @@
 package fr.utt.lo02.jest.model;
 
+import java.io.Serializable;
 import fr.utt.lo02.jest.visitor.Visitor;
 
 /**
@@ -11,7 +12,9 @@ import fr.utt.lo02.jest.visitor.Visitor;
  * @author Projet LO02
  * @version 2.0
  */
-public class Carte {
+public class Carte implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
     
     private Couleur couleur;
     private Valeur valeur;
@@ -77,6 +80,8 @@ public class Carte {
      * [cite: 125, 126]
      */
     public boolean estSuperieureA(Carte c2) {
+        if (c2 == null) return true;
+        
         // 1. Comparaison des valeurs faciales
         if (this.valeur.getValeurFaciale() > c2.valeur.getValeurFaciale()) {
             return true;
@@ -84,10 +89,19 @@ public class Carte {
             return false;
         } else {
             // 2. En cas d'égalité (Tie-break), comparaison des couleurs
-            // On utilise l'ordinal de l'enum ou une méthode dédiée
-            // Supposons l'ordre enum: COEUR(0), CARREAU(1), TREFLE(2), PIQUE(3)
+            // Le Joker n'a pas de couleur (null), il perd le tie-break
+            if (this.couleur == null) return false;
+            if (c2.couleur == null) return true;
             return this.couleur.ordinal() > c2.couleur.ordinal();
         }
+    }
+    
+    /**
+     * Vérifie si cette carte est le Joker.
+     * @return true si c'est le Joker.
+     */
+    public boolean estJoker() {
+        return this.valeur == Valeur.JOKER;
     }
 
     /**
@@ -103,7 +117,9 @@ public class Carte {
 
     @Override
     public String toString() {
-        // PLUS DE CONDITION IF ICI !
+        if (this.valeur == Valeur.JOKER) {
+            return "Joker";
+        }
         return valeur + " de " + couleur;
     }
 }

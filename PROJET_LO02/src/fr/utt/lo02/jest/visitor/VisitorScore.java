@@ -67,8 +67,8 @@ public class VisitorScore implements Visitor {
             }
             
             // Mise à jour compteur couleur (pour l'As)
-            // Note: Le Joker n'a pas vraiment de couleur, on l'ignore ou on gère selon l'implémentation
-            if (c.getValeur() != Valeur.JOKER) {
+            // Le Joker n'a pas de couleur (null), on l'ignore
+            if (c.getValeur() != Valeur.JOKER && c.getCouleur() != null) {
                 compteursCouleur.put(c.getCouleur(), compteursCouleur.get(c.getCouleur()) + 1);
             }
 

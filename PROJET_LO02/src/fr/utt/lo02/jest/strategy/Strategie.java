@@ -1,5 +1,6 @@
 package fr.utt.lo02.jest.strategy;
 
+import java.io.Serializable;
 import java.util.List;
 import fr.utt.lo02.jest.model.Carte;
 import fr.utt.lo02.jest.model.Joueur;
@@ -15,7 +16,7 @@ import fr.utt.lo02.jest.model.JoueurVirtuel;
  * * @author Projet LO02
  * @version 2.0
  */
-public interface Strategie {
+public interface Strategie extends Serializable {
 
     /**
      * Le bot doit décider comment constituer son offre (quelle carte visible/cachée).

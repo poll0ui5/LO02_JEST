@@ -1,0 +1,99 @@
+package fr.utt.lo02.jest.sauvegarde;
+
+import java.io.*;
+
+/**
+ * Gestionnaire de sauvegarde et chargement de parties.
+ * <p>
+ * Utilise la sérialisation Java pour persister l'état du jeu.
+ * Les fichiers sont sauvegardés au format .jest
+ * </p>
+ * @author Projet LO02
+ * @version 1.0
+ */
+public class GestionnaireSauvegarde {
+    
+    private static final String EXTENSION = ".jest";
+    private static final String DOSSIER_SAUVEGARDES = "sauvegardes/";
+    
+    /**
+     * Sauvegarde un objet sérialisable dans un fichier.
+     * @param objet L'objet à sauvegarder (doit implémenter Serializable).
+     * @param nomFichier Le nom du fichier (sans extension).
+     * @return true si la sauvegarde a réussi.
+     */
+    public static boolean sauvegarder(Serializable objet, String nomFichier) {
+        // Créer le dossier s'il n'existe pas
+        File dossier = new File(DOSSIER_SAUVEGARDES);
+        if (!dossier.exists()) {
+            dossier.mkdirs();
+        }
+        
+        String cheminComplet = DOSSIER_SAUVEGARDES + nomFichier + EXTENSION;
+        
+        try (ObjectOutputStream oos = new ObjectOutputStream(
+                new FileOutputStream(cheminComplet))) {
+            oos.writeObject(objet);
+            System.out.println("Partie sauvegardée dans : " + cheminComplet);
+            return true;
+        } catch (IOException e) {
+            System.err.println("Erreur lors de la sauvegarde : " + e.getMessage());
+            return false;
+        }
+    }
+    
+    /**
+     * Charge un objet depuis un fichier de sauvegarde.
+     * @param nomFichier Le nom du fichier (sans extension).
+     * @return L'objet chargé, ou null si erreur.
+     */
+    public static Object charger(String nomFichier) {
+        String cheminComplet = DOSSIER_SAUVEGARDES + nomFichier + EXTENSION;
+        
+        try (ObjectInputStream ois = new ObjectInputStream(
+                new FileInputStream(cheminComplet))) {
+            Object objet = ois.readObject();
+            System.out.println("Partie chargée depuis : " + cheminComplet);
+            return objet;
+        } catch (FileNotFoundException e) {
+            System.err.println("Fichier non trouvé : " + cheminComplet);
+            return null;
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Erreur lors du chargement : " + e.getMessage());
+            return null;
+        }
+    }
+    
+    /**
+     * Liste les sauvegardes disponibles.
+     * @return Un tableau des noms de fichiers (sans extension).
+     */
+    public static String[] listerSauvegardes() {
+        File dossier = new File(DOSSIER_SAUVEGARDES);
+        if (!dossier.exists()) {
+            return new String[0];
+        }
+        
+        File[] fichiers = dossier.listFiles((dir, name) -> name.endsWith(EXTENSION));
+        if (fichiers == null) {
+            return new String[0];
+        }
+        
+        String[] noms = new String[fichiers.length];
+        for (int i = 0; i < fichiers.length; i++) {
+            String nom = fichiers[i].getName();
+            noms[i] = nom.substring(0, nom.length() - EXTENSION.length());
+        }
+        return noms;
+    }
+    
+    /**
+     * Vérifie si une sauvegarde existe.
+     * @param nomFichier Le nom du fichier (sans extension).
+     * @return true si le fichier existe.
+     */
+    public static boolean sauvegardeExiste(String nomFichier) {
+        File fichier = new File(DOSSIER_SAUVEGARDES + nomFichier + EXTENSION);
+        return fichier.exists();
+    }
+}

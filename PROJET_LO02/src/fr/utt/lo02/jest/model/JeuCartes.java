@@ -1,27 +1,39 @@
 package fr.utt.lo02.jest.model;
 import java.util.*;
 
+/**
+ * Représente le paquet de cartes du jeu Jest.
+ * <p>
+ * Le jeu contient 17 cartes :
+ * <ul>
+ * <li>16 cartes de couleur : 4 couleurs × 4 valeurs (As, 2, 3, 4)</li>
+ * <li>1 Joker (sans couleur)</li>
+ * </ul>
+ * </p>
+ */
 public class JeuCartes {
 	
-	// attributs d'un jeu de cartes
 	private LinkedList<Carte> tasCartes;
-	public static final int nbrCartes = Valeur.values().length * Couleur.values().length; // 8 x 4 = 32 cartes
+	public static final int NBR_CARTES = 17; // 16 cartes + 1 Joker
 	
-	// constructeur du jeu de cartes
+	/**
+	 * Constructeur : crée le paquet de 17 cartes du Jest.
+	 */
 	public JeuCartes(){
-		// instancie le jeu de cartes 
-		/* .... */ 
 		this.tasCartes = new LinkedList<Carte>();
-		Valeur[] v=Valeur.values(); // ici values renvoie un tableau de Valeur
-		Couleur[] c=Couleur.values(); // ici values renvoie un tableau de Couleur
-		for(int i=0 ; i < v.length; i++){
-			for(int j=0 ; j < c.length ; j++){
-				Carte carte = new Carte(v[i] , c[j] );
-				// on ajoute cette carte au tas de cartes
-				/* ... */
-				this.tasCartes.add(carte);
+		
+		// 1. Création des 16 cartes de couleur (As, 2, 3, 4 pour chaque couleur)
+		Valeur[] valeursNormales = {Valeur.AS, Valeur.DEUX, Valeur.TROIS, Valeur.QUATRE};
+		Couleur[] couleurs = Couleur.values();
+		
+		for (Valeur v : valeursNormales) {
+			for (Couleur c : couleurs) {
+				this.tasCartes.add(new Carte(v, c));
 			}
 		}
+		
+		// 2. Ajout du Joker (couleur null car le Joker n'a pas de couleur)
+		this.tasCartes.add(new Carte(Valeur.JOKER, null));
 	}
 	
 	// retire la premiére carte du tas de cartes (la carte du dessus)

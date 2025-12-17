@@ -113,7 +113,8 @@ public class StrategieDefensive implements Strategie {
         // 1. Si la carte visible est disponible
         if (visible != null) {
             // Un joueur défensif n'aime pas les Carreaux (points négatifs)
-            if (visible.getCouleur() == Couleur.CARREAU) {
+            // Note: Le Joker a une couleur null
+            if (visible.getCouleur() != null && visible.getCouleur() == Couleur.CARREAU) {
                 // Si la visible est un Carreau, on prend le risque de prendre la cachée (si elle existe)
                 if (cachee != null) return cachee;
                 else return visible; // Pas le choix

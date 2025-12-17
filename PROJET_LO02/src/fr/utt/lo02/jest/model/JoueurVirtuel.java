@@ -17,6 +17,8 @@ import fr.utt.lo02.jest.strategy.Strategie;
  */
 public class JoueurVirtuel extends Joueur {
     
+    private static final long serialVersionUID = 1L;
+    
     /**
      * La stratégie utilisée par ce bot (Facile, Difficile, etc.).
      */

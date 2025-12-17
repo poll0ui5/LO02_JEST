@@ -11,6 +11,8 @@ import fr.utt.lo02.jest.view.Terminal;
  * @version 2.0
  */
 public class JoueurHumain extends Joueur {
+    
+    private static final long serialVersionUID = 1L;
 
     /**
      * Constructeur.

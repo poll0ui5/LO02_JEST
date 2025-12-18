@@ -31,6 +31,18 @@ public class JoueurVirtuel extends Joueur {
     @Override
     public Carte prendreCarteDansOffre(Joueur cible) {
         Carte c = this.strategie.choisirCarte(this, cible);
+        if (c == null) {
+            // Fallback : prendre la première carte disponible
+            CarteOffre[] offreCible = cible.getOffre();
+            if (offreCible[0] != null) {
+                c = offreCible[0];
+                offreCible[0] = null;
+            } else if (offreCible[1] != null) {
+                c = offreCible[1];
+                offreCible[1] = null;
+            }
+            return c;
+        }
         CarteOffre[] offreCible = cible.getOffre();
         if (offreCible[0] == c)
             offreCible[0] = null;

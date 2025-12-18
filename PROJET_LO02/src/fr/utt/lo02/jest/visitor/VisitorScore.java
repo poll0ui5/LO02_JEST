@@ -39,7 +39,7 @@ public class VisitorScore implements Visitor {
         }
 
         for (Carte c : jest) {
-            if (c.getValeur() == Valeur.JOKER) continue;
+            if (c.getValeur() == Valeur.JOKER || c.getCouleur() == null) continue;
             int valeurCarte = c.getValeur().getValeurFaciale();
             if (c.getValeur() == Valeur.AS && compteursCouleur.get(c.getCouleur()) == 1) valeurCarte = 5;
 

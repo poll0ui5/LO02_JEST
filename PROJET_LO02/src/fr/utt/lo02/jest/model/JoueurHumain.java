@@ -17,6 +17,10 @@ public class JoueurHumain extends Joueur {
 
     @Override
     public void faireOffre() {
+        if (this.main.size() < 2) {
+            System.out.println(this.nom + " n'a pas assez de cartes pour faire une offre.");
+            return;
+        }
         Terminal t = new Terminal();
         t.afficherMessage("\n>> C'est à vous, " + this.nom + ".");
         t.afficherMessage("Vos cartes en main : " + this.main);

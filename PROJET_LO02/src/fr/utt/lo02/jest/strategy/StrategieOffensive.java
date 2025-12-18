@@ -28,17 +28,17 @@ public class StrategieOffensive implements Strategie {
      */
     @Override
     public void faireOffre(JoueurVirtuel bot) {
+        if (bot.getMain().size() < 2) {
+            System.out.println(bot.getNom() + " n'a pas assez de cartes pour faire une offre.");
+            return;
+        }
+        
         Carte c1 = bot.getMain().get(0);
         Carte c2 = bot.getMain().get(1);
 
-        // On compare pour savoir laquelle est la plus forte (Valeur puis Couleur)
         if (c1.estSuperieureA(c2)) {
-            // c1 est la plus forte, on la montre !
-            // Visible : c1 (index 0), Cachée : c2 (index 1)
             bot.creerOffre(0, 1);
         } else {
-            // c2 est la plus forte, on la montre !
-            // Visible : c2 (index 1), Cachée : c1 (index 0)
             bot.creerOffre(1, 0);
         }
         

@@ -72,6 +72,15 @@ public class Partie {
     /** Un tour : distribution, offres, prises. */
     private void jouerUnTour() {
         view.afficherMessage("\n--- MANCHE " + numeroManche + " ---");
+        
+        // Vérifier qu'il y a assez de cartes pour distribuer
+        int cartesNecessaires = joueurs.size() * 2;
+        if (pioche.getTasCartes().size() < cartesNecessaires) {
+            view.afficherMessage("Pas assez de cartes pour une nouvelle manche.");
+            partieTerminee = true;
+            return;
+        }
+        
         for (Joueur j : joueurs) {
             if (!pioche.estVide()) j.ramasserCarte(pioche.distribuerUneCarte());
             if (!pioche.estVide()) j.ramasserCarte(pioche.distribuerUneCarte());

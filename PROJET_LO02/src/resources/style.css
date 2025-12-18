@@ -1,0 +1,19 @@
+/* Style CSS pour Jest */
+.root {
+    -fx-background-color: #1a472a;
+}
+
+.label {
+    -fx-text-fill: white;
+}
+
+.button {
+    -fx-background-color: gold;
+    -fx-text-fill: #1a472a;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #ffd700;
+}

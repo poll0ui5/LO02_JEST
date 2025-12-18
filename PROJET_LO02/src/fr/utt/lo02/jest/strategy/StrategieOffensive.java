@@ -28,6 +28,15 @@ public class StrategieOffensive implements Strategie {
      */
     @Override
     public void faireOffre(JoueurVirtuel bot) {
+        if (bot.getMain().size() < 1) {
+            System.out.println(bot.getNom() + " n'a pas de cartes.");
+            return;
+        }
+        if (bot.getMain().size() == 1) {
+            bot.creerOffre(0, -1);
+            System.out.println(bot.getNom() + " (Offensif) montre sa seule carte.");
+            return;
+        }
         Carte c1 = bot.getMain().get(0);
         Carte c2 = bot.getMain().get(1);
 

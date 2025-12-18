@@ -13,6 +13,7 @@ import fr.utt.lo02.jest.visitor.VisitorScore;
 /**
  * Contrôleur principal du jeu Jest (pattern MVC).
  * Gère l'initialisation, les tours de jeu et le calcul des scores.
+ * 
  * @author Projet LO02
  */
 public class Partie {
@@ -28,7 +29,8 @@ public class Partie {
     /** Lance une nouvelle partie. */
     public void demarrer() {
         initialiserJeu();
-        while (!pioche.estVide() && !partieTerminee) jouerUnTour();
+        while (!pioche.estVide() && !partieTerminee)
+            jouerUnTour();
         conclurePartie();
     }
 
@@ -37,10 +39,15 @@ public class Partie {
         view.afficherMessage("\n=== CONFIGURATION ===");
         view.afficherMessage("Variante : 1.Classique 2.Sans Trophée 3.Double Mise");
         int v = view.lireEntier("Choix", 1, 3);
-        switch(v) {
-            case 2: variante = new VarianteSansTrophee(); break;
-            case 3: variante = new VarianteDoubleMise(); break;
-            default: variante = new VarianteClassique();
+        switch (v) {
+            case 2:
+                variante = new VarianteSansTrophee();
+                break;
+            case 3:
+                variante = new VarianteDoubleMise();
+                break;
+            default:
+                variante = new VarianteClassique();
         }
         view.afficherMessage("Variante : " + variante.getNom());
 
@@ -48,16 +55,18 @@ public class Partie {
         if (view.lireEntier("Choix", 1, 2) == 2) {
             extension = new ExtensionCartesSpeciales();
             extension.setActive(true);
-            for (Carte c : extension.getCartesExtension()) pioche.getTasCartes().add(c);
+            for (Carte c : extension.getCartesExtension())
+                pioche.getTasCartes().add(c);
         }
 
         int nbJoueurs = view.demanderNombreJoueurs();
         int nbHumains = view.lireEntier("Joueurs humains ?", 1, nbJoueurs);
-        
+
         for (int i = 0; i < nbHumains; i++)
             joueurs.add(new JoueurHumain(view.demanderNomJoueur(i + 1)));
         for (int i = 0; i < nbJoueurs - nbHumains; i++)
-            joueurs.add(new JoueurVirtuel("Bot " + (i+1), i%2==0 ? new StrategieOffensive() : new StrategieDefensive()));
+            joueurs.add(new JoueurVirtuel("Bot " + (i + 1),
+                    i % 2 == 0 ? new StrategieOffensive() : new StrategieDefensive()));
 
         pioche.melanger();
         int nbTrophees = variante.getNombreTrophees(nbJoueurs);
@@ -66,21 +75,27 @@ public class Partie {
             t.show();
             trophees.add(t);
         }
-        if (nbTrophees > 0) view.afficherTrophees(trophees);
+        if (nbTrophees > 0)
+            view.afficherTrophees(trophees);
     }
 
     /** Un tour : distribution, offres, prises. */
     private void jouerUnTour() {
         view.afficherMessage("\n--- MANCHE " + numeroManche + " ---");
         for (Joueur j : joueurs) {
-            if (!pioche.estVide()) j.ramasserCarte(pioche.distribuerUneCarte());
-            if (!pioche.estVide()) j.ramasserCarte(pioche.distribuerUneCarte());
+            if (!pioche.estVide())
+                j.ramasserCarte(pioche.distribuerUneCarte());
+            if (!pioche.estVide())
+                j.ramasserCarte(pioche.distribuerUneCarte());
         }
-        for (Joueur j : joueurs) { j.faireOffre(); view.afficherOffre(j); }
-        
+        for (Joueur j : joueurs) {
+            j.faireOffre();
+            view.afficherOffre(j);
+        }
+
         ArrayList<Joueur> joues = new ArrayList<>();
         Joueur actuel = trouverMeilleureOffre(joueurs);
-        
+
         while (joues.size() < joueurs.size()) {
             view.afficherMessage("Tour de " + actuel.getNom());
             Joueur cible = actuel.choisirAdversaire(joueurs);
@@ -88,23 +103,29 @@ public class Partie {
             actuel.ajouterAuJest(carte);
             joues.add(actuel);
             view.afficherMessage(actuel.getNom() + " prend " + carte + " chez " + cible.getNom());
-            
-            if (!joues.contains(cible)) actuel = cible;
+
+            if (!joues.contains(cible))
+                actuel = cible;
             else {
                 ArrayList<Joueur> restants = new ArrayList<>();
-                for (Joueur j : joueurs) if (!joues.contains(j)) restants.add(j);
-                if (!restants.isEmpty()) actuel = trouverMeilleureOffre(restants);
+                for (Joueur j : joueurs)
+                    if (!joues.contains(j))
+                        restants.add(j);
+                if (!restants.isEmpty())
+                    actuel = trouverMeilleureOffre(restants);
             }
         }
         numeroManche++;
-        if (pioche.estVide()) partieTerminee = true;
+        if (pioche.estVide())
+            partieTerminee = true;
     }
 
     private Joueur trouverMeilleureOffre(List<Joueur> candidats) {
         Joueur meilleur = candidats.get(0);
         for (Joueur j : candidats) {
             Carte c1 = j.getCarteVisibleDeLOffre(), c2 = meilleur.getCarteVisibleDeLOffre();
-            if (c1 != null && (c2 == null || c1.estSuperieureA(c2))) meilleur = j;
+            if (c1 != null && (c2 == null || c1.estSuperieureA(c2)))
+                meilleur = j;
         }
         return meilleur;
     }
@@ -112,14 +133,19 @@ public class Partie {
     /** Fin de partie : trophées, scores, gagnant. */
     private void conclurePartie() {
         view.afficherMessage("\n--- FIN ---");
-        for (Joueur j : joueurs) j.recupererDerniereCarteDeLOffre();
+        for (Joueur j : joueurs)
+            j.recupererDerniereCarteDeLOffre();
         attribuerTrophees();
         VisitorScore calc = new VisitorScore();
-        for (Joueur j : joueurs) j.accept(calc);
+        for (Joueur j : joueurs)
+            j.accept(calc);
         variante.appliquerReglesFinales(joueurs);
-        for (Joueur j : joueurs) view.afficherScore(j);
+        for (Joueur j : joueurs)
+            view.afficherScore(j);
         Joueur gagnant = joueurs.get(0);
-        for (Joueur j : joueurs) if (j.getScore() > gagnant.getScore()) gagnant = j;
+        for (Joueur j : joueurs)
+            if (j.getScore() > gagnant.getScore())
+                gagnant = j;
         view.afficherMessage("\n*** Gagnant : " + gagnant.getNom() + " (" + gagnant.getScore() + " pts) ***");
     }
 
@@ -130,11 +156,18 @@ public class Partie {
             for (Joueur j : joueurs) {
                 int count = 0;
                 if (trophee.estJoker()) {
-                    for (Carte c : j.getJest()) if (c.getCouleur() == Couleur.COEUR) count++;
+                    for (Carte c : j.getJest())
+                        if (c.getCouleur() == Couleur.COEUR)
+                            count++;
                 } else {
-                    for (Carte c : j.getJest()) if (c.getValeur() == trophee.getValeur()) count++;
+                    for (Carte c : j.getJest())
+                        if (c.getValeur() == trophee.getValeur())
+                            count++;
                 }
-                if (count > max) { max = count; gagnant = j; }
+                if (count > max) {
+                    max = count;
+                    gagnant = j;
+                }
             }
             if (gagnant != null) {
                 gagnant.ajouterAuJest(trophee);
@@ -151,15 +184,18 @@ public class Partie {
         etat.setTrophees(trophees);
         etat.setNumeroManche(numeroManche);
         etat.setPartieTerminee(partieTerminee);
-        if (variante != null) etat.setNomVariante(variante.getNom());
-        if (extension != null && extension.estActive()) etat.setNomExtension(extension.getNom());
+        if (variante != null)
+            etat.setNomVariante(variante.getNom());
+        if (extension != null && extension.estActive())
+            etat.setNomExtension(extension.getNom());
         return GestionnaireSauvegarde.sauvegarder(etat, nom);
     }
 
     /** Charge une partie sauvegardée. */
     public boolean chargerPartie(String nom) {
         Object obj = GestionnaireSauvegarde.charger(nom);
-        if (!(obj instanceof EtatPartie)) return false;
+        if (!(obj instanceof EtatPartie))
+            return false;
         EtatPartie etat = (EtatPartie) obj;
         joueurs = etat.getJoueurs();
         pioche.getTasCartes().clear();
@@ -168,11 +204,19 @@ public class Partie {
         numeroManche = etat.getNumeroManche();
         partieTerminee = etat.isPartieTerminee();
         switch (etat.getNomVariante()) {
-            case "Sans Trophée": variante = new VarianteSansTrophee(); break;
-            case "Double Mise": variante = new VarianteDoubleMise(); break;
-            default: variante = new VarianteClassique();
+            case "Sans Trophée":
+                variante = new VarianteSansTrophee();
+                break;
+            case "Double Mise":
+                variante = new VarianteDoubleMise();
+                break;
+            default:
+                variante = new VarianteClassique();
         }
-        if (etat.getNomExtension() != null) { extension = new ExtensionCartesSpeciales(); extension.setActive(true); }
+        if (etat.getNomExtension() != null) {
+            extension = new ExtensionCartesSpeciales();
+            extension.setActive(true);
+        }
         return true;
     }
 
@@ -180,15 +224,17 @@ public class Partie {
         Partie partie = new Partie();
         Terminal view = new Terminal();
         String[] saves = GestionnaireSauvegarde.listerSauvegardes();
-        
+
         if (saves.length > 0) {
             view.afficherMessage("\n=== JEST ===\nSauvegardes :");
-            for (int i = 0; i < saves.length; i++) view.afficherMessage((i+1) + ". " + saves[i]);
-            view.afficherMessage((saves.length+1) + ". Nouvelle partie");
+            for (int i = 0; i < saves.length; i++)
+                view.afficherMessage((i + 1) + ". " + saves[i]);
+            view.afficherMessage((saves.length + 1) + ". Nouvelle partie");
             int choix = view.lireEntier("Choix", 1, saves.length + 1);
             if (choix <= saves.length) {
                 partie.chargerPartie(saves[choix - 1]);
-                while (!partie.pioche.estVide() && !partie.partieTerminee) partie.jouerUnTour();
+                while (!partie.pioche.estVide() && !partie.partieTerminee)
+                    partie.jouerUnTour();
                 partie.conclurePartie();
                 return;
             }

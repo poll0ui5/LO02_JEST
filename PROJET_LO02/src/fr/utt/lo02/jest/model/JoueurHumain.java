@@ -24,9 +24,14 @@ public class JoueurHumain extends Joueur {
         Terminal t = new Terminal();
         t.afficherMessage("\n>> C'est à vous, " + this.nom + ".");
         t.afficherMessage("Vos cartes en main : " + this.main);
-        int choix = t.lireEntier("Quelle carte placer FACE VISIBLE ? (1 ou 2)", 1, 2);
-        if (choix == 1) this.creerOffre(0, 1);
-        else this.creerOffre(1, 0);
+        if (this.main.size() == 1) {
+            t.afficherMessage("Vous n'avez qu'une carte, elle sera visible.");
+            this.creerOffre(0, -1);
+        } else {
+            int choix = t.lireEntier("Quelle carte placer FACE VISIBLE ? (1 ou 2)", 1, 2);
+            if (choix == 1) this.creerOffre(0, 1);
+            else this.creerOffre(1, 0);
+        }
     }
 
     @Override

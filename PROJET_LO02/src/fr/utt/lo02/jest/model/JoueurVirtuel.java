@@ -4,7 +4,9 @@ import java.util.List;
 import fr.utt.lo02.jest.strategy.Strategie;
 
 /**
- * Joueur virtuel (Bot) utilisant le pattern Strategy pour déléguer ses décisions.
+ * Joueur virtuel (Bot) utilisant le pattern Strategy pour déléguer ses
+ * décisions.
+ * 
  * @author Projet LO02
  */
 public class JoueurVirtuel extends Joueur {
@@ -30,11 +32,18 @@ public class JoueurVirtuel extends Joueur {
     public Carte prendreCarteDansOffre(Joueur cible) {
         Carte c = this.strategie.choisirCarte(this, cible);
         CarteOffre[] offreCible = cible.getOffre();
-        if (offreCible[0] == c) offreCible[0] = null;
-        else if (offreCible[1] == c) offreCible[1] = null;
+        if (offreCible[0] == c)
+            offreCible[0] = null;
+        else if (offreCible[1] == c)
+            offreCible[1] = null;
         return c;
     }
 
-    public void setStrategie(Strategie strategie) { this.strategie = strategie; }
-    public Strategie getStrategie() { return this.strategie; }
+    public void setStrategie(Strategie strategie) {
+        this.strategie = strategie;
+    }
+
+    public Strategie getStrategie() {
+        return this.strategie;
+    }
 }

@@ -5,6 +5,7 @@ import fr.utt.lo02.jest.visitor.Visitor;
 
 /**
  * Représente une carte du jeu Jest avec valeur, couleur et visibilité.
+ * 
  * @author Projet LO02
  */
 public class Carte implements Serializable {
@@ -19,27 +20,54 @@ public class Carte implements Serializable {
         this.faceVisible = false;
     }
 
-    public Couleur getCouleur() { return couleur; }
-    public Valeur getValeur() { return valeur; }
-    public boolean estFaceVisible() { return faceVisible; }
-    public void show() { this.faceVisible = true; }
-    public void hide() { this.faceVisible = false; }
-    public void setFaceVisible(boolean visible) { this.faceVisible = visible; }
+    public Couleur getCouleur() {
+        return couleur;
+    }
+
+    public Valeur getValeur() {
+        return valeur;
+    }
+
+    public boolean estFaceVisible() {
+        return faceVisible;
+    }
+
+    public void show() {
+        this.faceVisible = true;
+    }
+
+    public void hide() {
+        this.faceVisible = false;
+    }
+
+    public void setFaceVisible(boolean visible) {
+        this.faceVisible = visible;
+    }
 
     /**
-     * Compare deux cartes : valeur d'abord, puis couleur (Pique > Trèfle > Carreau > Cœur).
+     * Compare deux cartes : valeur d'abord, puis couleur (Pique > Trèfle > Carreau
+     * > Cœur).
      */
     public boolean estSuperieureA(Carte c2) {
-        if (c2 == null) return true;
-        if (this.valeur.getValeurFaciale() > c2.valeur.getValeurFaciale()) return true;
-        if (this.valeur.getValeurFaciale() < c2.valeur.getValeurFaciale()) return false;
-        if (this.couleur == null) return false;
-        if (c2.couleur == null) return true;
+        if (c2 == null)
+            return true;
+        if (this.valeur.getValeurFaciale() > c2.valeur.getValeurFaciale())
+            return true;
+        if (this.valeur.getValeurFaciale() < c2.valeur.getValeurFaciale())
+            return false;
+        if (this.couleur == null)
+            return false;
+        if (c2.couleur == null)
+            return true;
         return this.couleur.ordinal() > c2.couleur.ordinal();
     }
 
-    public boolean estJoker() { return this.valeur == Valeur.JOKER; }
-    public void accept(Visitor visitor) { }
+    public boolean estJoker() {
+        return this.valeur == Valeur.JOKER;
+    }
+
+    public void accept(Visitor visitor) {
+    }
 
     @Override
     public String toString() {

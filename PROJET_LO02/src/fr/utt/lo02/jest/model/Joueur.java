@@ -35,7 +35,11 @@ public abstract class Joueur implements Serializable {
     /** Crée l'offre : une carte visible, une cachée. */
     public void creerOffre(int indexVisible, int indexCachee) {
         this.offre[0] = new CarteOffre(main.get(indexVisible), true);
-        this.offre[1] = new CarteOffre(main.get(indexCachee), false);
+        if (indexCachee >= 0 && indexCachee < main.size()) {
+            this.offre[1] = new CarteOffre(main.get(indexCachee), false);
+        } else {
+            this.offre[1] = null;
+        }
         this.main.clear();
     }
 

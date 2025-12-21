@@ -34,7 +34,6 @@ public class Terminal {
 
     /**
      * Affiche un message simple à l'utilisateur.
-     * @param msg Le message à afficher.
      */
     public void afficherMessage(String msg) {
         System.out.println(msg);
@@ -42,7 +41,6 @@ public class Terminal {
 
     /**
      * Affiche la liste des trophées en jeu au début de la partie.
-     * @param trophees La liste des cartes trophées.
      */
     public void afficherTrophees(List<Carte> trophees) {
         System.out.println("------------------------------------------------");
@@ -60,7 +58,6 @@ public class Terminal {
      * Utilise le toString() de CarteOffre qui masque automatiquement
      * la carte si elle est cachée.
      * </p>
-     * @param j Le joueur dont on affiche l'offre.
      */
     public void afficherOffre(Joueur j) {
         System.out.println("Offre de " + j.getNom() + " :");
@@ -72,7 +69,6 @@ public class Terminal {
 
     /**
      * Affiche le score final d'un joueur.
-     * @param j Le joueur concerné.
      */
     public void afficherScore(Joueur j) {
         System.out.println(">> Joueur " + j.getNom() + " a terminé avec " + j.getScore() + " points.");
@@ -85,7 +81,6 @@ public class Terminal {
     /**
      * Demande le nombre de joueurs pour la partie.
      * Bloque tant que l'utilisateur n'entre pas 3 ou 4.
-     * @return 3 ou 4.
      */
     public int demanderNombreJoueurs() {
         int nb = 0;
@@ -107,8 +102,6 @@ public class Terminal {
 
     /**
      * Demande le nom d'un joueur.
-     * @param numero Le numéro du joueur (1, 2, 3...) pour l'affichage.
-     * @return Le nom saisi.
      */
     public String demanderNomJoueur(int numero) {
         System.out.print("Entrez le nom du Joueur " + numero + " : ");
@@ -119,9 +112,6 @@ public class Terminal {
      * Méthode utilitaire générique pour demander un choix numérique.
      * Utilisée par JoueurHumain pour choisir une carte ou un adversaire.
      * * @param message La question à poser.
-     * @param min La valeur minimale acceptée.
-     * @param max La valeur maximale acceptée.
-     * @return L'entier choisi par l'utilisateur.
      */
     public int lireEntier(String message, int min, int max) {
         int choix = min - 1;

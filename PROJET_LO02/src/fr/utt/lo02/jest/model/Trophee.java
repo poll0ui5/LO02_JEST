@@ -15,7 +15,6 @@ public class Trophee {
     
     /**
      * Constructeur d'un trophée
-     * @param carte La carte associée au trophée
      */
     public Trophee(Carte carte) {
         this.carte = carte;
@@ -26,8 +25,6 @@ public class Trophee {
     
     /**
      * Constructeur complet d'un trophée
-     * @param carte La carte associée au trophée
-     * @param condition La condition pour gagner le trophée
      */
     public Trophee(Carte carte, String condition) {
         this.carte = carte;
@@ -38,8 +35,6 @@ public class Trophee {
     
     /**
      * Vérifie si la condition du trophée est remplie
-     * @param joueur Le joueur à vérifier
-     * @return true si le joueur remplit la condition
      */
     public boolean verifierCondition(Joueur joueur) {
         // À implémenter selon les règles spécifiques du jeu
@@ -49,7 +44,6 @@ public class Trophee {
     
     /**
      * Méthode accept du pattern Visitor
-     * @param visitor Le visiteur qui va traiter ce trophée
      */
 
     

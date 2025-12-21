@@ -20,10 +20,6 @@ public class CarteExtension extends Carte {
     
     /**
      * Constructeur d'une carte d'extension.
-     * @param valeur La valeur de la carte.
-     * @param couleur La couleur de la carte.
-     * @param nomSpecial Le nom spécial de la carte.
-     * @param effetDescription La description de l'effet.
      */
     public CarteExtension(Valeur valeur, Couleur couleur, String nomSpecial, String effetDescription) {
         super(valeur, couleur);
@@ -41,7 +37,6 @@ public class CarteExtension extends Carte {
     
     /**
      * Vérifie si cette carte est une carte d'extension.
-     * @return true (toujours pour cette classe).
      */
     public boolean estCarteExtension() {
         return true;

@@ -18,19 +18,16 @@ public interface Visitor {
     
     /**
      * Visite un joueur pour calculer son score ou effectuer un traitement
-     * @param joueur Le joueur à visiter
      */
     void visit(Joueur joueur);
     
     /**
      * Visite une carte pour effectuer un traitement
-     * @param carte La carte à visiter
      */
     void visit(Carte carte);
     
     /**
      * Visite un trophée pour effectuer un traitement
-     * @param trophee Le trophée à visiter
      */
     
 }

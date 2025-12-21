@@ -18,9 +18,6 @@ public class GestionnaireSauvegarde {
     
     /**
      * Sauvegarde un objet sérialisable dans un fichier.
-     * @param objet L'objet à sauvegarder (doit implémenter Serializable).
-     * @param nomFichier Le nom du fichier (sans extension).
-     * @return true si la sauvegarde a réussi.
      */
     public static boolean sauvegarder(Serializable objet, String nomFichier) {
         // Créer le dossier s'il n'existe pas
@@ -44,8 +41,6 @@ public class GestionnaireSauvegarde {
     
     /**
      * Charge un objet depuis un fichier de sauvegarde.
-     * @param nomFichier Le nom du fichier (sans extension).
-     * @return L'objet chargé, ou null si erreur.
      */
     public static Object charger(String nomFichier) {
         String cheminComplet = DOSSIER_SAUVEGARDES + nomFichier + EXTENSION;
@@ -66,7 +61,6 @@ public class GestionnaireSauvegarde {
     
     /**
      * Liste les sauvegardes disponibles.
-     * @return Un tableau des noms de fichiers (sans extension).
      */
     public static String[] listerSauvegardes() {
         File dossier = new File(DOSSIER_SAUVEGARDES);
@@ -89,8 +83,6 @@ public class GestionnaireSauvegarde {
     
     /**
      * Vérifie si une sauvegarde existe.
-     * @param nomFichier Le nom du fichier (sans extension).
-     * @return true si le fichier existe.
      */
     public static boolean sauvegardeExiste(String nomFichier) {
         File fichier = new File(DOSSIER_SAUVEGARDES + nomFichier + EXTENSION);

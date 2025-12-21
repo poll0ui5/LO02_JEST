@@ -1,16 +1,12 @@
-# --- Configuration locale Eclipse (L'origine de ton erreur) ---
-.metadata/
-.recommenders/
-
-# --- Fichiers compilés (ne jamais versionner ça) ---
+# Fichiers compilés
 bin/
 classes/
 *.class
 
-# --- Fichiers systèmes inutiles ---
-.DS_Store
-Thumbs.db
+# JavaFX (trop gros pour GitHub)
+lib/
 
-# --- Archives (optionnel) ---
-*.zip
-*.jar
+# Système
+.DS_Store
+.metadata/
+.recommenders/

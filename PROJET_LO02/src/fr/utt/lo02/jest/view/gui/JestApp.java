@@ -4,10 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- * Application principale JavaFX pour le jeu Jest.
- * @author Projet LO02
- */
+// Classe principale qui lance le jeu
 public class JestApp extends Application {
     
     private Stage primaryStage;

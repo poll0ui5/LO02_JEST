@@ -15,8 +15,8 @@ import java.util.List;
  * <li>Cinq de Cœur : Carte risquée avec le Joker</li>
  * </ul>
  * </p>
- * @author Projet LO02
- * @version 1.0
+ * 
+ * 
  */
 public class ExtensionCartesSpeciales implements Extension {
     

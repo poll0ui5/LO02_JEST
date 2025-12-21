@@ -9,8 +9,8 @@ import java.util.List;
  * Le pattern Strategy est utilisé pour permettre de changer les règles
  * du jeu dynamiquement au début de la partie.
  * </p>
- * @author Projet LO02
- * @version 1.0
+ * 
+ * 
  */
 public interface Variante {
     

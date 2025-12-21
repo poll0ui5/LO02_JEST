@@ -10,8 +10,8 @@ import fr.utt.lo02.jest.model.Couleur;
  * Étend la classe Carte de base avec un nom et une description
  * pour les effets spéciaux.
  * </p>
- * @author Projet LO02
- * @version 1.0
+ * 
+ * 
  */
 public class CarteExtension extends Carte {
     

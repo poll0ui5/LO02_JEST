@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 /**
  * Écran des résultats de la partie.
- * @author Projet LO02
+ * 
  */
 public class ResultScreen extends BorderPane {
     

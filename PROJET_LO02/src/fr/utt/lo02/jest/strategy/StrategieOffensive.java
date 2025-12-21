@@ -7,19 +7,7 @@ import fr.utt.lo02.jest.model.CarteOffre;
 import fr.utt.lo02.jest.model.Joueur;
 import fr.utt.lo02.jest.model.JoueurVirtuel;
 
-/**
- * Stratégie offensive pour un joueur virtuel.
- * <p>
- * Philosophie : "Domination et Prise de risque".
- * <ul>
- * <li><b>Offre :</b> Montre sa carte la plus forte pour tenter de prendre la main (jouer en premier).</li>
- * <li><b>Cible :</b> Attaque le joueur possédant la carte visible la plus forte (pour la voler).</li>
- * <li><b>Prise :</b> Tente de récupérer les grosses cartes. Si l'offre visible est faible, prend la carte cachée à l'aveugle.</li>
- * </ul>
- * </p>
- * @author Projet LO02
- * @version 2.0
- */
+// Stratégie offensive : montre sa meilleure carte et prend des risques
 public class StrategieOffensive implements Strategie {
 
     /**

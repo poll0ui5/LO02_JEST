@@ -15,8 +15,8 @@ import java.util.List;
  * <li>Malus de fin : -3 points pour le joueur avec le plus de Carreaux</li>
  * </ul>
  * </p>
- * @author Projet LO02
- * @version 1.0
+ * 
+ * 
  */
 public class VarianteDoubleMise implements Variante {
 

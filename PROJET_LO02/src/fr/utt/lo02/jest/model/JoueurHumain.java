@@ -6,7 +6,7 @@ import fr.utt.lo02.jest.view.Terminal;
 
 /**
  * Joueur humain interagissant via la console.
- * @author Projet LO02
+ * 
  */
 public class JoueurHumain extends Joueur {
     private static final long serialVersionUID = 1L;

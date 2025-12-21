@@ -14,7 +14,7 @@ import fr.utt.lo02.jest.visitor.VisitorScore;
  * Contrôleur principal du jeu Jest (pattern MVC).
  * Gère l'initialisation, les tours de jeu et le calcul des scores.
  * 
- * @author Projet LO02
+ * 
  */
 public class Partie {
     private ArrayList<Joueur> joueurs = new ArrayList<>();

@@ -13,8 +13,8 @@ import java.util.List;
  * <li>Le score dépend uniquement des cartes collectées</li>
  * </ul>
  * </p>
- * @author Projet LO02
- * @version 1.0
+ * 
+ * 
  */
 public class VarianteSansTrophee implements Variante {
 

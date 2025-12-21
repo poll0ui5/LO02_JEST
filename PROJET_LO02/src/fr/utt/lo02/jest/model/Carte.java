@@ -6,7 +6,7 @@ import fr.utt.lo02.jest.visitor.Visitor;
 /**
  * Représente une carte du jeu Jest avec valeur, couleur et visibilité.
  * 
- * @author Projet LO02
+ * 
  */
 public class Carte implements Serializable {
     private static final long serialVersionUID = 1L;

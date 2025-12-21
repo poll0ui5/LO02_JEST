@@ -9,19 +9,7 @@ import fr.utt.lo02.jest.model.Couleur;
 import fr.utt.lo02.jest.model.Joueur;
 import fr.utt.lo02.jest.model.JoueurVirtuel;
 
-/**
- * Stratégie défensive pour un joueur virtuel.
- * <p>
- * Philosophie : "Prudence et Sécurité".
- * <ul>
- * <li><b>Offre :</b> Cache la carte la plus forte pour essayer de la garder pour son propre Jest.</li>
- * <li><b>Cible :</b> Attaque le joueur présentant la carte visible la plus faible (le moins dangereux).</li>
- * <li><b>Prise :</b> Privilégie la prise de cartes visibles (connues) pour éviter les mauvaises surprises des cartes cachées.</li>
- * </ul>
- * </p>
- * @author Projet LO02
- * @version 2.0
- */
+// Stratégie défensive : cache sa meilleure carte et joue prudemment
 public class StrategieDefensive implements Strategie {
 
     /**

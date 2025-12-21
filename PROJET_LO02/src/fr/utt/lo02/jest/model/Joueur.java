@@ -7,7 +7,7 @@ import fr.utt.lo02.jest.visitor.Visitor;
 
 /**
  * Classe abstraite représentant un joueur (humain ou virtuel).
- * @author Projet LO02
+ * 
  */
 public abstract class Joueur implements Serializable {
     private static final long serialVersionUID = 1L;

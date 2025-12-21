@@ -13,8 +13,8 @@ import java.util.List;
  * <li>Offres simultanées</li>
  * </ul>
  * </p>
- * @author Projet LO02
- * @version 1.0
+ * 
+ * 
  */
 public class VarianteClassique implements Variante {
 

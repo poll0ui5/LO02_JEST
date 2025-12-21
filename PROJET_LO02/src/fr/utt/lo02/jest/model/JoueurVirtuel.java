@@ -7,7 +7,7 @@ import fr.utt.lo02.jest.strategy.Strategie;
  * Joueur virtuel (Bot) utilisant le pattern Strategy pour déléguer ses
  * décisions.
  * 
- * @author Projet LO02
+ * 
  */
 public class JoueurVirtuel extends Joueur {
     private static final long serialVersionUID = 1L;

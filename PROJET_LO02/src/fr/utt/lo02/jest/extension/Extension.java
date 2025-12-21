@@ -9,8 +9,8 @@ import java.util.List;
  * Une extension ajoute de nouvelles cartes avec des effets spéciaux
  * au jeu de base.
  * </p>
- * @author Projet LO02
- * @version 1.0
+ * 
+ * 
  */
 public interface Extension {
     

@@ -10,7 +10,7 @@ import fr.utt.lo02.jest.model.*;
  * Règles : Pique/Trèfle +, Carreau -, Cœur 0 (sauf avec Joker), As seul = 5,
  * Paires noires +2.
  * 
- * @author Projet LO02
+ * 
  */
 public class VisitorScore implements Visitor {
     private Map<String, Integer> scores = new HashMap<>();

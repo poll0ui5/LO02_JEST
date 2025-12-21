@@ -11,7 +11,7 @@ import javafx.scene.text.FontWeight;
 
 /**
  * Écran du menu principal.
- * @author Projet LO02
+ * 
  */
 public class MenuScreen extends BorderPane {
     

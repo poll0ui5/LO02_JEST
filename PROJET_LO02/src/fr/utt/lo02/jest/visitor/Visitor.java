@@ -11,8 +11,8 @@ import fr.utt.lo02.jest.model.Trophee;
  * 
  * Pattern de conception : Visitor
  * 
- * @author Projet LO02
- * @version 1.0
+ * 
+ * 
  */
 public interface Visitor {
     

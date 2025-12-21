@@ -8,8 +8,8 @@ import java.io.*;
  * Utilise la sérialisation Java pour persister l'état du jeu.
  * Les fichiers sont sauvegardés au format .jest
  * </p>
- * @author Projet LO02
- * @version 1.0
+ * 
+ * 
  */
 public class GestionnaireSauvegarde {
     

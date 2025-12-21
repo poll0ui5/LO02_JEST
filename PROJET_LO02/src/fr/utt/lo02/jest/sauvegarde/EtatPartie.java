@@ -13,8 +13,8 @@ import fr.utt.lo02.jest.model.Joueur;
  * Contient toutes les informations nécessaires pour reprendre une partie :
  * joueurs, pioche, trophées, numéro de manche, variante choisie.
  * </p>
- * @author Projet LO02
- * @version 1.0
+ * 
+ * 
  */
 public class EtatPartie implements Serializable {
     

@@ -6,12 +6,10 @@ import fr.utt.lo02.jest.model.*;
 import fr.utt.lo02.jest.strategy.*;
 import fr.utt.lo02.jest.variante.*;
 import fr.utt.lo02.jest.visitor.VisitorScore;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 
-/**
- * Contrôleur pour l'interface graphique.
- * Fait le lien entre la vue JavaFX et la logique du jeu.
- * @author Projet LO02
- */
+// Gère la logique du jeu et fait le lien avec l'interface
 public class GameController {
     
     private JestApp app;
@@ -101,6 +99,13 @@ public class GameController {
             return;
         }
         
+        // Réinitialiser les offres et mains
+        for (Joueur j : joueurs) {
+            j.getMain().clear();
+            j.getOffre()[0] = null;
+            j.getOffre()[1] = null;
+        }
+        
         // Distribution
         for (Joueur j : joueurs) {
             if (!pioche.estVide()) j.ramasserCarte(pioche.distribuerUneCarte());
@@ -119,6 +124,31 @@ public class GameController {
         // Mettre à jour l'affichage
         if (gameScreen != null) {
             gameScreen.updateDisplay();
+        }
+        
+        // Vérifier si tous les joueurs ont fait leur offre
+        boolean tousOntFaitOffre = true;
+        for (Joueur j : joueurs) {
+            if (j.getOffre()[0] == null && j.getOffre()[1] == null && j.getMain().size() > 0) {
+                tousOntFaitOffre = false;
+                break;
+            }
+        }
+        
+        // Si tous ont fait leur offre, démarrer la phase de prise
+        if (tousOntFaitOffre) {
+            joueurActuel = trouverMeilleureOffre(joueurs);
+            if (gameScreen != null) {
+                gameScreen.updateDisplay();
+                gameScreen.showMessage("C'est au tour de " + joueurActuel.getNom() + " de choisir");
+            }
+            
+            // Si c'est un bot, il joue automatiquement avec un délai
+            if (joueurActuel instanceof JoueurVirtuel) {
+                PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
+                pause.setOnFinished(e -> jouerTourBot());
+                pause.play();
+            }
         }
     }
     
@@ -141,6 +171,13 @@ public class GameController {
             if (gameScreen != null) {
                 gameScreen.updateDisplay();
                 gameScreen.showMessage("C'est au tour de " + joueurActuel.getNom() + " de choisir");
+            }
+            
+            // Si c'est un bot, il joue automatiquement avec un délai
+            if (joueurActuel instanceof JoueurVirtuel) {
+                PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
+                pause.setOnFinished(e -> jouerTourBot());
+                pause.play();
             }
         }
     }
@@ -173,9 +210,16 @@ public class GameController {
             }
         }
         
-        // Si c'est un bot, il joue automatiquement
+        // Si c'est un bot, il joue automatiquement avec un délai
         if (joueurActuel instanceof JoueurVirtuel) {
-            jouerTourBot();
+            if (gameScreen != null) {
+                gameScreen.updateDisplay();
+                gameScreen.showMessage(joueurActuel.getNom() + " réfléchit...");
+            }
+            
+            PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
+            pause.setOnFinished(e -> jouerTourBot());
+            pause.play();
         } else if (gameScreen != null) {
             gameScreen.updateDisplay();
             gameScreen.showMessage("C'est à " + joueurActuel.getNom() + " de choisir une carte");
@@ -191,6 +235,10 @@ public class GameController {
             bot.ajouterAuJest(carte);
         }
         joueursAyantJoue.add(bot);
+        
+        if (gameScreen != null) {
+            gameScreen.showMessage(bot.getNom() + " prend une carte de " + cible.getNom());
+        }
         
         // Déterminer le prochain joueur
         if (!joueursAyantJoue.contains(cible)) {
@@ -208,9 +256,15 @@ public class GameController {
             }
         }
         
-        // Continuer si c'est encore un bot
+        // Continuer si c'est encore un bot avec un délai
         if (joueurActuel instanceof JoueurVirtuel) {
-            jouerTourBot();
+            if (gameScreen != null) {
+                gameScreen.updateDisplay();
+            }
+            
+            PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
+            pause.setOnFinished(e -> jouerTourBot());
+            pause.play();
         } else if (gameScreen != null) {
             gameScreen.updateDisplay();
             gameScreen.showMessage("C'est à " + joueurActuel.getNom() + " de choisir une carte");

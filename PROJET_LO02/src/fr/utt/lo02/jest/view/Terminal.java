@@ -16,8 +16,8 @@ import fr.utt.lo02.jest.model.Joueur;
  * </ul>
  * Elle ne contient aucune logique de jeu, seulement de l'affichage et de la saisie.
  * </p>
- * * @author Projet LO02
- * @version 1.0
+ * * 
+ * 
  */
 public class Terminal {
 

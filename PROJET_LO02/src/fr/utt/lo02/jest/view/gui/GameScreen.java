@@ -15,7 +15,7 @@ import java.util.Map;
 
 /**
  * Écran principal du jeu.
- * @author Projet LO02
+ * 
  */
 public class GameScreen extends BorderPane {
     

@@ -1,0 +1,360 @@
+package fr.utt.lo02.jest.view.swing;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import fr.utt.lo02.jest.model.*;
+
+/**
+ * Panel de jeu principal (Swing/WindowBuilder compatible).
+ */
+public class GamePanel extends JPanel {
+
+	private static final long serialVersionUID = 1L;
+	private SwingController controller;
+	private JLabel lblMessage;
+	private JLabel lblManche;
+	private JPanel panelTrophees;
+	private JPanel panelJoueurs;
+	private Map<String, ImageIcon> cardImages;
+	private ImageIcon backCardImage;
+
+	public GamePanel(SwingController controller) {
+		this.controller = controller;
+		setBackground(new Color(26, 71, 42));
+		setLayout(new BorderLayout(10, 10));
+		setBorder(new EmptyBorder(10, 10, 10, 10));
+		
+		// Charger les images
+		loadCardImages();
+		
+		// Header
+		JPanel panelHeader = new JPanel(new BorderLayout());
+		panelHeader.setBackground(new Color(13, 40, 24));
+		panelHeader.setBorder(new EmptyBorder(10, 20, 10, 20));
+		
+		lblManche = new JLabel("Manche 1");
+		lblManche.setFont(new Font("Arial", Font.BOLD, 24));
+		lblManche.setForeground(new Color(255, 215, 0));
+		panelHeader.add(lblManche, BorderLayout.WEST);
+		
+		panelTrophees = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+		panelTrophees.setOpaque(false);
+		panelTrophees.setPreferredSize(new Dimension(800, 110));
+		JLabel lblTrophees = new JLabel("Trophées: ");
+		lblTrophees.setForeground(Color.WHITE);
+		lblTrophees.setFont(new Font("Arial", Font.PLAIN, 16));
+		panelTrophees.add(lblTrophees);
+		panelHeader.add(panelTrophees, BorderLayout.CENTER);
+		
+		JButton btnMenu = new JButton("Menu");
+		btnMenu.addActionListener(e -> controller.retourMenu());
+		panelHeader.add(btnMenu, BorderLayout.EAST);
+		
+		add(panelHeader, BorderLayout.NORTH);
+		
+		// Zone centrale pour les joueurs
+		panelJoueurs = new JPanel(new GridLayout(2, 2, 20, 20));
+		panelJoueurs.setOpaque(false);
+		panelJoueurs.setBorder(new EmptyBorder(20, 20, 20, 20));
+		add(panelJoueurs, BorderLayout.CENTER);
+		
+		// Footer avec message
+		JPanel panelFooter = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		panelFooter.setBackground(new Color(13, 40, 24));
+		panelFooter.setBorder(new EmptyBorder(10, 20, 10, 20));
+		
+		lblMessage = new JLabel("Bienvenue dans Jest!");
+		lblMessage.setFont(new Font("Arial", Font.PLAIN, 18));
+		lblMessage.setForeground(Color.WHITE);
+		panelFooter.add(lblMessage);
+		
+		add(panelFooter, BorderLayout.SOUTH);
+	}
+	
+	public void updateDisplay() {
+		// Mettre à jour le numéro de manche
+		lblManche.setText("Manche " + controller.getNumeroManche());
+		
+		// Mettre à jour les trophées
+		panelTrophees.removeAll();
+		JLabel lblTrophees = new JLabel("Trophées: ");
+		lblTrophees.setForeground(Color.WHITE);
+		lblTrophees.setFont(new Font("Arial", Font.PLAIN, 16));
+		panelTrophees.add(lblTrophees);
+		
+		for (Carte trophee : controller.getTrophees()) {
+			JLabel lblCarte = createCarteLabel(trophee, true);
+			panelTrophees.add(lblCarte);
+		}
+		
+		// Mettre à jour les zones joueurs
+		panelJoueurs.removeAll();
+		ArrayList<Joueur> joueurs = controller.getJoueurs();
+		
+		for (Joueur joueur : joueurs) {
+			JPanel panelJoueur = createPanelJoueur(joueur);
+			panelJoueurs.add(panelJoueur);
+		}
+		
+		panelJoueurs.revalidate();
+		panelJoueurs.repaint();
+		panelTrophees.revalidate();
+		panelTrophees.repaint();
+	}
+	
+	private JPanel createPanelJoueur(Joueur joueur) {
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.setBackground(new Color(255, 255, 255, 30));
+		panel.setBorder(new EmptyBorder(15, 15, 15, 15));
+		
+		boolean isActuel = joueur == controller.getJoueurActuel();
+		
+		// Nom du joueur
+		String nomText = isActuel ? "► " + joueur.getNom() + " ◄" : joueur.getNom();
+		JLabel lblNom = new JLabel(nomText);
+		lblNom.setAlignmentX(Component.CENTER_ALIGNMENT);
+		lblNom.setFont(new Font("Arial", Font.BOLD, 18));
+		lblNom.setForeground(isActuel ? new Color(255, 215, 0) : Color.WHITE);
+		panel.add(lblNom);
+		panel.add(Box.createVerticalStrut(10));
+		
+		// Main du joueur (si humain et a des cartes)
+		if (joueur instanceof JoueurHumain && joueur.getMain().size() > 0) {
+			JLabel lblMain = new JLabel("Votre main:");
+			lblMain.setAlignmentX(Component.CENTER_ALIGNMENT);
+			lblMain.setForeground(Color.WHITE);
+			panel.add(lblMain);
+			
+			JPanel panelMain = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
+			panelMain.setOpaque(false);
+			
+			for (int i = 0; i < joueur.getMain().size(); i++) {
+				Carte carte = joueur.getMain().get(i);
+				JButton btnCarte = createCarteButton(carte, true);
+				final int index = i;
+				btnCarte.addActionListener(e -> controller.joueurFaitOffre(joueur, index));
+				panelMain.add(btnCarte);
+			}
+			panel.add(panelMain);
+			panel.add(Box.createVerticalStrut(10));
+		}
+		
+		// Offre du joueur
+		CarteOffre[] offre = joueur.getOffre();
+		if (offre[0] != null || offre[1] != null) {
+			JLabel lblOffre = new JLabel("Offre:");
+			lblOffre.setAlignmentX(Component.CENTER_ALIGNMENT);
+			lblOffre.setForeground(Color.WHITE);
+			panel.add(lblOffre);
+			
+			JPanel panelOffre = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
+			panelOffre.setOpaque(false);
+			
+			Joueur actuel = controller.getJoueurActuel();
+			boolean peutPrendre = actuel instanceof JoueurHumain && actuel != joueur && controller.isPhaseChoix();
+			
+			for (int i = 0; i < 2; i++) {
+				if (offre[i] != null) {
+					boolean visible = offre[i].getEstVisible();
+					
+					if (peutPrendre) {
+						JButton btnCarte = createCarteButton(offre[i], visible);
+						btnCarte.setBorder(new LineBorder(new Color(255, 215, 0), 2));
+						final int cardIndex = i;
+						final Joueur cible = joueur;
+						btnCarte.addActionListener(e -> controller.joueurPrendCarte(cible, cardIndex));
+						panelOffre.add(btnCarte);
+					} else {
+						JLabel lblCarte = createCarteLabel(offre[i], visible);
+						panelOffre.add(lblCarte);
+					}
+				}
+			}
+			panel.add(panelOffre);
+		}
+		
+		// Jest (cartes gagnées)
+		if (!joueur.getJest().isEmpty()) {
+			JLabel lblJest = new JLabel("Jest: " + joueur.getJest().size() + " cartes");
+			lblJest.setAlignmentX(Component.CENTER_ALIGNMENT);
+			lblJest.setForeground(new Color(170, 170, 170));
+			lblJest.setFont(new Font("Arial", Font.PLAIN, 12));
+			panel.add(Box.createVerticalStrut(5));
+			panel.add(lblJest);
+		}
+		
+		return panel;
+	}
+	
+	private JLabel createCarteLabel(Carte carte, boolean visible) {
+		ImageIcon icon = null;
+		
+		if (!visible && backCardImage != null) {
+			icon = backCardImage;
+		} else if (visible) {
+			String key = getImageKey(carte);
+			icon = cardImages.get(key);
+		}
+		
+		if (icon != null) {
+			JLabel label = new JLabel(icon);
+			label.setBorder(new LineBorder(Color.WHITE, 1));
+			return label;
+		} else {
+			// Fallback texte si image non trouvée
+			String text = visible ? getCarteText(carte) : "[???]";
+			JLabel label = new JLabel(text);
+			label.setFont(new Font("Monospaced", Font.BOLD, 14));
+			label.setForeground(visible ? getCarteColor(carte) : Color.GRAY);
+			label.setBorder(BorderFactory.createCompoundBorder(
+				new LineBorder(Color.WHITE, 1),
+				new EmptyBorder(5, 10, 5, 10)
+			));
+			label.setOpaque(true);
+			label.setBackground(new Color(255, 255, 255, 200));
+			return label;
+		}
+	}
+	
+	private JButton createCarteButton(Carte carte, boolean visible) {
+		ImageIcon icon = null;
+		
+		if (!visible && backCardImage != null) {
+			icon = backCardImage;
+		} else if (visible) {
+			String key = getImageKey(carte);
+			icon = cardImages.get(key);
+		}
+		
+		JButton btn;
+		if (icon != null) {
+			btn = new JButton(icon);
+			btn.setBorder(new LineBorder(Color.WHITE, 2));
+		} else {
+			// Fallback texte si image non trouvée
+			String text = visible ? getCarteText(carte) : "[???]";
+			btn = new JButton(text);
+			btn.setFont(new Font("Monospaced", Font.BOLD, 14));
+			btn.setForeground(visible ? getCarteColor(carte) : Color.GRAY);
+			btn.setBackground(new Color(255, 255, 255));
+		}
+		
+		btn.setFocusPainted(false);
+		btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btn.setContentAreaFilled(false);
+		return btn;
+	}
+	
+	private String getCarteText(Carte carte) {
+		if (carte.estJoker()) return "JOKER";
+		
+		String valeur = "";
+		switch (carte.getValeur()) {
+			case AS: valeur = "A"; break;
+			case DEUX: valeur = "2"; break;
+			case TROIS: valeur = "3"; break;
+			case QUATRE: valeur = "4"; break;
+			default: valeur = "?";
+		}
+		
+		String couleur = "";
+		switch (carte.getCouleur()) {
+			case PIQUE: couleur = "♠"; break;
+			case COEUR: couleur = "♥"; break;
+			case CARREAU: couleur = "♦"; break;
+			case TREFLE: couleur = "♣"; break;
+			default: couleur = "?";
+		}
+		
+		return valeur + couleur;
+	}
+	
+	private Color getCarteColor(Carte carte) {
+		if (carte.estJoker()) return Color.BLACK;
+		if (carte.getCouleur() == Couleur.COEUR || carte.getCouleur() == Couleur.CARREAU) {
+			return Color.RED;
+		}
+		return Color.BLACK;
+	}
+	
+	private void loadCardImages() {
+		cardImages = new HashMap<>();
+		String basePath = "/resources/images/";
+		
+		// Charger les images des cartes
+		String[] couleurs = {"SPADES", "CLUBS", "DIAMONDS", "HEARTS"};
+		String[] valeurs = {"ACE", "TWO", "THREE", "FOUR"};
+		
+		for (String couleur : couleurs) {
+			for (String valeur : valeurs) {
+				String key = couleur + "_" + valeur;
+				try {
+					java.net.URL imgURL = getClass().getResource(basePath + key + ".png");
+					if (imgURL != null) {
+						ImageIcon icon = new ImageIcon(imgURL);
+						Image img = icon.getImage().getScaledInstance(60, 90, Image.SCALE_SMOOTH);
+						cardImages.put(key, new ImageIcon(img));
+					}
+				} catch (Exception e) {
+					System.out.println("Image non trouvée: " + key);
+				}
+			}
+		}
+		
+		// Joker
+		try {
+			java.net.URL jokerURL = getClass().getResource(basePath + "JOKER.png");
+			if (jokerURL != null) {
+				ImageIcon icon = new ImageIcon(jokerURL);
+				Image img = icon.getImage().getScaledInstance(60, 90, Image.SCALE_SMOOTH);
+				cardImages.put("JOKER", new ImageIcon(img));
+			}
+		} catch (Exception e) {
+			System.out.println("Image Joker non trouvée");
+		}
+		
+		// Dos de carte
+		try {
+			java.net.URL backURL = getClass().getResource(basePath + "BACK_CARD.png");
+			if (backURL != null) {
+				ImageIcon icon = new ImageIcon(backURL);
+				Image img = icon.getImage().getScaledInstance(60, 90, Image.SCALE_SMOOTH);
+				backCardImage = new ImageIcon(img);
+			}
+		} catch (Exception e) {
+			System.out.println("Image dos de carte non trouvée");
+		}
+	}
+	
+	private String getImageKey(Carte carte) {
+		if (carte.estJoker()) return "JOKER";
+		
+		String couleur = "";
+		switch (carte.getCouleur()) {
+			case PIQUE: couleur = "SPADES"; break;
+			case COEUR: couleur = "HEARTS"; break;
+			case CARREAU: couleur = "DIAMONDS"; break;
+			case TREFLE: couleur = "CLUBS"; break;
+		}
+		
+		String valeur = "";
+		switch (carte.getValeur()) {
+			case AS: valeur = "ACE"; break;
+			case DEUX: valeur = "TWO"; break;
+			case TROIS: valeur = "THREE"; break;
+			case QUATRE: valeur = "FOUR"; break;
+		}
+		
+		return couleur + "_" + valeur;
+	}
+	
+	public void showMessage(String msg) {
+		lblMessage.setText(msg);
+	}
+}

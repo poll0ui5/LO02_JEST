@@ -1,6 +1,6 @@
 # JEST
 
-Jeu de cartes en Java.
+Jeu de cartes en Java (Swing).
 
 ## Lancer
 
@@ -8,19 +8,20 @@ Jeu de cartes en Java.
 cd PROJET_LO02
 ```
 
-**Interface graphique :**
+### Compiler
 ```bash
-java --module-path "lib/javafx-sdk-25.0.1/lib" --add-modules javafx.controls,javafx.graphics,javafx.fxml -cp bin fr.utt.lo02.jest.view.gui.JestApp
+javac -d classes -sourcepath src src/fr/utt/lo02/jest/view/swing/MainFrame.java
 ```
 
-**Terminal :**
+### Interface graphique (Swing)
 ```bash
-java -cp bin fr.utt.lo02.jest.controller.Partie
+java -cp classes fr.utt.lo02.jest.view.swing.MainFrame
 ```
 
-**Si pas compilé :**
+### Terminal
 ```bash
-javac --module-path "lib/javafx-sdk-25.0.1/lib" --add-modules javafx.controls,javafx.graphics,javafx.fxml -encoding UTF-8 -d bin src/fr/utt/lo02/jest/*/*.java src/fr/utt/lo02/jest/*/*/*.java
+javac -d classes -sourcepath src src/fr/utt/lo02/jest/controller/Partie.java
+java -cp classes fr.utt.lo02.jest.controller.Partie
 ```
 
 ## Règles

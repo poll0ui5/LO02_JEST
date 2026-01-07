@@ -27,6 +27,9 @@ public class EtatPartie implements Serializable {
     private String nomVariante;
     private String nomExtension;
     private boolean partieTerminee;
+    private String nomJoueurActuel;
+    private boolean phaseOffre;
+    private boolean phaseChoix;
     
     /**
      * Constructeur de l'état de partie.
@@ -39,6 +42,9 @@ public class EtatPartie implements Serializable {
         this.nomVariante = "Classique";
         this.nomExtension = null;
         this.partieTerminee = false;
+        this.nomJoueurActuel = null;
+        this.phaseOffre = false;
+        this.phaseChoix = false;
     }
     
     // Getters et Setters
@@ -97,5 +103,29 @@ public class EtatPartie implements Serializable {
     
     public void setPartieTerminee(boolean partieTerminee) {
         this.partieTerminee = partieTerminee;
+    }
+    
+    public String getNomJoueurActuel() {
+        return nomJoueurActuel;
+    }
+    
+    public void setNomJoueurActuel(String nomJoueurActuel) {
+        this.nomJoueurActuel = nomJoueurActuel;
+    }
+    
+    public boolean isPhaseOffre() {
+        return phaseOffre;
+    }
+    
+    public void setPhaseOffre(boolean phaseOffre) {
+        this.phaseOffre = phaseOffre;
+    }
+    
+    public boolean isPhaseChoix() {
+        return phaseChoix;
+    }
+    
+    public void setPhaseChoix(boolean phaseChoix) {
+        this.phaseChoix = phaseChoix;
     }
 }

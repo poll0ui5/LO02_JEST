@@ -21,6 +21,7 @@ public class GamePanel extends JPanel {
 	private JLabel lblPioche;
 	private JPanel panelTrophees;
 	private JPanel panelJoueurs;
+	private JButton btnSauvegarder;
 	private Map<String, ImageIcon> cardImages;
 	private ImageIcon backCardImage;
 
@@ -67,7 +68,7 @@ public class GamePanel extends JPanel {
 		JPanel panelBoutons = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
 		panelBoutons.setOpaque(false);
 		
-		JButton btnSauvegarder = new JButton("Sauvegarder");
+		btnSauvegarder = new JButton("Sauvegarder");
 		btnSauvegarder.addActionListener(e -> controller.sauvegarderPartie());
 		panelBoutons.add(btnSauvegarder);
 		

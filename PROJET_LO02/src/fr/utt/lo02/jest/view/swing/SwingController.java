@@ -27,7 +27,6 @@ public class SwingController {
 	private boolean phaseOffre;
 	private boolean phaseChoix;
 	private ArrayList<Joueur> joueursAyantJoue;
-	private boolean partiePausee;
 
 	public SwingController(MainFrame mainFrame) {
 		this.mainFrame = mainFrame;
@@ -212,7 +211,6 @@ public class SwingController {
 	}
 
 	private void jouerTourBot() {
-		if (partiePausee) return; // Ne pas jouer si la partie est en pause
 		if (joueurActuel == null || !(joueurActuel instanceof JoueurVirtuel)) return;
 		
 		final Joueur botActuel = joueurActuel;
@@ -221,7 +219,6 @@ public class SwingController {
 		mainFrame.getGamePanel().showMessage(botActuel.getNom() + " réfléchit...");
 		
 		Timer timer1 = new Timer(1500, e1 -> {
-			if (partiePausee) return; // Vérifier la pause
 			// Étape 2 : Le bot choisit sa cible
 			final Joueur cible = botActuel.choisirAdversaire(joueurs);
 			mainFrame.getGamePanel().showMessage(botActuel.getNom() + " cible " + cible.getNom() + "...");
@@ -233,7 +230,6 @@ public class SwingController {
 				(cible.getOffre()[1] != null ? cible.getOffre()[1] : "null") + "]");
 			
 			Timer timer2 = new Timer(1500, e2 -> {
-				if (partiePausee) return; // Vérifier la pause
 				// Étape 3 : Le bot prend une carte
 				Carte carte = botActuel.prendreCarteDansOffre(cible);
 				botActuel.ajouterAuJest(carte);
@@ -248,7 +244,6 @@ public class SwingController {
 				mainFrame.getGamePanel().updateDisplay();
 
 				Timer timer3 = new Timer(1500, e3 -> {
-					if (partiePausee) return; // Vérifier la pause
 					// Étape 4 : Passer au joueur suivant
 					joueursAyantJoue.add(botActuel);
 					passerAuJoueurSuivant(cible);
@@ -405,9 +400,6 @@ public class SwingController {
 	
 	// Sauvegarde et chargement
 	public void sauvegarderPartie() {
-		// Mettre en pause immédiatement
-		partiePausee = true;
-		
 		String nom = JOptionPane.showInputDialog(mainFrame, "Nom de la sauvegarde :", "Sauvegarde", JOptionPane.PLAIN_MESSAGE);
 		if (nom != null && !nom.trim().isEmpty()) {
 			EtatPartie etat = new EtatPartie();
@@ -417,6 +409,9 @@ public class SwingController {
 			etat.setNumeroManche(numeroManche);
 			etat.setNomVariante(variante.getNom());
 			etat.setPartieTerminee(partieTerminee);
+			etat.setNomJoueurActuel(joueurActuel != null ? joueurActuel.getNom() : null);
+			etat.setPhaseOffre(phaseOffre);
+			etat.setPhaseChoix(phaseChoix);
 			
 			if (GestionnaireSauvegarde.sauvegarder(etat, nom.trim())) {
 				// Demander si le joueur veut continuer ou quitter
@@ -433,20 +428,11 @@ public class SwingController {
 				
 				if (choix == 1) { // Quitter
 					retourMenu();
-				} else { // Continuer
-					partiePausee = false;
-					// Relancer le tour du bot si c'était son tour
-					if (joueurActuel instanceof JoueurVirtuel) {
-						jouerTourBot();
-					}
 				}
+				// Si Continuer, le jeu continue normalement (les Timers tournent toujours)
 			} else {
-				partiePausee = false;
 				JOptionPane.showMessageDialog(mainFrame, "Erreur lors de la sauvegarde.", "Erreur", JOptionPane.ERROR_MESSAGE);
 			}
-		} else {
-			// Annulation de la sauvegarde
-			partiePausee = false;
 		}
 	}
 	
@@ -476,13 +462,28 @@ public class SwingController {
 			}
 			
 			joueursAyantJoue.clear();
-			phaseOffre = false;
-			phaseChoix = true;
+			phaseOffre = etat.isPhaseOffre();
+			phaseChoix = etat.isPhaseChoix();
+			
+			// Restaurer le joueur actuel
+			if (etat.getNomJoueurActuel() != null) {
+				for (Joueur j : joueurs) {
+					if (j.getNom().equals(etat.getNomJoueurActuel())) {
+						joueurActuel = j;
+						break;
+					}
+				}
+			}
 			
 			System.out.println("Partie chargée : " + nomFichier);
 			mainFrame.showGame();
 			mainFrame.getGamePanel().updateDisplay();
 			mainFrame.getGamePanel().showMessage("Partie chargée - Manche " + numeroManche);
+			
+			// Relancer le tour si c'était un bot
+			if (phaseChoix && joueurActuel instanceof JoueurVirtuel) {
+				jouerTourBot();
+			}
 		}
 	}
 	

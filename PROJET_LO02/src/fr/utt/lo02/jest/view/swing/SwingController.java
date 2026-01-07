@@ -213,7 +213,9 @@ public class SwingController {
 			mainFrame.getGamePanel().updateDisplay();
 			numeroManche++;
 			
-			if (pioche.estVide()) {
+			// Vérifier s'il y a assez de cartes pour la prochaine manche
+			int cartesNecessaires = joueurs.size() * 2;
+			if (pioche.getTasCartes().size() < cartesNecessaires) {
 				terminerPartie();
 			} else {
 				// Délai avant la prochaine manche

@@ -205,8 +205,14 @@ public class SwingController {
 
 	private void passerAuJoueurSuivant(Joueur derniereCible) {
 		if (joueursAyantJoue.size() >= joueurs.size()) {
-			// Fin de la manche
+			// Fin de la manche : récupérer les cartes restantes dans les offres
+			for (Joueur j : joueurs) {
+				j.recupererDerniereCarteDeLOffre();
+			}
+			
+			mainFrame.getGamePanel().updateDisplay();
 			numeroManche++;
+			
 			if (pioche.estVide()) {
 				terminerPartie();
 			} else {

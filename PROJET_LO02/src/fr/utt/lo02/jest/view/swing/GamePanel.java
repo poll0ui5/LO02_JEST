@@ -403,6 +403,29 @@ public class GamePanel extends JPanel {
 			System.out.println("Image Joker non trouvée");
 		}
 		
+		// Cartes spéciales (Extension)
+		try {
+			java.net.URL goldenURL = getClass().getResource(basePath + "SPADES_ACE_GOLDEN.png");
+			if (goldenURL != null) {
+				ImageIcon icon = new ImageIcon(goldenURL);
+				Image img = icon.getImage().getScaledInstance(60, 90, Image.SCALE_SMOOTH);
+				cardImages.put("SPADES_ACE_GOLDEN", new ImageIcon(img));
+			}
+		} catch (Exception e) {
+			System.out.println("Image As Doré non trouvée");
+		}
+		
+		try {
+			java.net.URL cursedURL = getClass().getResource(basePath + "HEARTS_FOUR_CURSED.png");
+			if (cursedURL != null) {
+				ImageIcon icon = new ImageIcon(cursedURL);
+				Image img = icon.getImage().getScaledInstance(60, 90, Image.SCALE_SMOOTH);
+				cardImages.put("HEARTS_FOUR_CURSED", new ImageIcon(img));
+			}
+		} catch (Exception e) {
+			System.out.println("Image Cœur Maudit non trouvée");
+		}
+		
 		// Dos de carte
 		try {
 			java.net.URL backURL = getClass().getResource(basePath + "BACK_CARD.png");
@@ -418,6 +441,16 @@ public class GamePanel extends JPanel {
 	
 	private String getImageKey(Carte carte) {
 		if (carte.estJoker()) return "JOKER";
+		
+		// Vérifier si c'est une carte d'extension
+		if (carte instanceof fr.utt.lo02.jest.extension.CarteExtension) {
+			fr.utt.lo02.jest.extension.CarteExtension carteExt = (fr.utt.lo02.jest.extension.CarteExtension) carte;
+			if ("As Doré".equals(carteExt.getNomSpecial())) {
+				return "SPADES_ACE_GOLDEN";
+			} else if ("Cœur Maudit".equals(carteExt.getNomSpecial())) {
+				return "HEARTS_FOUR_CURSED";
+			}
+		}
 		
 		String couleur = "";
 		switch (carte.getCouleur()) {

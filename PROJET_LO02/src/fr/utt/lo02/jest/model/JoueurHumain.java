@@ -43,6 +43,9 @@ public class JoueurHumain extends Joueur {
         }
         Terminal t = new Terminal();
         t.afficherMessage("\n>> C'est à vous, " + this.nom + ".");
+        if (!this.jest.isEmpty()) {
+            t.afficherMessage("Votre Jest actuel : " + this.jest);
+        }
         t.afficherMessage("Vos cartes en main : " + this.main);
         if (this.main.size() == 1) {
             t.afficherMessage("Vous n'avez qu'une carte, elle sera visible.");
@@ -69,6 +72,9 @@ public class JoueurHumain extends Joueur {
         Terminal t = new Terminal();
         ArrayList<Joueur> adversaires = new ArrayList<>();
         t.afficherMessage("\n>> " + this.nom + ", choisissez un adversaire :");
+        if (!this.jest.isEmpty()) {
+            t.afficherMessage("Votre Jest actuel : " + this.jest);
+        }
 
         int index = 1;
         for (Joueur j : joueurs) {

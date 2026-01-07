@@ -36,6 +36,11 @@ public class JoueurVirtuel extends Joueur {
      */
     @Override
     public void faireOffre() {
+        try {
+            Thread.sleep(2000); // Pause de 2 secondes
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         this.strategie.faireOffre(this);
     }
 
@@ -47,11 +52,21 @@ public class JoueurVirtuel extends Joueur {
      */
     @Override
     public Joueur choisirAdversaire(List<Joueur> joueurs) {
+        try {
+            Thread.sleep(2000); // Pause de 2 secondes
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         return this.strategie.choisirAdversaire(this, joueurs);
     }
 
     @Override
     public Carte prendreCarteDansOffre(Joueur cible) {
+        try {
+            Thread.sleep(2000); // Pause de 2 secondes
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         Carte c = this.strategie.choisirCarte(this, cible);
         if (c == null) {
             // Fallback : prendre la première carte disponible

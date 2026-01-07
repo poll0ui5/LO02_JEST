@@ -69,4 +69,12 @@ public class JeuCartes {
 	public LinkedList<Carte> getTasCartes(){
 		return tasCartes;
 	}
+	
+	/**
+	 * Ajoute une carte au tas (utilisé pour les extensions).
+	 * @param carte La carte à ajouter
+	 */
+	public void ajouterCarte(Carte carte) {
+		this.tasCartes.add(carte);
+	}
 }

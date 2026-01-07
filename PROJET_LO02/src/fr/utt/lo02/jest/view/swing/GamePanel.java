@@ -64,9 +64,18 @@ public class GamePanel extends JPanel {
 		panelTrophees.add(lblTrophees);
 		panelHeader.add(panelTrophees, BorderLayout.CENTER);
 		
+		JPanel panelBoutons = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
+		panelBoutons.setOpaque(false);
+		
+		JButton btnSauvegarder = new JButton("Sauvegarder");
+		btnSauvegarder.addActionListener(e -> controller.sauvegarderPartie());
+		panelBoutons.add(btnSauvegarder);
+		
 		JButton btnMenu = new JButton("Menu");
 		btnMenu.addActionListener(e -> controller.retourMenu());
-		panelHeader.add(btnMenu, BorderLayout.EAST);
+		panelBoutons.add(btnMenu);
+		
+		panelHeader.add(panelBoutons, BorderLayout.EAST);
 		
 		add(panelHeader, BorderLayout.NORTH);
 		

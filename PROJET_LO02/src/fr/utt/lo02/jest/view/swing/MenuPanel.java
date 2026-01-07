@@ -12,6 +12,7 @@ public class MenuPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private SwingController controller;
 	private JComboBox<String> comboVariante;
+	private JComboBox<String> comboExtension;
 	private JComboBox<Integer> comboNbJoueurs;
 	private JComboBox<Integer> comboNbHumains;
 	private JTextField[] txtNoms;
@@ -58,6 +59,13 @@ public class MenuPanel extends JPanel {
 		centerPanel.add(panelVariante);
 		centerPanel.add(Box.createVerticalStrut(15));
 		
+		// Extension
+		JPanel panelExtension = createFormRow("Extension :");
+		comboExtension = new JComboBox<>(new String[]{"Aucune", "Cartes Spéciales"});
+		panelExtension.add(comboExtension);
+		centerPanel.add(panelExtension);
+		centerPanel.add(Box.createVerticalStrut(15));
+		
 		// Nombre de joueurs
 		JPanel panelNbJoueurs = createFormRow("Nombre de joueurs :");
 		comboNbJoueurs = new JComboBox<>(new Integer[]{3, 4});
@@ -95,6 +103,18 @@ public class MenuPanel extends JPanel {
 		btnJouer.setMaximumSize(new Dimension(200, 60));
 		btnJouer.addActionListener(e -> demarrerPartie());
 		centerPanel.add(btnJouer);
+		
+		centerPanel.add(Box.createVerticalStrut(15));
+		
+		// Bouton Charger partie
+		JButton btnCharger = new JButton("Charger partie");
+		btnCharger.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnCharger.setFont(new Font("Arial", Font.PLAIN, 16));
+		btnCharger.setFocusPainted(false);
+		btnCharger.setPreferredSize(new Dimension(200, 40));
+		btnCharger.setMaximumSize(new Dimension(200, 40));
+		btnCharger.addActionListener(e -> chargerPartie());
+		centerPanel.add(btnCharger);
 		
 		add(centerPanel, BorderLayout.CENTER);
 	}
@@ -140,6 +160,7 @@ public class MenuPanel extends JPanel {
 	
 	private void demarrerPartie() {
 		String variante = (String) comboVariante.getSelectedItem();
+		String extension = (String) comboExtension.getSelectedItem();
 		int nbJoueurs = (Integer) comboNbJoueurs.getSelectedItem();
 		int nbHumains = (Integer) comboNbHumains.getSelectedItem();
 		
@@ -149,7 +170,29 @@ public class MenuPanel extends JPanel {
 			if (noms[i].isEmpty()) noms[i] = "Joueur " + (i + 1);
 		}
 		
-		controller.configurerPartie(variante, nbJoueurs, nbHumains, noms);
+		controller.configurerPartie(variante, extension, nbJoueurs, nbHumains, noms);
 		controller.demarrerPartie();
+	}
+	
+	private void chargerPartie() {
+		String[] sauvegardes = controller.listerSauvegardes();
+		if (sauvegardes.length == 0) {
+			JOptionPane.showMessageDialog(this, "Aucune sauvegarde trouvée.", "Charger", JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
+		
+		String choix = (String) JOptionPane.showInputDialog(
+			this,
+			"Choisir une sauvegarde :",
+			"Charger partie",
+			JOptionPane.PLAIN_MESSAGE,
+			null,
+			sauvegardes,
+			sauvegardes[0]
+		);
+		
+		if (choix != null) {
+			controller.chargerPartie(choix);
+		}
 	}
 }

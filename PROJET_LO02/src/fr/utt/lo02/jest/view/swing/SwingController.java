@@ -6,7 +6,10 @@ import javax.swing.Timer;
 import fr.utt.lo02.jest.model.*;
 import fr.utt.lo02.jest.strategy.*;
 import fr.utt.lo02.jest.variante.*;
+import fr.utt.lo02.jest.extension.*;
+import fr.utt.lo02.jest.sauvegarde.*;
 import fr.utt.lo02.jest.visitor.VisitorScore;
+import javax.swing.JOptionPane;
 
 /**
  * Contrôleur pour l'interface Swing (Swing/WindowBuilder compatible).
@@ -32,7 +35,7 @@ public class SwingController {
 		this.joueursAyantJoue = new ArrayList<>();
 	}
 
-	public void configurerPartie(String varianteNom, int nbJoueurs, int nbHumains, String[] noms) {
+	public void configurerPartie(String varianteNom, String extensionNom, int nbJoueurs, int nbHumains, String[] noms) {
 		joueurs.clear();
 		trophees.clear();
 		joueursAyantJoue.clear();
@@ -66,6 +69,17 @@ public class SwingController {
 
 		// Créer et mélanger la pioche
 		pioche = new JeuCartes();
+		
+		// Ajouter les cartes de l'extension si activée
+		if ("Cartes Spéciales".equals(extensionNom)) {
+			Extension ext = new ExtensionCartesSpeciales();
+			ext.setActive(true);
+			for (Carte c : ext.getCartesExtension()) {
+				pioche.ajouterCarte(c);
+			}
+			System.out.println("Extension Cartes Spéciales activée (+" + ext.getCartesExtension().size() + " cartes)");
+		}
+		
 		pioche.melanger();
 
 		// Distribuer les trophées
@@ -78,6 +92,11 @@ public class SwingController {
 	}
 
 	public void demarrerPartie() {
+		System.out.println("\n========================================");
+		System.out.println("NOUVELLE PARTIE - Variante: " + variante.getNom());
+		System.out.println("Joueurs: " + joueurs.size() + " | Trophées: " + trophees.size());
+		System.out.println("Pioche: " + pioche.getTasCartes().size() + " cartes");
+		System.out.println("========================================");
 		mainFrame.showGame();
 		demarrerManche();
 	}
@@ -85,7 +104,11 @@ public class SwingController {
 	public void demarrerManche() {
 		// Vérifier qu'il y a assez de cartes
 		int cartesNecessaires = joueurs.size() * 2;
+		System.out.println("\n=== MANCHE " + numeroManche + " ===");
+		System.out.println("Pioche: " + pioche.getTasCartes().size() + " cartes (besoin de " + cartesNecessaires + ")");
+		
 		if (pioche.getTasCartes().size() < cartesNecessaires) {
+			System.out.println("Pas assez de cartes -> FIN DE PARTIE");
 			terminerPartie();
 			return;
 		}
@@ -95,10 +118,12 @@ public class SwingController {
 		phaseChoix = false;
 
 		// Distribuer 2 cartes à chaque joueur
+		System.out.println("Distribution de 2 cartes à chaque joueur...");
 		for (Joueur j : joueurs) {
 			if (!pioche.estVide()) j.ramasserCarte(pioche.distribuerUneCarte());
 			if (!pioche.estVide()) j.ramasserCarte(pioche.distribuerUneCarte());
 		}
+		System.out.println("Pioche après distribution: " + pioche.getTasCartes().size() + " cartes");
 
 		// Trouver le premier joueur humain qui doit faire son offre
 		joueurActuel = trouverProchainJoueurOffre();
@@ -187,27 +212,63 @@ public class SwingController {
 
 	private void jouerTourBot() {
 		if (joueurActuel == null || !(joueurActuel instanceof JoueurVirtuel)) return;
+		
+		final Joueur botActuel = joueurActuel;
 
-		// Délai pour que le joueur voie ce qui se passe
-		Timer timer = new Timer(800, e -> {
-			Joueur cible = joueurActuel.choisirAdversaire(joueurs);
-			Carte carte = joueurActuel.prendreCarteDansOffre(cible);
-			joueurActuel.ajouterAuJest(carte);
+		// Étape 1 : Le bot réfléchit (2 secondes)
+		mainFrame.getGamePanel().showMessage(botActuel.getNom() + " réfléchit...");
+		
+		Timer timer1 = new Timer(1500, e1 -> {
+			// Étape 2 : Le bot choisit sa cible
+			final Joueur cible = botActuel.choisirAdversaire(joueurs);
+			mainFrame.getGamePanel().showMessage(botActuel.getNom() + " cible " + cible.getNom() + "...");
+			
+			// Log
+			System.out.println(botActuel.getNom() + " cible " + cible.getNom());
+			System.out.println("  Offre de " + cible.getNom() + " AVANT: [" + 
+				(cible.getOffre()[0] != null ? cible.getOffre()[0] : "null") + ", " +
+				(cible.getOffre()[1] != null ? cible.getOffre()[1] : "null") + "]");
+			
+			Timer timer2 = new Timer(1500, e2 -> {
+				// Étape 3 : Le bot prend une carte
+				Carte carte = botActuel.prendreCarteDansOffre(cible);
+				botActuel.ajouterAuJest(carte);
+				
+				// Log
+				System.out.println("  " + botActuel.getNom() + " prend: " + carte);
+				System.out.println("  Offre de " + cible.getNom() + " APRES: [" + 
+					(cible.getOffre()[0] != null ? cible.getOffre()[0] : "null") + ", " +
+					(cible.getOffre()[1] != null ? cible.getOffre()[1] : "null") + "]");
 
-			mainFrame.getGamePanel().showMessage(joueurActuel.getNom() + " prend " + carte + " chez " + cible.getNom());
+				mainFrame.getGamePanel().showMessage(botActuel.getNom() + " prend " + carte + " chez " + cible.getNom());
+				mainFrame.getGamePanel().updateDisplay();
 
-			joueursAyantJoue.add(joueurActuel);
-			passerAuJoueurSuivant(cible);
+				Timer timer3 = new Timer(1500, e3 -> {
+					// Étape 4 : Passer au joueur suivant
+					joueursAyantJoue.add(botActuel);
+					passerAuJoueurSuivant(cible);
+				});
+				timer3.setRepeats(false);
+				timer3.start();
+			});
+			timer2.setRepeats(false);
+			timer2.start();
 		});
-		timer.setRepeats(false);
-		timer.start();
+		timer1.setRepeats(false);
+		timer1.start();
 	}
 
 	private void passerAuJoueurSuivant(Joueur derniereCible) {
 		if (joueursAyantJoue.size() >= joueurs.size()) {
+			System.out.println("\n--- Fin de manche " + numeroManche + " ---");
+			
 			// Fin de la manche : récupérer les cartes restantes dans les offres
+			System.out.println("Récupération des cartes restantes dans les offres...");
 			for (Joueur j : joueurs) {
+				int avantRecup = j.getJest().size();
 				j.recupererDerniereCarteDeLOffre();
+				int apresRecup = j.getJest().size();
+				System.out.println("  " + j.getNom() + ": Jest " + avantRecup + " -> " + apresRecup + " cartes");
 			}
 			
 			mainFrame.getGamePanel().updateDisplay();
@@ -215,9 +276,17 @@ public class SwingController {
 			
 			// Vérifier s'il y a assez de cartes pour la prochaine manche
 			int cartesNecessaires = joueurs.size() * 2;
+			System.out.println("Pioche: " + pioche.getTasCartes().size() + " cartes (besoin de " + cartesNecessaires + " pour manche suivante)");
+			
 			if (pioche.getTasCartes().size() < cartesNecessaires) {
-				terminerPartie();
+				System.out.println("Pas assez de cartes -> FIN DE PARTIE (dans 2 secondes...)");
+				mainFrame.getGamePanel().showMessage("Fin de partie ! Calcul des scores en cours...");
+				// Pause de 2 secondes pour voir le Jest final avant la fin
+				Timer timerFin = new Timer(2000, ev -> terminerPartie());
+				timerFin.setRepeats(false);
+				timerFin.start();
 			} else {
+				System.out.println("Lancement de la manche suivante...");
 				// Délai avant la prochaine manche
 				Timer timer = new Timer(1000, e -> demarrerManche());
 				timer.setRepeats(false);
@@ -328,4 +397,64 @@ public class SwingController {
 	public boolean isPhaseOffre() { return phaseOffre; }
 	public boolean isPhaseChoix() { return phaseChoix; }
 	public boolean isPartieTerminee() { return partieTerminee; }
+	
+	// Sauvegarde et chargement
+	public void sauvegarderPartie() {
+		String nom = JOptionPane.showInputDialog(mainFrame, "Nom de la sauvegarde :", "Sauvegarde", JOptionPane.PLAIN_MESSAGE);
+		if (nom != null && !nom.trim().isEmpty()) {
+			EtatPartie etat = new EtatPartie();
+			etat.setJoueurs(joueurs);
+			etat.setPioche(pioche.getTasCartes());
+			etat.setTrophees(trophees);
+			etat.setNumeroManche(numeroManche);
+			etat.setNomVariante(variante.getNom());
+			etat.setPartieTerminee(partieTerminee);
+			
+			if (GestionnaireSauvegarde.sauvegarder(etat, nom.trim())) {
+				JOptionPane.showMessageDialog(mainFrame, "Partie sauvegardée avec succès !", "Sauvegarde", JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(mainFrame, "Erreur lors de la sauvegarde.", "Erreur", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+	
+	public void chargerPartie(String nomFichier) {
+		Object obj = GestionnaireSauvegarde.charger(nomFichier);
+		if (obj instanceof EtatPartie) {
+			EtatPartie etat = (EtatPartie) obj;
+			
+			joueurs = etat.getJoueurs();
+			pioche = new JeuCartes();
+			pioche.getTasCartes().clear();
+			pioche.getTasCartes().addAll(etat.getPioche());
+			trophees = etat.getTrophees();
+			numeroManche = etat.getNumeroManche();
+			partieTerminee = etat.isPartieTerminee();
+			
+			// Restaurer la variante
+			switch (etat.getNomVariante()) {
+				case "Sans Trophée":
+					variante = new VarianteSansTrophee();
+					break;
+				case "Double Mise":
+					variante = new VarianteDoubleMise();
+					break;
+				default:
+					variante = new VarianteClassique();
+			}
+			
+			joueursAyantJoue.clear();
+			phaseOffre = false;
+			phaseChoix = true;
+			
+			System.out.println("Partie chargée : " + nomFichier);
+			mainFrame.showGame();
+			mainFrame.getGamePanel().updateDisplay();
+			mainFrame.getGamePanel().showMessage("Partie chargée - Manche " + numeroManche);
+		}
+	}
+	
+	public String[] listerSauvegardes() {
+		return GestionnaireSauvegarde.listerSauvegardes();
+	}
 }

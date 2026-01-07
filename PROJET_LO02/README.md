@@ -13,6 +13,20 @@ cd PROJET_LO02
 javac -d classes -sourcepath src src/fr/utt/lo02/jest/view/swing/MainFrame.java
 ```
 
+### Copier les ressources (images)
+
+**macOS / Linux :**
+```bash
+mkdir -p classes/resources/images
+cp -r src/resources/images/* classes/resources/images/
+```
+
+**Windows (PowerShell) :**
+```powershell
+New-Item -ItemType Directory -Force -Path classes\resources\images | Out-Null
+Copy-Item -Recurse -Force src\resources\images\* classes\resources\images\
+```
+
 ### Interface graphique (Swing)
 ```bash
 java -cp classes fr.utt.lo02.jest.view.swing.MainFrame

@@ -18,6 +18,7 @@ public class GamePanel extends JPanel {
 	private SwingController controller;
 	private JLabel lblMessage;
 	private JLabel lblManche;
+	private JLabel lblPioche;
 	private JPanel panelTrophees;
 	private JPanel panelJoueurs;
 	private Map<String, ImageIcon> cardImages;
@@ -37,10 +38,22 @@ public class GamePanel extends JPanel {
 		panelHeader.setBackground(new Color(13, 40, 24));
 		panelHeader.setBorder(new EmptyBorder(10, 20, 10, 20));
 		
+		JPanel panelLeft = new JPanel();
+		panelLeft.setLayout(new BoxLayout(panelLeft, BoxLayout.Y_AXIS));
+		panelLeft.setOpaque(false);
+		
 		lblManche = new JLabel("Manche 1");
 		lblManche.setFont(new Font("Arial", Font.BOLD, 24));
 		lblManche.setForeground(new Color(255, 215, 0));
-		panelHeader.add(lblManche, BorderLayout.WEST);
+		panelLeft.add(lblManche);
+		
+		lblPioche = new JLabel("Pioche: 17 cartes");
+		lblPioche.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblPioche.setForeground(new Color(200, 200, 200));
+		panelLeft.add(Box.createVerticalStrut(5));
+		panelLeft.add(lblPioche);
+		
+		panelHeader.add(panelLeft, BorderLayout.WEST);
 		
 		panelTrophees = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
 		panelTrophees.setOpaque(false);
@@ -79,6 +92,15 @@ public class GamePanel extends JPanel {
 	public void updateDisplay() {
 		// Mettre à jour le numéro de manche
 		lblManche.setText("Manche " + controller.getNumeroManche());
+		
+		// Mettre à jour la pioche
+		int nbCartesPioche = controller.getPioche().getTasCartes().size();
+		lblPioche.setText("🃏 Pioche: " + nbCartesPioche + " cartes");
+		if (nbCartesPioche < 6) {
+			lblPioche.setForeground(new Color(255, 100, 100)); // Rouge si peu de cartes
+		} else {
+			lblPioche.setForeground(new Color(200, 200, 200));
+		}
 		
 		// Mettre à jour les trophées
 		panelTrophees.removeAll();
@@ -181,12 +203,33 @@ public class GamePanel extends JPanel {
 		
 		// Jest (cartes gagnées)
 		if (!joueur.getJest().isEmpty()) {
-			JLabel lblJest = new JLabel("Jest: " + joueur.getJest().size() + " cartes");
-			lblJest.setAlignmentX(Component.CENTER_ALIGNMENT);
-			lblJest.setForeground(new Color(170, 170, 170));
-			lblJest.setFont(new Font("Arial", Font.PLAIN, 12));
 			panel.add(Box.createVerticalStrut(5));
-			panel.add(lblJest);
+			
+			if (joueur instanceof JoueurHumain) {
+				// Pour le joueur humain : afficher toutes les cartes
+				JLabel lblJestTitle = new JLabel("Votre Jest ("+joueur.getJest().size()+" cartes):");
+				lblJestTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+				lblJestTitle.setForeground(new Color(255, 215, 0));
+				lblJestTitle.setFont(new Font("Arial", Font.BOLD, 12));
+				panel.add(lblJestTitle);
+				
+				// Afficher les cartes du Jest
+				JPanel panelJest = new JPanel(new FlowLayout(FlowLayout.CENTER, 3, 3));
+				panelJest.setOpaque(false);
+				
+				for (Carte carte : joueur.getJest()) {
+					JLabel lblCarte = createMiniCarteLabel(carte);
+					panelJest.add(lblCarte);
+				}
+				panel.add(panelJest);
+			} else {
+				// Pour les bots : juste le nombre
+				JLabel lblJest = new JLabel("Jest: " + joueur.getJest().size() + " cartes");
+				lblJest.setAlignmentX(Component.CENTER_ALIGNMENT);
+				lblJest.setForeground(new Color(170, 170, 170));
+				lblJest.setFont(new Font("Arial", Font.PLAIN, 12));
+				panel.add(lblJest);
+			}
 		}
 		
 		return panel;
@@ -249,6 +292,21 @@ public class GamePanel extends JPanel {
 		btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btn.setContentAreaFilled(false);
 		return btn;
+	}
+	
+	private JLabel createMiniCarteLabel(Carte carte) {
+		// Version mini pour le Jest (texte seulement)
+		String text = getCarteText(carte);
+		JLabel label = new JLabel(text);
+		label.setFont(new Font("Monospaced", Font.PLAIN, 10));
+		label.setForeground(getCarteColor(carte));
+		label.setBorder(BorderFactory.createCompoundBorder(
+			new LineBorder(Color.LIGHT_GRAY, 1),
+			new EmptyBorder(2, 4, 2, 4)
+		));
+		label.setOpaque(true);
+		label.setBackground(new Color(255, 255, 255, 220));
+		return label;
 	}
 	
 	private String getCarteText(Carte carte) {

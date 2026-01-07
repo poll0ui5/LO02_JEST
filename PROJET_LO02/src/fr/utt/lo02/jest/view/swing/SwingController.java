@@ -314,8 +314,10 @@ public class SwingController {
 	// Getters
 	public ArrayList<Joueur> getJoueurs() { return joueurs; }
 	public ArrayList<Carte> getTrophees() { return trophees; }
+	public JeuCartes getPioche() { return pioche; }
 	public int getNumeroManche() { return numeroManche; }
 	public Joueur getJoueurActuel() { return joueurActuel; }
+	public boolean isPhaseOffre() { return phaseOffre; }
 	public boolean isPhaseChoix() { return phaseChoix; }
 	public boolean isPartieTerminee() { return partieTerminee; }
 }

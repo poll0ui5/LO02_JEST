@@ -411,7 +411,22 @@ public class SwingController {
 			etat.setPartieTerminee(partieTerminee);
 			
 			if (GestionnaireSauvegarde.sauvegarder(etat, nom.trim())) {
-				JOptionPane.showMessageDialog(mainFrame, "Partie sauvegardée avec succès !", "Sauvegarde", JOptionPane.INFORMATION_MESSAGE);
+				// Demander si le joueur veut continuer ou quitter
+				int choix = JOptionPane.showOptionDialog(
+					mainFrame,
+					"Partie sauvegardée avec succès !\n\nVoulez-vous continuer la partie ?",
+					"Sauvegarde",
+					JOptionPane.YES_NO_OPTION,
+					JOptionPane.QUESTION_MESSAGE,
+					null,
+					new String[]{"Continuer", "Quitter"},
+					"Continuer"
+				);
+				
+				if (choix == 1) { // Quitter
+					retourMenu();
+				}
+				// Si Continuer, on ne fait rien et le jeu reprend
 			} else {
 				JOptionPane.showMessageDialog(mainFrame, "Erreur lors de la sauvegarde.", "Erreur", JOptionPane.ERROR_MESSAGE);
 			}

@@ -295,18 +295,34 @@ public class GamePanel extends JPanel {
 	}
 	
 	private JLabel createMiniCarteLabel(Carte carte) {
-		// Version mini pour le Jest (texte seulement)
-		String text = getCarteText(carte);
-		JLabel label = new JLabel(text);
-		label.setFont(new Font("Monospaced", Font.PLAIN, 10));
-		label.setForeground(getCarteColor(carte));
-		label.setBorder(BorderFactory.createCompoundBorder(
-			new LineBorder(Color.LIGHT_GRAY, 1),
-			new EmptyBorder(2, 4, 2, 4)
-		));
-		label.setOpaque(true);
-		label.setBackground(new Color(255, 255, 255, 220));
-		return label;
+		// Version mini pour le Jest avec images
+		ImageIcon icon = null;
+		String key = getImageKey(carte);
+		icon = cardImages.get(key);
+		
+		if (icon != null) {
+			// Redimensionner l'image pour le Jest (plus petite)
+			Image img = icon.getImage();
+			Image scaledImg = img.getScaledInstance(40, 60, Image.SCALE_SMOOTH);
+			ImageIcon scaledIcon = new ImageIcon(scaledImg);
+			
+			JLabel label = new JLabel(scaledIcon);
+			label.setBorder(new LineBorder(Color.LIGHT_GRAY, 1));
+			return label;
+		} else {
+			// Fallback texte si image non trouvée
+			String text = getCarteText(carte);
+			JLabel label = new JLabel(text);
+			label.setFont(new Font("Monospaced", Font.PLAIN, 10));
+			label.setForeground(getCarteColor(carte));
+			label.setBorder(BorderFactory.createCompoundBorder(
+				new LineBorder(Color.LIGHT_GRAY, 1),
+				new EmptyBorder(2, 4, 2, 4)
+			));
+			label.setOpaque(true);
+			label.setBackground(new Color(255, 255, 255, 220));
+			return label;
+		}
 	}
 	
 	private String getCarteText(Carte carte) {

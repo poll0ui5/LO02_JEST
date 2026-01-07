@@ -9,12 +9,32 @@ import fr.utt.lo02.jest.model.Couleur;
 import fr.utt.lo02.jest.model.Joueur;
 import fr.utt.lo02.jest.model.JoueurVirtuel;
 
-// Stratégie défensive : cache sa meilleure carte et joue prudemment
+/**
+ * Stratégie défensive pour les joueurs virtuels.
+ * <p>
+ * Comportements :
+ * <ul>
+ * <li><b>Offre</b> : Cache sa meilleure carte et montre la plus faible</li>
+ * <li><b>Cible</b> : Attaque le joueur avec la pire offre visible</li>
+ * <li><b>Prise</b> : Prend la carte visible (sécurité), sauf si c'est un Carreau</li>
+ * </ul>
+ * Cette stratégie privilégie la prudence et la minimisation des risques.
+ * </p>
+ * 
+ * @see Strategie
+ * @see StrategieOffensive
+ * @author LO02 Project
+ */
 public class StrategieDefensive implements Strategie {
 
     /**
-     * Comportement défensif : Cache la carte la plus forte.
-     * Le bot espère que personne ne prendra sa carte cachée, pour pouvoir la récupérer à la fin.
+     * Crée l'offre en cachant la meilleure carte.
+     * <p>
+     * Le bot espère que personne ne prendra sa carte cachée,
+     * pour pouvoir la récupérer en fin de partie.
+     * </p>
+     * 
+     * @param bot Le joueur virtuel qui doit faire son offre
      */
     @Override
     public void faireOffre(JoueurVirtuel bot) {
@@ -36,8 +56,15 @@ public class StrategieDefensive implements Strategie {
     }
 
     /**
-     * Comportement défensif : Choisit l'adversaire avec la carte visible la plus faible.
-     * Cela minimise le risque de donner la main à un joueur fort au tour suivant.
+     * Choisit l'adversaire avec la carte visible la plus faible.
+     * <p>
+     * Stratégie prudente : minimise le risque de donner la main
+     * à un joueur fort au tour suivant.
+     * </p>
+     * 
+     * @param bot Le joueur virtuel qui doit choisir
+     * @param joueurs Liste de tous les joueurs
+     * @return Le joueur avec la carte visible la plus faible
      */
     @Override
     public Joueur choisirAdversaire(JoueurVirtuel bot, List<Joueur> joueurs) {
@@ -76,8 +103,20 @@ public class StrategieDefensive implements Strategie {
     }
 
     /**
-     * Comportement défensif : Prend la carte visible si elle est sûre.
-     * Évite la carte cachée (peur du Joker ou d'un mauvais coup).
+     * Choisit quelle carte prendre dans l'offre adverse.
+     * <p>
+     * Logique décisionnelle :
+     * <ul>
+     * <li>Si la carte visible est un Carreau → prendre la cachée (éviter malus)</li>
+     * <li>Si la carte visible n'est pas un Carreau → la prendre (sécurité)</li>
+     * <li>Si seule la cachée est disponible → la prendre</li>
+     * </ul>
+     * Évite les risques et privilégie les cartes connues.
+     * </p>
+     * 
+     * @param bot Le joueur virtuel qui doit choisir
+     * @param cible Le joueur dont on prend une carte
+     * @return La carte choisie
      */
     @Override
     public Carte choisirCarte(JoueurVirtuel bot, Joueur cible) {

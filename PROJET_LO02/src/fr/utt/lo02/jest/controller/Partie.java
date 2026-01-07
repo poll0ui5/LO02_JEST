@@ -12,9 +12,21 @@ import fr.utt.lo02.jest.visitor.VisitorScore;
 
 /**
  * Contrôleur principal du jeu Jest (pattern MVC).
- * Gère l'initialisation, les tours de jeu et le calcul des scores.
+ * <p>
+ * Cette classe gère l'ensemble du déroulement d'une partie de Jest :
+ * <ul>
+ * <li>Configuration initiale (choix de la variante, extension, joueurs)</li>
+ * <li>Distribution des cartes et des trophées</li>
+ * <li>Gestion des tours de jeu (offres et prises de cartes)</li>
+ * <li>Calcul des scores et attribution des trophées</li>
+ * <li>Sauvegarde et chargement de parties</li>
+ * </ul>
+ * </p>
  * 
- * 
+ * @see Variante
+ * @see Extension
+ * @see Joueur
+ * @author LO02 Project
  */
 public class Partie {
     private ArrayList<Joueur> joueurs = new ArrayList<>();
@@ -26,7 +38,13 @@ public class Partie {
     private Variante variante;
     private Extension extension;
 
-    /** Lance une nouvelle partie. */
+    /**
+     * Lance une nouvelle partie de Jest.
+     * <p>
+     * Initialise le jeu, puis exécute les tours jusqu'à épuisement de la pioche
+     * ou fin anticipée de la partie. Termine par le calcul des scores.
+     * </p>
+     */
     public void demarrer() {
         initialiserJeu();
         while (!pioche.estVide() && !partieTerminee)
@@ -34,7 +52,18 @@ public class Partie {
         conclurePartie();
     }
 
-    /** Configuration : variante, extension, joueurs. */
+    /**
+     * Configure et initialise une nouvelle partie.
+     * <p>
+     * Demande au joueur de choisir :
+     * <ul>
+     * <li>La variante de jeu (Classique, Sans Trophée, Double Mise)</li>
+     * <li>L'extension (Cartes Spéciales optionnelle)</li>
+     * <li>Le nombre de joueurs humains et virtuels</li>
+     * </ul>
+     * Puis distribue les trophées selon la variante choisie.
+     * </p>
+     */
     public void initialiserJeu() {
         view.afficherMessage("\n=== CONFIGURATION ===");
         view.afficherMessage("Variante : 1.Classique 2.Sans Trophée 3.Double Mise");
@@ -79,7 +108,19 @@ public class Partie {
             view.afficherTrophees(trophees);
     }
 
-    /** Un tour : distribution, offres, prises. */
+    /**
+     * Joue un tour complet (une manche).
+     * <p>
+     * Déroulement d'un tour :
+     * <ol>
+     * <li>Distribution de 2 cartes à chaque joueur</li>
+     * <li>Chaque joueur fait son offre (1 carte visible, 1 carte cachée)</li>
+     * <li>Le joueur avec la meilleure offre commence</li>
+     * <li>Chacun prend une carte dans l'offre d'un adversaire</li>
+     * <li>La cible devient le joueur actif (sauf si déjà joué)</li>
+     * </ol>
+     * </p>
+     */
     private void jouerUnTour() {
         view.afficherMessage("\n--- MANCHE " + numeroManche + " ---");
         
@@ -129,6 +170,16 @@ public class Partie {
             partieTerminee = true;
     }
 
+    /**
+     * Trouve le joueur ayant la meilleure offre visible parmi les candidats.
+     * <p>
+     * Compare les cartes visibles selon leur valeur faciale, puis leur couleur
+     * (Pique > Trèfle > Carreau > Cœur) en cas d'égalité.
+     * </p>
+     * 
+     * @param candidats Liste des joueurs à comparer
+     * @return Le joueur avec la meilleure offre visible
+     */
     private Joueur trouverMeilleureOffre(List<Joueur> candidats) {
         Joueur meilleur = candidats.get(0);
         for (Joueur j : candidats) {
@@ -139,7 +190,19 @@ public class Partie {
         return meilleur;
     }
 
-    /** Fin de partie : trophées, scores, gagnant. */
+    /**
+     * Conclut la partie et détermine le gagnant.
+     * <p>
+     * Étapes finales :
+     * <ol>
+     * <li>Récupération des cartes restantes dans les offres</li>
+     * <li>Attribution des trophées (majorité de valeur ou couleur)</li>
+     * <li>Calcul des scores avec le Visitor Pattern</li>
+     * <li>Application des règles spéciales de la variante</li>
+     * <li>Annonce du gagnant</li>
+     * </ol>
+     * </p>
+     */
     private void conclurePartie() {
         view.afficherMessage("\n--- FIN ---");
         for (Joueur j : joueurs)
@@ -158,6 +221,17 @@ public class Partie {
         view.afficherMessage("\n*** Gagnant : " + gagnant.getNom() + " (" + gagnant.getScore() + " pts) ***");
     }
 
+    /**
+     * Attribue les trophées aux joueurs ayant la majorité correspondante.
+     * <p>
+     * Pour chaque trophée :
+     * <ul>
+     * <li>Si c'est un Joker : compte les Cœurs dans le Jest</li>
+     * <li>Sinon : compte les cartes de même valeur dans le Jest</li>
+     * </ul>
+     * Le joueur avec le plus de cartes correspondantes remporte le trophée.
+     * </p>
+     */
     private void attribuerTrophees() {
         for (Carte trophee : trophees) {
             Joueur gagnant = null;
@@ -185,7 +259,12 @@ public class Partie {
         }
     }
 
-    /** Sauvegarde l'état de la partie. */
+    /**
+     * Sauvegarde l'état actuel de la partie dans un fichier.
+     * 
+     * @param nom Nom de la sauvegarde
+     * @return true si la sauvegarde a réussi, false sinon
+     */
     public boolean sauvegarderPartie(String nom) {
         EtatPartie etat = new EtatPartie();
         etat.setJoueurs(joueurs);
@@ -200,7 +279,16 @@ public class Partie {
         return GestionnaireSauvegarde.sauvegarder(etat, nom);
     }
 
-    /** Charge une partie sauvegardée. */
+    /**
+     * Charge une partie précédemment sauvegardée.
+     * <p>
+     * Restaure tous les éléments de la partie : joueurs, pioche, trophées,
+     * numéro de manche, variante et extension.
+     * </p>
+     * 
+     * @param nom Nom de la sauvegarde à charger
+     * @return true si le chargement a réussi, false sinon
+     */
     public boolean chargerPartie(String nom) {
         Object obj = GestionnaireSauvegarde.charger(nom);
         if (!(obj instanceof EtatPartie))

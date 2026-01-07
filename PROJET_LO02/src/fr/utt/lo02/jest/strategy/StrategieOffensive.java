@@ -7,12 +7,32 @@ import fr.utt.lo02.jest.model.CarteOffre;
 import fr.utt.lo02.jest.model.Joueur;
 import fr.utt.lo02.jest.model.JoueurVirtuel;
 
-// Stratégie offensive : montre sa meilleure carte et prend des risques
+/**
+ * Stratégie offensive pour les joueurs virtuels.
+ * <p>
+ * Comportements :
+ * <ul>
+ * <li><b>Offre</b> : Montre sa meilleure carte pour jouer en premier</li>
+ * <li><b>Cible</b> : Attaque le joueur avec la meilleure offre visible</li>
+ * <li><b>Prise</b> : Prend la carte visible si elle est forte (≥3), sinon tente la cachée</li>
+ * </ul>
+ * Cette stratégie privilégie l'agressivité et le contrôle du jeu.
+ * </p>
+ * 
+ * @see Strategie
+ * @see StrategieDefensive
+ * @author LO02 Project
+ */
 public class StrategieOffensive implements Strategie {
 
     /**
-     * Comportement offensif : Montre la carte la plus forte.
-     * Le but est d'avoir la plus forte visible pour être le premier à choisir au tour suivant.
+     * Crée l'offre en montrant la meilleure carte.
+     * <p>
+     * Le but est d'avoir la carte visible la plus forte pour être
+     * le premier à jouer et choisir son adversaire.
+     * </p>
+     * 
+     * @param bot Le joueur virtuel qui doit faire son offre
      */
     @Override
     public void faireOffre(JoueurVirtuel bot) {
@@ -34,8 +54,15 @@ public class StrategieOffensive implements Strategie {
     }
 
     /**
-     * Comportement offensif : Cible le joueur avec la meilleure carte visible.
-     * Le bot veut voler les meilleures cartes (As, Figures, Piques).
+     * Choisit l'adversaire avec la meilleure carte visible.
+     * <p>
+     * Stratégie agressive : cible les joueurs forts pour leur voler
+     * leurs meilleures cartes (valeurs élevées, Piques).
+     * </p>
+     * 
+     * @param bot Le joueur virtuel qui doit choisir
+     * @param joueurs Liste de tous les joueurs
+     * @return Le joueur avec la meilleure carte visible
      */
     @Override
     public Joueur choisirAdversaire(JoueurVirtuel bot, List<Joueur> joueurs) {
@@ -72,9 +99,19 @@ public class StrategieOffensive implements Strategie {
     }
 
     /**
-     * Comportement offensif :
-     * - Si la carte visible est forte (3, 4, As, Joker), on la prend.
-     * - Si la carte visible est faible (2), on tente le diable et on prend la cachée.
+     * Choisit quelle carte prendre dans l'offre adverse.
+     * <p>
+     * Logique décisionnelle :
+     * <ul>
+     * <li>Si la carte visible est forte (valeur ≥3 ou As/Joker) → la prendre</li>
+     * <li>Si la carte visible est faible (2) → prendre la cachée (risque)</li>
+     * <li>Si seule la cachée est disponible → la prendre</li>
+     * </ul>
+     * </p>
+     * 
+     * @param bot Le joueur virtuel qui doit choisir
+     * @param cible Le joueur dont on prend une carte
+     * @return La carte choisie
      */
     @Override
     public Carte choisirCarte(JoueurVirtuel bot, Joueur cible) {

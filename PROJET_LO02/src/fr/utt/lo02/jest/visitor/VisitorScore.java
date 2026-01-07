@@ -6,15 +6,36 @@ import java.util.Map;
 import fr.utt.lo02.jest.model.*;
 
 /**
- * Calcule le score d'un joueur selon les règles du Jest.
- * Règles : Pique/Trèfle +, Carreau -, Cœur 0 (sauf avec Joker), As seul = 5,
- * Paires noires +2.
+ * Visiteur calculant le score d'un joueur selon les règles du Jest (pattern Visitor).
+ * <p>
+ * Règles de calcul :
+ * <ul>
+ * <li><b>Pique et Trèfle</b> : +valeur de la carte</li>
+ * <li><b>Carreau</b> : -valeur de la carte</li>
+ * <li><b>Cœur</b> : 0 points (sauf si Joker présent)</li>
+ * <li><b>As seul</b> : 5 points au lieu de 1</li>
+ * <li><b>Joker seul</b> (sans Cœur) : +4 points</li>
+ * <li><b>Joker avec Cœurs</b> : inverse les Cœurs (+ au lieu de 0)</li>
+ * <li><b>Paires noires</b> : +2 points par paire (Pique + Trèfle de même valeur)</li>
+ * </ul>
+ * </p>
  * 
- * 
+ * @see Visitor
+ * @see Joueur
+ * @author LO02 Project
  */
 public class VisitorScore implements Visitor {
     private Map<String, Integer> scores = new HashMap<>();
 
+    /**
+     * Calcule et attribue le score au joueur visité.
+     * <p>
+     * Analyse le Jest du joueur et applique toutes les règles de scoring.
+     * Le score est ensuite stocké dans le joueur et dans une map interne.
+     * </p>
+     * 
+     * @param joueur Le joueur dont on calcule le score
+     */
     @Override
     public void visit(Joueur joueur) {
         List<Carte> jest = joueur.getJest();
@@ -78,10 +99,20 @@ public class VisitorScore implements Visitor {
         System.out.println("Score " + joueur.getNom() + " : " + score);
     }
 
+    /**
+     * Visite une carte (non utilisé dans ce visiteur).
+     * 
+     * @param carte La carte visitée
+     */
     @Override
     public void visit(Carte carte) {
     }
 
+    /**
+     * Retourne la map des scores calculés.
+     * 
+     * @return Map associant chaque nom de joueur à son score
+     */
     public Map<String, Integer> getScores() {
         return scores;
     }

@@ -6,15 +6,35 @@ import fr.utt.lo02.jest.view.Terminal;
 
 /**
  * Joueur humain interagissant via la console.
+ * <p>
+ * Ce joueur prend ses décisions via des entrées utilisateur dans le terminal.
+ * Toutes les actions (faire une offre, choisir un adversaire, prendre une carte)
+ * sont effectuées de manière interactive.
+ * </p>
  * 
+ * @see Joueur
+ * @see Terminal
+ * @author LO02 Project
  */
 public class JoueurHumain extends Joueur {
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Constructeur d'un joueur humain.
+     * 
+     * @param nom Le nom du joueur
+     */
     public JoueurHumain(String nom) {
         super(nom);
     }
 
+    /**
+     * Crée l'offre du joueur humain de manière interactive.
+     * <p>
+     * Affiche les cartes en main et demande au joueur de choisir
+     * quelle carte placer face visible.
+     * </p>
+     */
     @Override
     public void faireOffre() {
         if (this.main.size() < 2) {
@@ -34,6 +54,16 @@ public class JoueurHumain extends Joueur {
         }
     }
 
+    /**
+     * Permet au joueur humain de choisir un adversaire.
+     * <p>
+     * Affiche la liste des adversaires disponibles et demande
+     * au joueur de faire son choix.
+     * </p>
+     * 
+     * @param joueurs Liste de tous les joueurs
+     * @return Le joueur ciblé
+     */
     @Override
     public Joueur choisirAdversaire(List<Joueur> joueurs) {
         Terminal t = new Terminal();
@@ -58,6 +88,16 @@ public class JoueurHumain extends Joueur {
         return adversaires.get(choix - 1);
     }
 
+    /**
+     * Permet au joueur humain de prendre une carte dans l'offre d'un adversaire.
+     * <p>
+     * Affiche l'offre de l'adversaire (carte visible et carte cachée)
+     * et demande au joueur de choisir laquelle prendre.
+     * </p>
+     * 
+     * @param cible Le joueur dont on prend une carte
+     * @return La carte prise
+     */
     @Override
     public Carte prendreCarteDansOffre(Joueur cible) {
         Terminal t = new Terminal();

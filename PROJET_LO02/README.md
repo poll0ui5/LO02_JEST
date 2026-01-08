@@ -27,7 +27,7 @@ New-Item -ItemType Directory -Force -Path classes\resources\images | Out-Null
 Copy-Item -Recurse -Force src\resources\images\* classes\resources\images\
 ```
 
-### Interface graphique (Swing)
+### Interface graphique (WindowBuilder)
 ```bash
 java -cp classes fr.utt.lo02.jest.view.swing.MainFrame
 ```

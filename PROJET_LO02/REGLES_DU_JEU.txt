@@ -1,0 +1,340 @@
+═══════════════════════════════════════════════════════════════════════════════
+                            RÈGLES DU JEU JEST
+═══════════════════════════════════════════════════════════════════════════════
+
+📦 CONTENU DU JEU
+═══════════════════════════════════════════════════════════════════════════════
+
+17 CARTES DE BASE :
+  - 4 couleurs : Pique (♠), Trèfle (♣), Carreau (♦), Cœur (♥)
+  - 4 valeurs par couleur : As, 2, 3, 4
+  - 1 Joker (sans couleur)
+  Total : 4 × 4 + 1 = 17 cartes
+
+EXTENSION "CARTES SPÉCIALES" (optionnelle) :
+  + As Doré (As de Pique spécial)
+  + Cœur Maudit (4 de Cœur spécial)
+  Total avec extension : 19 cartes
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                              BUT DU JEU
+═══════════════════════════════════════════════════════════════════════════════
+
+Avoir le MEILLEUR SCORE à la fin de la partie en collectant les bonnes cartes
+dans votre "Jest" (votre collection de cartes).
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                          MISE EN PLACE
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Choisir une VARIANTE :
+   - Classique : 2 trophées (3 joueurs) ou 1 trophée (4 joueurs)
+   - Sans Trophée : 0 trophée (toutes les cartes jouées)
+   - Double Mise : 3 trophées + bonus/malus en fin de partie
+
+2. Choisir une EXTENSION (optionnel) :
+   - Aucune : Jeu de base (17 cartes)
+   - Cartes Spéciales : +2 cartes bonus (19 cartes)
+
+3. Mélanger la pioche
+
+4. Retirer les TROPHÉES de la pioche :
+   → Ces cartes sont mises de côté, VISIBLES
+   → Elles ne seront PAS distribuées aux joueurs
+   → Elles seront attribuées en fin de partie selon les scores
+
+   Exemple (Variante Classique, 3 joueurs) :
+   - Pioche de départ : 17 cartes
+   - Retirer 2 trophées : [As♠] [4♥]
+   - Pioche restante : 15 cartes pour jouer
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                          DÉROULEMENT D'UNE MANCHE
+═══════════════════════════════════════════════════════════════════════════════
+
+PHASE 1 : DISTRIBUTION
+──────────────────────
+Chaque joueur reçoit 2 cartes de la pioche.
+
+Exemple (3 joueurs) :
+  Joueur 1 : [2♠] [3♥]
+  Joueur 2 : [As♣] [4♦]
+  Joueur 3 : [2♦] [Joker]
+  
+  → 6 cartes distribuées (2 × 3 joueurs)
+
+
+PHASE 2 : OFFRE
+──────────────
+Chaque joueur choisit quelle carte MONTRER et quelle carte CACHER :
+  - 1 carte VISIBLE (face visible)
+  - 1 carte CACHÉE (face cachée)
+
+Exemple :
+  Joueur 1 : [2♠ visible] [3♥ cachée]
+  Joueur 2 : [As♣ visible] [4♦ cachée]
+  Joueur 3 : [Joker visible] [2♦ cachée]
+
+
+PHASE 3 : CHOIX (Tour par tour)
+────────────────────────────────
+À tour de rôle, chaque joueur :
+  1. Choisit un ADVERSAIRE
+  2. Prend UNE carte dans l'offre de cet adversaire (visible OU cachée)
+  3. Ajoute cette carte à son "Jest" (sa collection)
+
+Exemple de tour :
+  → Joueur 1 joue :
+    - Cible : Joueur 2
+    - Prend : [As♣ visible]
+    - Jest de Joueur 1 : [As♣]
+  
+  → Joueur 2 joue :
+    - Cible : Joueur 3
+    - Prend : [Joker visible]
+    - Jest de Joueur 2 : [Joker]
+  
+  → Joueur 3 joue :
+    - Cible : Joueur 1
+    - Prend : [3♥ cachée]
+    - Jest de Joueur 3 : [3♥]
+
+À la fin du tour, chaque joueur a pris 1 carte.
+Les cartes restantes dans les offres sont défaussées.
+
+
+FIN DE MANCHE
+─────────────
+Quand tous les joueurs ont joué, la manche est terminée.
+→ Nouvelle manche si assez de cartes dans la pioche
+→ Sinon, fin de partie
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                          CALCUL DES SCORES
+═══════════════════════════════════════════════════════════════════════════════
+
+À la fin de la partie, on calcule le score de chaque joueur selon son Jest.
+
+RÈGLE 1 : PIQUES ET TRÈFLES = POSITIF
+──────────────────────────────────────
+Chaque carte Pique (♠) ou Trèfle (♣) rapporte ses POINTS :
+  - As = +5 points
+  - 2 = +2 points
+  - 3 = +3 points
+  - 4 = +4 points
+
+Exemple :
+  Jest : [As♠] [2♣] [3♠]
+  Score : +5 +2 +3 = +10 points
+
+
+RÈGLE 2 : CARREAUX = NÉGATIF
+─────────────────────────────
+Chaque carte Carreau (♦) ENLÈVE ses points :
+  - As♦ = -5 points
+  - 2♦ = -2 points
+  - 3♦ = -3 points
+  - 4♦ = -4 points
+
+Exemple :
+  Jest : [As♦] [2♦]
+  Score : -5 -2 = -7 points
+
+
+RÈGLE 3 : CŒURS = NEUTRE
+─────────────────────────
+Les cartes Cœur (♥) valent 0 points (sauf avec le Joker, voir règle 5).
+
+Exemple :
+  Jest : [As♥] [2♥] [3♥] [4♥]
+  Score : 0 points
+
+
+RÈGLE 4 : AS SEUL = BONUS
+──────────────────────────
+Si vous avez UN SEUL As d'une couleur (Pique ou Trèfle), vous gagnez +5 BONUS.
+
+Exemple 1 (bonus) :
+  Jest : [As♠] [2♣] [3♦]
+  → Un seul As de Pique → +5 (carte) +5 (bonus) = +10 points pour l'As
+
+Exemple 2 (pas de bonus) :
+  Jest : [As♠] [As♣] [2♦]
+  → Deux As → Pas de bonus
+  → As♠ = +5, As♣ = +5
+
+
+RÈGLE 5 : JOKER + 4 CŒURS = BONUS
+──────────────────────────────────
+Si vous avez le JOKER + les 4 cartes Cœur, vous gagnez +5 points.
+
+Exemple :
+  Jest : [Joker] [As♥] [2♥] [3♥] [4♥]
+  Score : 0 (Joker) + 0 (Cœurs) + 5 (bonus) = +5 points
+
+
+RÈGLE 6 : PAIRE NOIRE = BONUS
+──────────────────────────────
+Si vous avez 2 cartes IDENTIQUES de couleur noire (Pique ou Trèfle), +2 points.
+
+Exemple :
+  Jest : [2♠] [2♣] [3♠]
+  → Paire de 2 noirs → +2 bonus
+  Score : +2 +2 +3 +2 (bonus) = +9 points
+
+
+RÈGLE 7 : CARTES SPÉCIALES (Extension)
+───────────────────────────────────────
+AS DORÉ (As de Pique spécial) :
+  → Vaut +6 au lieu de +5 s'il est seul de sa couleur (+1 bonus)
+
+CŒUR MAUDIT (4 de Cœur spécial) :
+  → SI vous avez le Joker : -4 points (MALUS)
+  → SI vous N'avez PAS le Joker : +4 points (BONUS)
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                          FIN DE PARTIE
+═══════════════════════════════════════════════════════════════════════════════
+
+1. ATTRIBUTION DES TROPHÉES
+────────────────────────────
+Les trophées mis de côté au début sont attribués au joueur avec le MEILLEUR
+score à chaque trophée.
+
+Exemple :
+  Trophées : [As♠] [4♥]
+  
+  Scores avant trophées :
+    Joueur 1 : 15 pts
+    Joueur 2 : 12 pts
+    Joueur 3 : 8 pts
+  
+  → Joueur 1 gagne [As♠] (meilleur score)
+  → Joueur 1 gagne [4♥] (toujours meilleur score)
+  
+  Scores après trophées :
+    Joueur 1 : 15 + 5 (As♠) + 0 (4♥) = 20 pts
+    Joueur 2 : 12 pts
+    Joueur 3 : 8 pts
+
+
+2. RÈGLES FINALES DE LA VARIANTE
+─────────────────────────────────
+VARIANTE CLASSIQUE :
+  → Pas de règles spéciales
+
+VARIANTE SANS TROPHÉE :
+  → Pas de trophées (déjà pris en compte)
+
+VARIANTE DOUBLE MISE :
+  → BONUS : +3 points pour le joueur avec le PLUS de Piques
+  → MALUS : -3 points pour le joueur avec le PLUS de Carreaux
+  
+  Exemple :
+    Joueur 1 : 3 Piques, 1 Carreau → +3 bonus
+    Joueur 2 : 1 Pique, 4 Carreaux → -3 malus
+    Joueur 3 : 2 Piques, 2 Carreaux
+
+
+3. DÉTERMINATION DU GAGNANT
+────────────────────────────
+Le joueur avec le SCORE LE PLUS ÉLEVÉ gagne la partie !
+
+En cas d'égalité :
+  → Le joueur avec le plus de cartes dans son Jest gagne
+  → Si toujours égalité : match nul
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                          STRATÉGIES
+═══════════════════════════════════════════════════════════════════════════════
+
+OFFENSIVE (Bots pairs) :
+  → Cible le joueur avec le PLUS de points
+  → Prend la carte VISIBLE (la plus forte)
+  → But : Empêcher les adversaires de marquer
+
+DÉFENSIVE (Bots impairs) :
+  → Cible le joueur avec le MOINS de points
+  → Prend la carte CACHÉE (éviter les fortes)
+  → But : Minimiser les risques
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                          EXEMPLES DE SCORES
+═══════════════════════════════════════════════════════════════════════════════
+
+EXEMPLE 1 : Score simple
+────────────────────────
+Jest : [As♠] [2♣] [3♦]
+
+Calcul :
+  - As♠ : +5 (Pique positif) + 5 (seul As) = +10
+  - 2♣ : +2 (Trèfle positif)
+  - 3♦ : -3 (Carreau négatif)
+  
+Score total : 10 + 2 - 3 = 9 points
+
+
+EXEMPLE 2 : Joker + Cœurs
+──────────────────────────
+Jest : [Joker] [As♥] [2♥] [3♥] [4♥] [2♠]
+
+Calcul :
+  - Joker : 0
+  - As♥, 2♥, 3♥, 4♥ : 0 (Cœurs neutres)
+  - Bonus Joker + 4 Cœurs : +5
+  - 2♠ : +2 (Pique positif)
+  
+Score total : 0 + 0 + 5 + 2 = 7 points
+
+
+EXEMPLE 3 : Paire noire
+────────────────────────
+Jest : [2♠] [2♣] [As♠] [3♦]
+
+Calcul :
+  - 2♠ : +2 (Pique positif)
+  - 2♣ : +2 (Trèfle positif)
+  - Paire de 2 noirs : +2 (bonus)
+  - As♠ : +5 (Pique positif) + 5 (seul As) = +10
+  - 3♦ : -3 (Carreau négatif)
+  
+Score total : 2 + 2 + 2 + 10 - 3 = 13 points
+
+
+EXEMPLE 4 : Cœur Maudit (Extension)
+────────────────────────────────────
+Jest : [Cœur Maudit] [Joker] [As♣]
+
+Calcul :
+  - Cœur Maudit : -4 (car Joker présent)
+  - Joker : 0
+  - As♣ : +5 (Trèfle positif) + 5 (seul As) = +10
+  
+Score total : -4 + 0 + 10 = 6 points
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                          RÉSUMÉ RAPIDE
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Retirer les trophées de la pioche (selon la variante)
+2. Distribuer 2 cartes à chaque joueur
+3. Chaque joueur fait son offre (1 visible, 1 cachée)
+4. Chacun prend 1 carte chez un adversaire
+5. Répéter jusqu'à ce qu'il n'y ait plus assez de cartes
+6. Calculer les scores (Piques/Trèfles +, Carreaux -, Cœurs 0, bonus)
+7. Attribuer les trophées au meilleur score
+8. Appliquer les règles finales de la variante
+9. Le joueur avec le plus de points gagne !
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                          BONNE PARTIE !
+═══════════════════════════════════════════════════════════════════════════════

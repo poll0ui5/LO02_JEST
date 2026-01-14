@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import fr.utt.lo02.jest.model.*;
+import fr.utt.lo02.jest.controller.swing.SwingController;
 
 /**
  * Panel de jeu principal (Swing/WindowBuilder compatible).

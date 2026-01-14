@@ -1,4 +1,4 @@
-package fr.utt.lo02.jest.view;
+package fr.utt.lo02.jest.view.terminal;
 
 import java.util.List;
 import java.util.Scanner;
@@ -19,14 +19,14 @@ import fr.utt.lo02.jest.model.Joueur;
  * * 
  * 
  */
-public class Terminal {
+public class TerminalView {
 
     private Scanner scanner;
 
     /**
      * Constructeur. Initialise le scanner pour lire l'entrée standard (clavier).
      */
-    public Terminal() {
+    public TerminalView() {
         this.scanner = new Scanner(System.in);
     }
 

@@ -2,6 +2,7 @@ package fr.utt.lo02.jest.view.swing;
 
 import javax.swing.*;
 import java.awt.*;
+import fr.utt.lo02.jest.controller.swing.SwingController;
 
 /**
  * Fenêtre principale du jeu Jest (Swing/WindowBuilder compatible).

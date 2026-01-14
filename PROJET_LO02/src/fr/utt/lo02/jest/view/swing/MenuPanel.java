@@ -3,6 +3,7 @@ package fr.utt.lo02.jest.view.swing;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import fr.utt.lo02.jest.controller.swing.SwingController;
 
 /**
  * Panel du menu principal (Swing/WindowBuilder compatible).

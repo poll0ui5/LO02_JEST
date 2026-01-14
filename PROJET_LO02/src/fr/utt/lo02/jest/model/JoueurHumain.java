@@ -2,7 +2,7 @@ package fr.utt.lo02.jest.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import fr.utt.lo02.jest.view.Terminal;
+import fr.utt.lo02.jest.view.terminal.TerminalView;
 
 /**
  * Joueur humain interagissant via la console.
@@ -13,7 +13,7 @@ import fr.utt.lo02.jest.view.Terminal;
  * </p>
  * 
  * @see Joueur
- * @see Terminal
+ * @see TerminalView
  * @author LO02 Project
  */
 public class JoueurHumain extends Joueur {
@@ -41,7 +41,7 @@ public class JoueurHumain extends Joueur {
             System.out.println(this.nom + " n'a pas assez de cartes pour faire une offre.");
             return;
         }
-        Terminal t = new Terminal();
+        TerminalView t = new TerminalView();
         t.afficherMessage("\n>> C'est à vous, " + this.nom + ".");
         if (!this.jest.isEmpty()) {
             t.afficherMessage("Votre Jest actuel : " + this.jest);
@@ -69,7 +69,7 @@ public class JoueurHumain extends Joueur {
      */
     @Override
     public Joueur choisirAdversaire(List<Joueur> joueurs) {
-        Terminal t = new Terminal();
+        TerminalView t = new TerminalView();
         ArrayList<Joueur> adversaires = new ArrayList<>();
         t.afficherMessage("\n>> " + this.nom + ", choisissez un adversaire :");
         if (!this.jest.isEmpty()) {
@@ -106,7 +106,7 @@ public class JoueurHumain extends Joueur {
      */
     @Override
     public Carte prendreCarteDansOffre(Joueur cible) {
-        Terminal t = new Terminal();
+        TerminalView t = new TerminalView();
         CarteOffre[] offreCible = cible.getOffre();
 
         t.afficherMessage("Offre de " + cible.getNom() + " :");

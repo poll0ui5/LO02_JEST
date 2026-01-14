@@ -1,15 +1,16 @@
-package fr.utt.lo02.jest.view.swing;
+package fr.utt.lo02.jest.controller.swing;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.Timer;
+import javax.swing.JOptionPane;
 import fr.utt.lo02.jest.model.*;
 import fr.utt.lo02.jest.strategy.*;
 import fr.utt.lo02.jest.variante.*;
 import fr.utt.lo02.jest.extension.*;
 import fr.utt.lo02.jest.sauvegarde.*;
 import fr.utt.lo02.jest.visitor.VisitorScore;
-import javax.swing.JOptionPane;
+import fr.utt.lo02.jest.view.swing.*;
 
 /**
  * Contrôleur pour l'interface Swing (Swing/WindowBuilder compatible).

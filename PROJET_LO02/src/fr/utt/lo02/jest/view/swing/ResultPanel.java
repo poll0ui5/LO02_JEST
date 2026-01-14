@@ -6,6 +6,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import fr.utt.lo02.jest.model.Joueur;
+import fr.utt.lo02.jest.controller.swing.SwingController;
 
 /**
  * Panel des résultats (Swing/WindowBuilder compatible).

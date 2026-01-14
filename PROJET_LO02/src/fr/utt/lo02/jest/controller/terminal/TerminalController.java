@@ -1,4 +1,4 @@
-package fr.utt.lo02.jest.controller;
+package fr.utt.lo02.jest.controller.terminal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import fr.utt.lo02.jest.strategy.*;
 import fr.utt.lo02.jest.variante.*;
 import fr.utt.lo02.jest.extension.*;
 import fr.utt.lo02.jest.sauvegarde.*;
-import fr.utt.lo02.jest.view.Terminal;
+import fr.utt.lo02.jest.view.terminal.TerminalView;
 import fr.utt.lo02.jest.visitor.VisitorScore;
 
 /**
@@ -28,11 +28,11 @@ import fr.utt.lo02.jest.visitor.VisitorScore;
  * @see Joueur
  * @author LO02 Project
  */
-public class Partie {
+public class TerminalController {
     private ArrayList<Joueur> joueurs = new ArrayList<>();
     private JeuCartes pioche = new JeuCartes();
     private ArrayList<Carte> trophees = new ArrayList<>();
-    private Terminal view = new Terminal();
+    private TerminalView view = new TerminalView();
     private boolean partieTerminee = false;
     private int numeroManche = 1;
     private Variante variante;
@@ -318,8 +318,8 @@ public class Partie {
     }
 
     public static void main(String[] args) {
-        Partie partie = new Partie();
-        Terminal view = new Terminal();
+        TerminalController partie = new TerminalController();
+        TerminalView view = new TerminalView();
         String[] saves = GestionnaireSauvegarde.listerSauvegardes();
 
         if (saves.length > 0) {

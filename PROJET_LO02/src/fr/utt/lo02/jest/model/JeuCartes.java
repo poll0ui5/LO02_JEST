@@ -2,14 +2,31 @@ package fr.utt.lo02.jest.model;
 import java.util.*;
 
 /**
- * Représente le paquet de cartes du jeu Jest.
+ * ╔══════════════════════════════════════════════════════════════════════════╗
+ * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
+ * ║                         Jeu de Cartes Stratégique                        ║
+ * ╚══════════════════════════════════════════════════════════════════════════╝
+ * 
+ * Gère la pioche de cartes et la distribution aux joueurs.
+ * 
  * <p>
- * Le jeu contient 17 cartes :
- * <ul>
- * <li>16 cartes de couleur : 4 couleurs × 4 valeurs (As, 2, 3, 4)</li>
- * <li>1 Joker (sans couleur)</li>
- * </ul>
+ * Ce projet implémente le jeu de cartes Jest avec une architecture MVC stricte,
+ * permettant deux modes de jeu : interface graphique (Swing) et terminal.
  * </p>
+ * 
+ * <p><b>Architecture MVC :</b></p>
+ * <ul>
+ *   <li><b>Model</b> : Logique métier (cartes, joueurs, stratégies, variantes)</li>
+ *   <li><b>View</b> : Interfaces utilisateur (Terminal, Swing)</li>
+ *   <li><b>Controller</b> : Coordination du flux de jeu</li>
+ * </ul>
+ * 
+ * @author Moss'Ab Mirande-Ney
+ * @author Paul-Louis Ledoux
+ * @version 2.0
+ * @since 2026-01-15
+ * 
+ * @see <a href="https://github.com/poll0ui5/LO02_JEST">GitHub Repository</a>
  */
 public class JeuCartes {
 	

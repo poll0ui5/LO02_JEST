@@ -6,17 +6,31 @@ import fr.utt.lo02.jest.model.Joueur;
 import java.util.List;
 
 /**
- * Variante "Double Mise" du jeu Jest.
+ * ╔══════════════════════════════════════════════════════════════════════════╗
+ * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
+ * ║                         Jeu de Cartes Stratégique                        ║
+ * ╚══════════════════════════════════════════════════════════════════════════╝
+ * 
+ * Mode avec bonus/malus doublés sur certaines cartes spécifiques.
+ * 
  * <p>
- * Règles modifiées :
- * <ul>
- * <li>3 trophées pour tous (plus de cartes en jeu comme bonus)</li>
- * <li>Bonus de fin : +3 points pour le joueur avec le plus de Piques</li>
- * <li>Malus de fin : -3 points pour le joueur avec le plus de Carreaux</li>
- * </ul>
+ * Ce projet implémente le jeu de cartes Jest avec une architecture MVC stricte,
+ * permettant deux modes de jeu : interface graphique (Swing) et terminal.
  * </p>
  * 
+ * <p><b>Architecture MVC :</b></p>
+ * <ul>
+ *   <li><b>Model</b> : Logique métier (cartes, joueurs, stratégies, variantes)</li>
+ *   <li><b>View</b> : Interfaces utilisateur (Terminal, Swing)</li>
+ *   <li><b>Controller</b> : Coordination du flux de jeu</li>
+ * </ul>
  * 
+ * @author Moss'Ab Mirande-Ney
+ * @author Paul-Louis Ledoux
+ * @version 2.0
+ * @since 2026-01-15
+ * 
+ * @see <a href="https://github.com/poll0ui5/LO02_JEST">GitHub Repository</a>
  */
 public class VarianteDoubleMise implements Variante {
 

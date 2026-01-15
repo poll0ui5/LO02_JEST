@@ -6,20 +6,31 @@ import java.util.List;
 import fr.utt.lo02.jest.model.Visitor;
 
 /**
+ * ╔══════════════════════════════════════════════════════════════════════════╗
+ * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
+ * ║                         Jeu de Cartes Stratégique                        ║
+ * ╚══════════════════════════════════════════════════════════════════════════╝
+ * 
  * Classe abstraite représentant un joueur (humain ou virtuel).
+ * 
  * <p>
- * Un joueur possède :
- * <ul>
- * <li>Une main de cartes (2 cartes reçues à chaque tour)</li>
- * <li>Un Jest (collection de cartes accumulées durant la partie)</li>
- * <li>Une offre (1 carte visible + 1 carte cachée)</li>
- * <li>Un score calculé en fin de partie</li>
- * </ul>
+ * Ce projet implémente le jeu de cartes Jest avec une architecture MVC stricte,
+ * permettant deux modes de jeu : interface graphique (Swing) et terminal.
  * </p>
  * 
- * @see JoueurHumain
- * @see JoueurVirtuel
- * @author LO02 Project
+ * <p><b>Architecture MVC :</b></p>
+ * <ul>
+ *   <li><b>Model</b> : Logique métier (cartes, joueurs, stratégies, variantes)</li>
+ *   <li><b>View</b> : Interfaces utilisateur (Terminal, Swing)</li>
+ *   <li><b>Controller</b> : Coordination du flux de jeu</li>
+ * </ul>
+ * 
+ * @author Moss'Ab Mirande-Ney
+ * @author Paul-Louis Ledoux
+ * @version 2.0
+ * @since 2026-01-15
+ * 
+ * @see <a href="https://github.com/poll0ui5/LO02_JEST">GitHub Repository</a>
  */
 public abstract class Joueur implements Serializable {
     private static final long serialVersionUID = 1L;

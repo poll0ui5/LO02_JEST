@@ -6,23 +6,31 @@ import java.util.Map;
 import fr.utt.lo02.jest.model.*;
 
 /**
- * Visiteur calculant le score d'un joueur selon les règles du Jest (pattern Visitor).
+ * ╔══════════════════════════════════════════════════════════════════════════╗
+ * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
+ * ║                         Jeu de Cartes Stratégique                        ║
+ * ╚══════════════════════════════════════════════════════════════════════════╝
+ * 
+ * Implémentation du calcul de score selon les règles du Jest.
+ * 
  * <p>
- * Règles de calcul :
- * <ul>
- * <li><b>Pique et Trèfle</b> : +valeur de la carte</li>
- * <li><b>Carreau</b> : -valeur de la carte</li>
- * <li><b>Cœur</b> : 0 points (sauf si Joker présent)</li>
- * <li><b>As seul</b> : 5 points au lieu de 1</li>
- * <li><b>Joker seul</b> (sans Cœur) : +4 points</li>
- * <li><b>Joker avec Cœurs</b> : inverse les Cœurs (+ au lieu de 0)</li>
- * <li><b>Paires noires</b> : +2 points par paire (Pique + Trèfle de même valeur)</li>
- * </ul>
+ * Ce projet implémente le jeu de cartes Jest avec une architecture MVC stricte,
+ * permettant deux modes de jeu : interface graphique (Swing) et terminal.
  * </p>
  * 
- * @see Visitor
- * @see Joueur
- * @author LO02 Project
+ * <p><b>Architecture MVC :</b></p>
+ * <ul>
+ *   <li><b>Model</b> : Logique métier (cartes, joueurs, stratégies, variantes)</li>
+ *   <li><b>View</b> : Interfaces utilisateur (Terminal, Swing)</li>
+ *   <li><b>Controller</b> : Coordination du flux de jeu</li>
+ * </ul>
+ * 
+ * @author Moss'Ab Mirande-Ney
+ * @author Paul-Louis Ledoux
+ * @version 2.0
+ * @since 2026-01-15
+ * 
+ * @see <a href="https://github.com/poll0ui5/LO02_JEST">GitHub Repository</a>
  */
 public class VisitorScore implements Visitor {
     private Map<String, Integer> scores = new HashMap<>();

@@ -4,17 +4,31 @@ import java.util.List;
 import fr.utt.lo02.jest.model.Strategie;
 
 /**
- * Joueur virtuel (Bot) utilisant le pattern Strategy pour déléguer ses décisions.
+ * ╔══════════════════════════════════════════════════════════════════════════╗
+ * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
+ * ║                         Jeu de Cartes Stratégique                        ║
+ * ╚══════════════════════════════════════════════════════════════════════════╝
+ * 
+ * Joueur contrôlé par une IA avec stratégie configurable (offensive/défensive).
+ * 
  * <p>
- * Ce joueur utilise une stratégie (offensive ou défensive) pour prendre
- * ses décisions automatiquement. La stratégie peut être changée dynamiquement.
+ * Ce projet implémente le jeu de cartes Jest avec une architecture MVC stricte,
+ * permettant deux modes de jeu : interface graphique (Swing) et terminal.
  * </p>
  * 
- * @see Joueur
- * @see Strategie
- * @see StrategieOffensive
- * @see StrategieDefensive
- * @author LO02 Project
+ * <p><b>Architecture MVC :</b></p>
+ * <ul>
+ *   <li><b>Model</b> : Logique métier (cartes, joueurs, stratégies, variantes)</li>
+ *   <li><b>View</b> : Interfaces utilisateur (Terminal, Swing)</li>
+ *   <li><b>Controller</b> : Coordination du flux de jeu</li>
+ * </ul>
+ * 
+ * @author Moss'Ab Mirande-Ney
+ * @author Paul-Louis Ledoux
+ * @version 2.0
+ * @since 2026-01-15
+ * 
+ * @see <a href="https://github.com/poll0ui5/LO02_JEST">GitHub Repository</a>
  */
 public class JoueurVirtuel extends Joueur {
     private static final long serialVersionUID = 1L;

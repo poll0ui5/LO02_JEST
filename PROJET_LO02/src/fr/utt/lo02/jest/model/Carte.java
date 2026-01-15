@@ -4,20 +4,31 @@ import java.io.Serializable;
 import fr.utt.lo02.jest.model.Visitor;
 
 /**
- * Représente une carte du jeu Jest avec valeur, couleur et visibilité.
+ * ╔══════════════════════════════════════════════════════════════════════════╗
+ * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
+ * ║                         Jeu de Cartes Stratégique                        ║
+ * ╚══════════════════════════════════════════════════════════════════════════╝
+ * 
+ * Représente une carte du jeu Jest avec sa couleur et sa valeur.
+ * 
  * <p>
- * Une carte possède :
- * <ul>
- * <li>Une valeur (1 à 4, ou Joker)</li>
- * <li>Une couleur (Pique, Trèfle, Carreau, Cœur)</li>
- * <li>Un état de visibilité (face visible ou cachée)</li>
- * </ul>
- * Les cartes peuvent être comparées selon leur valeur et couleur.
+ * Ce projet implémente le jeu de cartes Jest avec une architecture MVC stricte,
+ * permettant deux modes de jeu : interface graphique (Swing) et terminal.
  * </p>
  * 
- * @see Valeur
- * @see Couleur
- * @author LO02 Project
+ * <p><b>Architecture MVC :</b></p>
+ * <ul>
+ *   <li><b>Model</b> : Logique métier (cartes, joueurs, stratégies, variantes)</li>
+ *   <li><b>View</b> : Interfaces utilisateur (Terminal, Swing)</li>
+ *   <li><b>Controller</b> : Coordination du flux de jeu</li>
+ * </ul>
+ * 
+ * @author Moss'Ab Mirande-Ney
+ * @author Paul-Louis Ledoux
+ * @version 2.0
+ * @since 2026-01-15
+ * 
+ * @see <a href="https://github.com/poll0ui5/LO02_JEST">GitHub Repository</a>
  */
 public class Carte implements Serializable {
     private static final long serialVersionUID = 1L;

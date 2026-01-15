@@ -8,20 +8,31 @@ import fr.utt.lo02.jest.model.Joueur;
 import fr.utt.lo02.jest.model.JoueurVirtuel;
 
 /**
- * Stratégie offensive pour les joueurs virtuels.
+ * ╔══════════════════════════════════════════════════════════════════════════╗
+ * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
+ * ║                         Jeu de Cartes Stratégique                        ║
+ * ╚══════════════════════════════════════════════════════════════════════════╝
+ * 
+ * Stratégie agressive privilégiant les cartes de haute valeur et les Jest adverses.
+ * 
  * <p>
- * Comportements :
- * <ul>
- * <li><b>Offre</b> : Montre sa meilleure carte pour jouer en premier</li>
- * <li><b>Cible</b> : Attaque le joueur avec la meilleure offre visible</li>
- * <li><b>Prise</b> : Prend la carte visible si elle est forte (≥3), sinon tente la cachée</li>
- * </ul>
- * Cette stratégie privilégie l'agressivité et le contrôle du jeu.
+ * Ce projet implémente le jeu de cartes Jest avec une architecture MVC stricte,
+ * permettant deux modes de jeu : interface graphique (Swing) et terminal.
  * </p>
  * 
- * @see Strategie
- * @see StrategieDefensive
- * @author LO02 Project
+ * <p><b>Architecture MVC :</b></p>
+ * <ul>
+ *   <li><b>Model</b> : Logique métier (cartes, joueurs, stratégies, variantes)</li>
+ *   <li><b>View</b> : Interfaces utilisateur (Terminal, Swing)</li>
+ *   <li><b>Controller</b> : Coordination du flux de jeu</li>
+ * </ul>
+ * 
+ * @author Moss'Ab Mirande-Ney
+ * @author Paul-Louis Ledoux
+ * @version 2.0
+ * @since 2026-01-15
+ * 
+ * @see <a href="https://github.com/poll0ui5/LO02_JEST">GitHub Repository</a>
  */
 public class StrategieOffensive implements Strategie {
 

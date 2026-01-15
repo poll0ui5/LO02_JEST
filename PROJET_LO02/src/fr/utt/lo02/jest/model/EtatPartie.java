@@ -8,13 +8,31 @@ import fr.utt.lo02.jest.model.Carte;
 import fr.utt.lo02.jest.model.Joueur;
 
 /**
- * Classe encapsulant l'état complet d'une partie pour la sauvegarde.
+ * ╔══════════════════════════════════════════════════════════════════════════╗
+ * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
+ * ║                         Jeu de Cartes Stratégique                        ║
+ * ╚══════════════════════════════════════════════════════════════════════════╝
+ * 
+ * Représente l'état complet d'une partie pour la sauvegarde/chargement.
+ * 
  * <p>
- * Contient toutes les informations nécessaires pour reprendre une partie :
- * joueurs, pioche, trophées, numéro de manche, variante choisie.
+ * Ce projet implémente le jeu de cartes Jest avec une architecture MVC stricte,
+ * permettant deux modes de jeu : interface graphique (Swing) et terminal.
  * </p>
  * 
+ * <p><b>Architecture MVC :</b></p>
+ * <ul>
+ *   <li><b>Model</b> : Logique métier (cartes, joueurs, stratégies, variantes)</li>
+ *   <li><b>View</b> : Interfaces utilisateur (Terminal, Swing)</li>
+ *   <li><b>Controller</b> : Coordination du flux de jeu</li>
+ * </ul>
  * 
+ * @author Moss'Ab Mirande-Ney
+ * @author Paul-Louis Ledoux
+ * @version 2.0
+ * @since 2026-01-15
+ * 
+ * @see <a href="https://github.com/poll0ui5/LO02_JEST">GitHub Repository</a>
  */
 public class EtatPartie implements Serializable {
     

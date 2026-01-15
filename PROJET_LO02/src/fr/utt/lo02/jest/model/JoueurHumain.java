@@ -5,16 +5,31 @@ import java.util.List;
 import fr.utt.lo02.jest.view.terminal.TerminalView;
 
 /**
- * Joueur humain interagissant via la console.
+ * ╔══════════════════════════════════════════════════════════════════════════╗
+ * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
+ * ║                         Jeu de Cartes Stratégique                        ║
+ * ╚══════════════════════════════════════════════════════════════════════════╝
+ * 
+ * Joueur contrôlé par un humain via saisie clavier ou interface graphique.
+ * 
  * <p>
- * Ce joueur prend ses décisions via des entrées utilisateur dans le terminal.
- * Toutes les actions (faire une offre, choisir un adversaire, prendre une carte)
- * sont effectuées de manière interactive.
+ * Ce projet implémente le jeu de cartes Jest avec une architecture MVC stricte,
+ * permettant deux modes de jeu : interface graphique (Swing) et terminal.
  * </p>
  * 
- * @see Joueur
- * @see TerminalView
- * @author LO02 Project
+ * <p><b>Architecture MVC :</b></p>
+ * <ul>
+ *   <li><b>Model</b> : Logique métier (cartes, joueurs, stratégies, variantes)</li>
+ *   <li><b>View</b> : Interfaces utilisateur (Terminal, Swing)</li>
+ *   <li><b>Controller</b> : Coordination du flux de jeu</li>
+ * </ul>
+ * 
+ * @author Moss'Ab Mirande-Ney
+ * @author Paul-Louis Ledoux
+ * @version 2.0
+ * @since 2026-01-15
+ * 
+ * @see <a href="https://github.com/poll0ui5/LO02_JEST">GitHub Repository</a>
  */
 public class JoueurHumain extends Joueur {
     private static final long serialVersionUID = 1L;

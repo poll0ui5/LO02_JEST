@@ -7,17 +7,31 @@ import fr.utt.lo02.jest.model.CarteOffre;
 import fr.utt.lo02.jest.model.Joueur;
 
 /**
- * Vue en ligne de commande (Console).
- * <p>
- * Cette classe gère toutes les interactions avec l'utilisateur :
- * <ul>
- * <li>Affichage des messages, des cartes et des scores.</li>
- * <li>Lecture des saisies clavier (nombre de joueurs, choix de cartes, etc.).</li>
- * </ul>
- * Elle ne contient aucune logique de jeu, seulement de l'affichage et de la saisie.
- * </p>
- * * 
+ * ╔══════════════════════════════════════════════════════════════════════════╗
+ * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
+ * ║                         Jeu de Cartes Stratégique                        ║
+ * ╚══════════════════════════════════════════════════════════════════════════╝
  * 
+ * Vue en ligne de commande pour l'affichage et la saisie utilisateur.
+ * 
+ * <p>
+ * Ce projet implémente le jeu de cartes Jest avec une architecture MVC stricte,
+ * permettant deux modes de jeu : interface graphique (Swing) et terminal.
+ * </p>
+ * 
+ * <p><b>Architecture MVC :</b></p>
+ * <ul>
+ *   <li><b>Model</b> : Logique métier (cartes, joueurs, stratégies, variantes)</li>
+ *   <li><b>View</b> : Interfaces utilisateur (Terminal, Swing)</li>
+ *   <li><b>Controller</b> : Coordination du flux de jeu</li>
+ * </ul>
+ * 
+ * @author Moss'Ab Mirande-Ney
+ * @author Paul-Louis Ledoux
+ * @version 2.0
+ * @since 2026-01-15
+ * 
+ * @see <a href="https://github.com/poll0ui5/LO02_JEST">GitHub Repository</a>
  */
 public class TerminalView {
 

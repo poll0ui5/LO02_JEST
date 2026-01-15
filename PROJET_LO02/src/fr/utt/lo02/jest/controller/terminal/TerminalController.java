@@ -11,22 +11,31 @@ import fr.utt.lo02.jest.view.terminal.TerminalView;
 import fr.utt.lo02.jest.model.VisitorScore;
 
 /**
- * Contrôleur principal du jeu Jest (pattern MVC).
+ * ╔══════════════════════════════════════════════════════════════════════════╗
+ * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
+ * ║                         Jeu de Cartes Stratégique                        ║
+ * ╚══════════════════════════════════════════════════════════════════════════╝
+ * 
+ * Contrôleur gérant le flux du jeu en mode terminal (pattern MVC).
+ * 
  * <p>
- * Cette classe gère l'ensemble du déroulement d'une partie de Jest :
- * <ul>
- * <li>Configuration initiale (choix de la variante, extension, joueurs)</li>
- * <li>Distribution des cartes et des trophées</li>
- * <li>Gestion des tours de jeu (offres et prises de cartes)</li>
- * <li>Calcul des scores et attribution des trophées</li>
- * <li>Sauvegarde et chargement de parties</li>
- * </ul>
+ * Ce projet implémente le jeu de cartes Jest avec une architecture MVC stricte,
+ * permettant deux modes de jeu : interface graphique (Swing) et terminal.
  * </p>
  * 
- * @see Variante
- * @see Extension
- * @see Joueur
- * @author LO02 Project
+ * <p><b>Architecture MVC :</b></p>
+ * <ul>
+ *   <li><b>Model</b> : Logique métier (cartes, joueurs, stratégies, variantes)</li>
+ *   <li><b>View</b> : Interfaces utilisateur (Terminal, Swing)</li>
+ *   <li><b>Controller</b> : Coordination du flux de jeu</li>
+ * </ul>
+ * 
+ * @author Moss'Ab Mirande-Ney
+ * @author Paul-Louis Ledoux
+ * @version 2.0
+ * @since 2026-01-15
+ * 
+ * @see <a href="https://github.com/poll0ui5/LO02_JEST">GitHub Repository</a>
  */
 public class TerminalController {
     private ArrayList<Joueur> joueurs = new ArrayList<>();

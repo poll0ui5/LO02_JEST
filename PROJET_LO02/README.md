@@ -1,43 +1,66 @@
-# JEST
+# 🎮 JEST - Jeu de Cartes
 
-Jeu de cartes en Java (Swing).
+Projet LO02 - Jeu de cartes Jest en Java avec architecture MVC stricte.
 
-## Lancer
+## 📂 Structure du Projet
+
+```
+PROJET_LO02/
+├── src/              # Code source
+│   ├── model/        # Logique métier
+│   ├── view/         # Interfaces (Terminal + Swing)
+│   └── controller/   # Contrôleurs
+├── bin/              # Fichiers compilés
+└── sauvegardes/      # Parties sauvegardées (.jest)
+```
+
+## 🚀 Lancer le Jeu
+
+### 1️⃣ Compiler le projet
 
 ```bash
 cd PROJET_LO02
+javac -d bin -sourcepath src src/fr/utt/lo02/jest/view/swing/MainFrame.java
 ```
 
-### Compiler
-```bash
-javac -d classes -sourcepath src src/fr/utt/lo02/jest/view/swing/MainFrame.java
-```
-
-### Copier les ressources (images)
+### 2️⃣ Copier les ressources (images)
 
 **macOS / Linux :**
 ```bash
-mkdir -p classes/resources/images
-cp -r src/resources/images/* classes/resources/images/
+mkdir -p bin/resources/images
+cp -r src/resources/images/* bin/resources/images/
 ```
 
 **Windows (PowerShell) :**
 ```powershell
-New-Item -ItemType Directory -Force -Path classes\resources\images | Out-Null
-Copy-Item -Recurse -Force src\resources\images\* classes\resources\images\
+New-Item -ItemType Directory -Force -Path bin\resources\images | Out-Null
+Copy-Item -Recurse -Force src\resources\images\* bin\resources\images\
 ```
 
-### Interface graphique (WindowBuilder)
+### 3️⃣ Lancer l'interface graphique (Swing)
+
 ```bash
-java -cp classes fr.utt.lo02.jest.view.swing.MainFrame
+java -cp bin fr.utt.lo02.jest.view.swing.MainFrame
 ```
 
-### Terminal
+### 4️⃣ Lancer l'interface terminal
+
 ```bash
-javac -d classes -sourcepath src src/fr/utt/lo02/jest/controller/Partie.java
-java -cp classes fr.utt.lo02.jest.controller.Partie
+javac -d bin -sourcepath src src/fr/utt/lo02/jest/controller/terminal/TerminalController.java
+java -cp bin fr.utt.lo02.jest.controller.terminal.TerminalController
 ```
 
-## Règles
+## 📖 Règles du Jeu
 
 Chaque joueur pose 2 cartes (1 visible, 1 cachée). Les joueurs prennent ensuite les cartes des autres pour marquer des points.
+
+**Voir `REGLES_DU_JEU.txt` pour les règles complètes.**
+
+## 🏗️ Architecture
+
+Architecture MVC stricte avec 3 dossiers principaux :
+- **model/** : Toute la logique métier (cartes, joueurs, stratégies, variantes, etc.)
+- **view/** : Toutes les interfaces (Terminal + Swing)
+- **controller/** : Tous les contrôleurs (TerminalController + SwingController)
+
+**Voir `ARCHITECTURE.md` pour plus de détails.**

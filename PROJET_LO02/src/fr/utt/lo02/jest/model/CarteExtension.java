@@ -1,4 +1,4 @@
-package fr.utt.lo02.jest.extension;
+package fr.utt.lo02.jest.model;
 
 import fr.utt.lo02.jest.model.Carte;
 import fr.utt.lo02.jest.model.Valeur;

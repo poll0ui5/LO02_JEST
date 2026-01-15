@@ -1,4 +1,4 @@
-package fr.utt.lo02.jest.visitor;
+package fr.utt.lo02.jest.model;
 
 import java.util.HashMap;
 import java.util.List;

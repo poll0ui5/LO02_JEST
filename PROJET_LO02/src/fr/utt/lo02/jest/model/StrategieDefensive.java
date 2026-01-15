@@ -1,4 +1,4 @@
-package fr.utt.lo02.jest.strategy;
+package fr.utt.lo02.jest.model;
 
 import java.util.ArrayList;
 import java.util.List;

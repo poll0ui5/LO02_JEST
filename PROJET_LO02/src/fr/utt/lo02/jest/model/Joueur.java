@@ -3,7 +3,7 @@ package fr.utt.lo02.jest.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import fr.utt.lo02.jest.visitor.Visitor;
+import fr.utt.lo02.jest.model.Visitor;
 
 /**
  * Classe abstraite représentant un joueur (humain ou virtuel).

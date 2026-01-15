@@ -444,8 +444,8 @@ public class GamePanel extends JPanel {
 		if (carte.estJoker()) return "JOKER";
 		
 		// Vérifier si c'est une carte d'extension
-		if (carte instanceof fr.utt.lo02.jest.extension.CarteExtension) {
-			fr.utt.lo02.jest.extension.CarteExtension carteExt = (fr.utt.lo02.jest.extension.CarteExtension) carte;
+		if (carte instanceof CarteExtension) {
+			CarteExtension carteExt = (CarteExtension) carte;
 			if ("As Doré".equals(carteExt.getNomSpecial())) {
 				return "SPADES_ACE_GOLDEN";
 			} else if ("Cœur Maudit".equals(carteExt.getNomSpecial())) {

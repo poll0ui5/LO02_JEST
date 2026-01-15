@@ -1,102 +1,92 @@
-# 🏗️ ARCHITECTURE DU PROJET JEST
+# 🏗️ ARCHITECTURE MVC STRICTE - PROJET JEST
 
 ## 📐 Pattern MVC (Model-View-Controller)
 
-Ce projet respecte strictement l'architecture **MVC** avec une séparation claire entre les modes **Terminal** et **Swing**.
+Ce projet respecte **strictement** l'architecture **MVC** avec seulement **3 dossiers principaux**.
 
 ---
 
-## 📂 STRUCTURE DES DOSSIERS
+## 📂 STRUCTURE ULTRA-SIMPLE
 
 ```
 src/fr/utt/lo02/jest/
 │
-├── 🎮 controller/              # CONTRÔLEURS (Logique de jeu)
+├── 📦 model/           # TOUT LE MODÈLE
+│   ├── Carte.java
+│   ├── CarteOffre.java
+│   ├── CarteExtension.java
+│   ├── Couleur.java
+│   ├── Valeur.java
+│   ├── JeuCartes.java
+│   ├── Joueur.java
+│   ├── JoueurHumain.java
+│   ├── JoueurVirtuel.java
+│   ├── Trophee.java
+│   ├── Strategie.java
+│   ├── StrategieOffensive.java
+│   ├── StrategieDefensive.java
+│   ├── Variante.java
+│   ├── VarianteClassique.java
+│   ├── VarianteSansTrophee.java
+│   ├── VarianteDoubleMise.java
+│   ├── Extension.java
+│   ├── ExtensionCartesSpeciales.java
+│   ├── Visitor.java
+│   ├── VisitorScore.java
+│   ├── EtatPartie.java
+│   └── GestionnaireSauvegarde.java
+│
+├── 👁️ view/            # TOUTES LES VUES
 │   ├── terminal/
-│   │   └── TerminalController.java    # Contrôleur pour le mode console
+│   │   └── TerminalView.java
 │   └── swing/
-│       └── SwingController.java       # Contrôleur pour l'interface graphique
+│       ├── MainFrame.java
+│       ├── MenuPanel.java
+│       ├── GamePanel.java
+│       └── ResultPanel.java
 │
-├── 👁️ view/                    # VUES (Interface utilisateur)
-│   ├── terminal/
-│   │   └── TerminalView.java          # Vue console (affichage + saisie)
-│   └── swing/
-│       ├── MainFrame.java             # Fenêtre principale
-│       ├── MenuPanel.java             # Panel du menu
-│       ├── GamePanel.java             # Panel de jeu
-│       └── ResultPanel.java           # Panel des résultats
-│
-├── 📦 model/                   # MODÈLE (Données et logique métier)
-│   ├── Carte.java                     # Classe de base des cartes
-│   ├── CarteOffre.java                # Carte avec visibilité
-│   ├── Couleur.java                   # Enum des couleurs
-│   ├── Valeur.java                    # Enum des valeurs
-│   ├── JeuCartes.java                 # Pioche de cartes
-│   ├── Joueur.java                    # Classe abstraite joueur
-│   ├── JoueurHumain.java              # Joueur humain
-│   ├── JoueurVirtuel.java             # Bot IA
-│   └── Trophee.java                   # Gestion des trophées
-│
-├── 🧠 strategy/                # PATTERN STRATEGY (IA des bots)
-│   ├── Strategie.java                 # Interface
-│   ├── StrategieOffensive.java        # Stratégie agressive
-│   └── StrategieDefensive.java        # Stratégie prudente
-│
-├── 🎲 variante/                # PATTERN FACTORY (Modes de jeu)
-│   ├── Variante.java                  # Interface
-│   ├── VarianteClassique.java         # Mode classique
-│   ├── VarianteSansTrophee.java       # Mode sans trophées
-│   └── VarianteDoubleMise.java        # Mode avec bonus/malus
-│
-├── ✨ extension/               # PATTERN FACTORY (Extensions)
-│   ├── Extension.java                 # Interface
-│   ├── ExtensionCartesSpeciales.java  # Cartes spéciales
-│   └── CarteExtension.java            # Carte avec effet spécial
-│
-├── 🧮 visitor/                 # PATTERN VISITOR (Calcul des scores)
-│   ├── Visitor.java                   # Interface
-│   └── VisitorScore.java              # Calcul des scores
-│
-├── 💾 sauvegarde/              # SÉRIALISATION JAVA
-│   ├── EtatPartie.java                # État complet du jeu
-│   └── GestionnaireSauvegarde.java    # Gestion fichiers .jest
-│
-└── 🧪 test/                    # TESTS
-    └── TestJest.java                  # Tests unitaires
+└── 🎮 controller/      # TOUS LES CONTRÔLEURS
+    ├── terminal/
+    │   └── TerminalController.java
+    └── swing/
+        └── SwingController.java
 ```
+
+---
+
+## 🎯 RÉPARTITION DES RESPONSABILITÉS
+
+### **📦 MODEL (Modèle)**
+Contient **TOUTE** la logique métier et les données :
+- **Cartes** : `Carte`, `CarteOffre`, `CarteExtension`, `Couleur`, `Valeur`
+- **Joueurs** : `Joueur`, `JoueurHumain`, `JoueurVirtuel`
+- **Jeu** : `JeuCartes`, `Trophee`
+- **Stratégies IA** : `Strategie`, `StrategieOffensive`, `StrategieDefensive`
+- **Variantes** : `Variante`, `VarianteClassique`, `VarianteSansTrophee`, `VarianteDoubleMise`
+- **Extensions** : `Extension`, `ExtensionCartesSpeciales`
+- **Calcul scores** : `Visitor`, `VisitorScore`
+- **Sauvegarde** : `EtatPartie`, `GestionnaireSauvegarde`
+
+### **👁️ VIEW (Vue)**
+Contient **TOUTES** les interfaces utilisateur :
+- **Terminal** : `TerminalView` (affichage console + saisie clavier)
+- **Swing** : `MainFrame`, `MenuPanel`, `GamePanel`, `ResultPanel`
+
+### **🎮 CONTROLLER (Contrôleur)**
+Contient **TOUTE** la logique de coordination :
+- **Terminal** : `TerminalController` (gère le flux du jeu en mode console)
+- **Swing** : `SwingController` (gère le flux du jeu en mode graphique)
 
 ---
 
 ## 🔄 FLUX DE DONNÉES
 
-### **Mode Terminal**
-
-```
-TerminalController (controller/terminal/)
-    ↓ utilise
-TerminalView (view/terminal/)
-    ↓ affiche/lit
-Console (System.in/out)
-```
-
-### **Mode Swing**
-
-```
-SwingController (controller/swing/)
-    ↓ utilise
-MainFrame → MenuPanel/GamePanel/ResultPanel (view/swing/)
-    ↓ affiche
-Interface Graphique (Swing)
-```
-
-### **Modèle (partagé par les 2 modes)**
-
 ```
 Controller (Terminal ou Swing)
     ↓ manipule
-Model (Joueur, Carte, JeuCartes, etc.)
-    ↓ utilise
-Strategy, Variante, Extension, Visitor
+Model (Carte, Joueur, Strategie, Variante, etc.)
+    ↓ affiche via
+View (TerminalView ou Swing)
 ```
 
 ---
@@ -104,28 +94,26 @@ Strategy, Variante, Extension, Visitor
 ## 🎯 DESIGN PATTERNS UTILISÉS
 
 ### **1. MVC (Model-View-Controller)**
-- **Model** : Classes métier (`Carte`, `Joueur`, `JeuCartes`)
-- **View** : Interfaces utilisateur (Terminal, Swing)
-- **Controller** : Logique de jeu (`TerminalController`, `SwingController`)
+- **Séparation stricte** en 3 couches
+- **Model** indépendant de l'interface
+- **View** ne contient aucune logique métier
+- **Controller** coordonne Model et View
 
 ### **2. Strategy Pattern**
-- **Interface** : `Strategie`
-- **Implémentations** : `StrategieOffensive`, `StrategieDefensive`
-- **Usage** : IA des bots
+- **Fichiers** : `Strategie.java`, `StrategieOffensive.java`, `StrategieDefensive.java`
+- **Usage** : IA des bots (changement de comportement dynamique)
 
 ### **3. Visitor Pattern**
-- **Interface** : `Visitor`
-- **Implémentation** : `VisitorScore`
+- **Fichiers** : `Visitor.java`, `VisitorScore.java`
 - **Usage** : Calcul des scores selon les règles
 
 ### **4. Factory Pattern**
-- **Interfaces** : `Variante`, `Extension`
+- **Fichiers** : `Variante.java`, `Extension.java`
 - **Usage** : Création dynamique des modes de jeu et extensions
 
 ### **5. Template Method**
-- **Classe abstraite** : `Joueur`
-- **Méthodes abstraites** : `faireOffre()`, `choisirAdversaire()`, `prendreCarteDansOffre()`
-- **Implémentations** : `JoueurHumain`, `JoueurVirtuel`
+- **Fichier** : `Joueur.java` (classe abstraite)
+- **Usage** : Définit le squelette des méthodes communes aux joueurs
 
 ---
 
@@ -143,57 +131,37 @@ java fr.utt.lo02.jest.view.swing.MainFrame
 
 ---
 
+## ✅ AVANTAGES DE CETTE ARCHITECTURE
+
+1. **Ultra-simple** : Seulement 3 dossiers principaux
+2. **Clair** : Chaque fichier a sa place évidente
+3. **MVC pur** : Séparation stricte des responsabilités
+4. **Maintenable** : Facile de trouver et modifier du code
+5. **Extensible** : Facile d'ajouter de nouvelles fonctionnalités
+
+---
+
 ## 📝 CONVENTIONS DE NOMMAGE
 
-- **Packages** : `lowercase` (ex: `controller`, `view`, `model`)
+- **Packages** : `model`, `view`, `controller` (3 dossiers seulement)
 - **Classes** : `PascalCase` (ex: `TerminalController`, `SwingController`)
 - **Méthodes** : `camelCase` (ex: `faireOffre()`, `choisirAdversaire()`)
 - **Constantes** : `UPPER_SNAKE_CASE` (ex: `serialVersionUID`)
 
 ---
 
-## 🔧 DÉPENDANCES
-
-- **Java** : JDK 8+
-- **Swing** : Inclus dans le JDK (javax.swing)
-- **Aucune dépendance externe** : Projet 100% Java standard
-
----
-
-## 📊 SÉPARATION DES RESPONSABILITÉS
-
-### **Controller**
-- Gère le flux du jeu (tours, manches, fin de partie)
-- Coordonne Model et View
-- Gère la sauvegarde/chargement
-
-### **View**
-- **Terminal** : Affichage console + lecture clavier
-- **Swing** : Interface graphique + gestion événements
-
-### **Model**
-- Données du jeu (cartes, joueurs, scores)
-- Logique métier (règles, calculs)
-- Indépendant de l'interface
-
----
-
-## ✅ AVANTAGES DE CETTE ARCHITECTURE
-
-1. **Séparation claire** : Terminal et Swing sont isolés
-2. **Réutilisabilité** : Le Model est partagé par les 2 interfaces
-3. **Maintenabilité** : Facile de modifier une interface sans toucher l'autre
-4. **Extensibilité** : Facile d'ajouter une nouvelle interface (ex: Web)
-5. **Testabilité** : Chaque couche peut être testée indépendamment
-
----
-
 ## 🎓 POUR LA SOUTENANCE
 
-**Question** : "Pourquoi avoir séparé Terminal et Swing dans des packages différents ?"
+**Question** : "Expliquez votre architecture MVC"
 
-**Réponse** : "Pour respecter le principe de **Single Responsibility** et faciliter la maintenance. Chaque mode a son propre contrôleur et sa propre vue, mais ils partagent le même modèle. Cela permet de modifier l'interface Terminal sans risquer de casser l'interface Swing, et vice-versa. De plus, si on voulait ajouter une interface Web, on créerait simplement `controller/web/` et `view/web/` sans toucher au code existant."
+**Réponse** : "J'ai implémenté une architecture MVC **stricte** avec seulement **3 dossiers** :
+- **model/** : Contient TOUTE la logique métier (cartes, joueurs, stratégies, variantes, calcul scores, sauvegarde)
+- **view/** : Contient TOUTES les interfaces (Terminal et Swing)
+- **controller/** : Contient TOUS les contrôleurs (TerminalController et SwingController)
+
+Cette structure est **ultra-simple** et respecte parfaitement le principe de **séparation des responsabilités**. Chaque couche est indépendante : je peux changer l'interface sans toucher au modèle, et vice-versa."
 
 ---
 
-**Architecture mise à jour le** : 14 janvier 2026
+**Architecture mise à jour le** : 15 janvier 2026
+**Structure** : MVC strict (3 dossiers uniquement)

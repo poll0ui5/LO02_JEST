@@ -1,36 +1,36 @@
-package fr.utt.lo02.jest.variante;
+package fr.utt.lo02.jest.model;
 
 import fr.utt.lo02.jest.model.Joueur;
 import java.util.List;
 
 /**
- * Variante "Sans Trophée" du jeu Jest.
+ * Variante classique du jeu Jest (règles de base).
  * <p>
- * Règles modifiées :
+ * Règles standard :
  * <ul>
- * <li>Aucun trophée n'est distribué</li>
- * <li>Toutes les cartes sont jouées</li>
- * <li>Le score dépend uniquement des cartes collectées</li>
+ * <li>2 trophées pour 3 joueurs, 1 trophée pour 4 joueurs</li>
+ * <li>2 cartes distribuées par tour</li>
+ * <li>Offres simultanées</li>
  * </ul>
  * </p>
  * 
  * 
  */
-public class VarianteSansTrophee implements Variante {
+public class VarianteClassique implements Variante {
 
     @Override
     public String getNom() {
-        return "Sans Trophée";
+        return "Classique";
     }
 
     @Override
     public String getDescription() {
-        return "Aucun trophée. Toutes les 17 cartes sont jouées. Score basé uniquement sur les cartes.";
+        return "Règles de base du Jest. 2 trophées (3 joueurs) ou 1 trophée (4 joueurs).";
     }
 
     @Override
     public int getNombreTrophees(int nbJoueurs) {
-        return 0; // Pas de trophées
+        return (nbJoueurs == 4) ? 1 : 2;
     }
 
     @Override
@@ -45,6 +45,6 @@ public class VarianteSansTrophee implements Variante {
 
     @Override
     public void appliquerReglesFinales(List<Joueur> joueurs) {
-        // Pas de règles spéciales
+        // Pas de règles spéciales en variante classique
     }
 }

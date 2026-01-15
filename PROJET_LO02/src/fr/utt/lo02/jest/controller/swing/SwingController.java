@@ -5,11 +5,11 @@ import java.util.List;
 import javax.swing.Timer;
 import javax.swing.JOptionPane;
 import fr.utt.lo02.jest.model.*;
-import fr.utt.lo02.jest.strategy.*;
-import fr.utt.lo02.jest.variante.*;
-import fr.utt.lo02.jest.extension.*;
-import fr.utt.lo02.jest.sauvegarde.*;
-import fr.utt.lo02.jest.visitor.VisitorScore;
+import fr.utt.lo02.jest.model.*;
+import fr.utt.lo02.jest.model.*;
+import fr.utt.lo02.jest.model.*;
+import fr.utt.lo02.jest.model.*;
+import fr.utt.lo02.jest.model.VisitorScore;
 import fr.utt.lo02.jest.view.swing.*;
 
 /**

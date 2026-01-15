@@ -1,4 +1,4 @@
-package fr.utt.lo02.jest.sauvegarde;
+package fr.utt.lo02.jest.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;

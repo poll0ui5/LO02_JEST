@@ -1,6 +1,6 @@
 package fr.utt.lo02.jest.model;
 
-import fr.utt.lo02.jest.visitor.Visitor;
+import fr.utt.lo02.jest.model.Visitor;
 
 /**
  * Classe représentant un trophée dans le jeu Jest

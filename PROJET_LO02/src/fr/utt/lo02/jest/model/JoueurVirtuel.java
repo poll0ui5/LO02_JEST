@@ -1,7 +1,7 @@
 package fr.utt.lo02.jest.model;
 
 import java.util.List;
-import fr.utt.lo02.jest.strategy.Strategie;
+import fr.utt.lo02.jest.model.Strategie;
 
 /**
  * Joueur virtuel (Bot) utilisant le pattern Strategy pour déléguer ses décisions.

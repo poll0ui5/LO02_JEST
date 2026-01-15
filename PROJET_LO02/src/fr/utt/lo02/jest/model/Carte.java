@@ -1,7 +1,7 @@
 package fr.utt.lo02.jest.model;
 
 import java.io.Serializable;
-import fr.utt.lo02.jest.visitor.Visitor;
+import fr.utt.lo02.jest.model.Visitor;
 
 /**
  * Représente une carte du jeu Jest avec valeur, couleur et visibilité.

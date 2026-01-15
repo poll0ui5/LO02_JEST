@@ -3,12 +3,12 @@ package fr.utt.lo02.jest.controller.terminal;
 import java.util.ArrayList;
 import java.util.List;
 import fr.utt.lo02.jest.model.*;
-import fr.utt.lo02.jest.strategy.*;
-import fr.utt.lo02.jest.variante.*;
-import fr.utt.lo02.jest.extension.*;
-import fr.utt.lo02.jest.sauvegarde.*;
+import fr.utt.lo02.jest.model.*;
+import fr.utt.lo02.jest.model.*;
+import fr.utt.lo02.jest.model.*;
+import fr.utt.lo02.jest.model.*;
 import fr.utt.lo02.jest.view.terminal.TerminalView;
-import fr.utt.lo02.jest.visitor.VisitorScore;
+import fr.utt.lo02.jest.model.VisitorScore;
 
 /**
  * Contrôleur principal du jeu Jest (pattern MVC).

@@ -5,11 +5,6 @@ import fr.utt.lo02.jest.model.Valeur;
 import fr.utt.lo02.jest.model.Couleur;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Carte spéciale avec effets bonus (As Doré, Cœur Maudit).
  * 
  * <p>
@@ -33,11 +28,22 @@ import fr.utt.lo02.jest.model.Couleur;
  */
 public class CarteExtension extends Carte {
     
+    /** Le nom spécial/convivial de la carte (ex: "As Doré") */
     private String nomSpecial;
+    
+    /** Description de l'effet spécial appliqué par cette carte */
     private String effetDescription;
     
     /**
      * Constructeur d'une carte d'extension.
+     * <p>
+     * Crée une carte avec valeur, couleur et des attributs spéciaux.
+     * </p>
+     * 
+     * @param valeur La valeur de la carte
+     * @param couleur La couleur de la carte
+     * @param nomSpecial Le nom convivial de cette carte spéciale
+     * @param effetDescription La description de son effet spécial
      */
     public CarteExtension(Valeur valeur, Couleur couleur, String nomSpecial, String effetDescription) {
         super(valeur, couleur);
@@ -45,21 +51,41 @@ public class CarteExtension extends Carte {
         this.effetDescription = effetDescription;
     }
     
+    /**
+     * Retourne le nom spécial de la carte.
+     * 
+     * @return Le nom convivial (ex: "As Doré")
+     */
     public String getNomSpecial() {
         return nomSpecial;
     }
     
+    /**
+     * Retourne la description de l'effet spécial.
+     * 
+     * @return La description textuelle de l'effet
+     */
     public String getEffetDescription() {
         return effetDescription;
     }
     
     /**
      * Vérifie si cette carte est une carte d'extension.
+     * <p>
+     * Utile pour différencier les cartes standard des cartes avec effets.
+     * </p>
+     * 
+     * @return true (toujours true pour une CarteExtension)
      */
     public boolean estCarteExtension() {
         return true;
     }
     
+    /**
+     * Retourne une représentation textuelle avec le nom spécial.
+     * 
+     * @return String contenant le nom spécial et les informations de base
+     */
     @Override
     public String toString() {
         return nomSpecial + " (" + super.toString() + ")";

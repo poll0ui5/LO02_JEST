@@ -7,11 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Extension ajoutant des cartes avec effets spéciaux (As Doré +2, Cœur Maudit -3).
  * 
  * <p>
@@ -35,15 +30,30 @@ import java.util.List;
  */
 public class ExtensionCartesSpeciales implements Extension {
     
+    /** État d'activation de l'extension */
     private boolean active;
+    
+    /** Liste des cartes spéciales ajoutées par cette extension */
     private List<Carte> cartes;
     
+    /**
+     * Constructeur de l'extension.
+     * <p>
+     * Initialise les cartes spéciales (As Doré, Cœur Maudit).
+     * </p>
+     */
     public ExtensionCartesSpeciales() {
         this.active = false;
         this.cartes = new ArrayList<>();
         initialiserCartes();
     }
     
+    /**
+     * Initialise les cartes spéciales de l'extension.
+     * <p>
+     * Crée deux cartes bonus avec effets spéciaux.
+     * </p>
+     */
     private void initialiserCartes() {
         // Note: On réutilise QUATRE comme valeur max existante
         // Dans une vraie extension, on ajouterait CINQ à l'enum Valeur
@@ -59,21 +69,41 @@ public class ExtensionCartesSpeciales implements Extension {
             "Vaut -4 si vous avez le Joker, +4 sinon"));
     }
 
+    /**
+     * Retourne le nom de l'extension.
+     * 
+     * @return "Cartes Spéciales"
+     */
     @Override
     public String getNom() {
         return "Cartes Spéciales";
     }
 
+    /**
+     * Retourne la description de l'extension.
+     * 
+     * @return Description textuelle des cartes ajoutées
+     */
     @Override
     public String getDescription() {
         return "Ajoute 2 cartes bonus avec des effets spéciaux : As Doré et Cœur Maudit.";
     }
 
+    /**
+     * Retourne les cartes ajoutées par l'extension.
+     * 
+     * @return Liste des CarteExtension
+     */
     @Override
     public List<Carte> getCartesExtension() {
         return cartes;
     }
 
+    /**
+     * Vérifie si l'extension est active.
+     * 
+     * @return true si l'extension est appliquée, false sinon
+     */
     @Override
     public boolean estActive() {
         return active;

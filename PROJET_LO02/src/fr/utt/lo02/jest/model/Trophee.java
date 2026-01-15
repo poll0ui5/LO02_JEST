@@ -3,11 +3,6 @@ package fr.utt.lo02.jest.model;
 import fr.utt.lo02.jest.model.Visitor;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Gère les trophées attribués au meilleur joueur en fin de partie.
  * 
  * <p>
@@ -31,9 +26,16 @@ import fr.utt.lo02.jest.model.Visitor;
  */
 public class Trophee {
     
+    /** La carte représentant ce trophée */
     private Carte carte;
+    
+    /** Condition pour obtenir ce trophée */
     private String condition;
+    
+    /** État du trophée : true si gagné par un joueur */
     private boolean estGagne;
+    
+    /** Visibilité du trophée : true si visible par tous */
     private boolean estVisible;
     
     /**
@@ -57,7 +59,14 @@ public class Trophee {
     }
     
     /**
-     * Vérifie si la condition du trophée est remplie
+     * Vérifie si la condition du trophée est remplie pour un joueur.
+     * <p>
+     * Examine le Jest du joueur pour vérifier si la condition
+     * de ce trophée est satisfaite.
+     * </p>
+     * 
+     * @param joueur Le joueur à vérifier
+     * @return true si le joueur satisfait les conditions du trophée, false sinon
      */
     public boolean verifierCondition(Joueur joueur) {
         // À implémenter selon les règles spécifiques du jeu
@@ -66,8 +75,16 @@ public class Trophee {
     }
     
     /**
-     * Méthode accept du pattern Visitor
+     * Accepte un visiteur (pattern Visitor).
+     * <p>
+     * Permet au visiteur d'accéder au trophée pour effectuer un traitement.
+     * </p>
+     * 
+     * @param visitor Le visiteur à accepter
      */
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
 
     
     // Getters et Setters

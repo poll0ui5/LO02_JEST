@@ -6,11 +6,6 @@ import fr.utt.lo02.jest.model.Joueur;
 import java.util.List;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Mode avec bonus/malus doublés sur certaines cartes spécifiques.
  * 
  * <p>
@@ -34,31 +29,66 @@ import java.util.List;
  */
 public class VarianteDoubleMise implements Variante {
 
+    /**
+     * Retourne le nom de la variante.
+     * 
+     * @return "Double Mise"
+     */
     @Override
     public String getNom() {
         return "Double Mise";
     }
 
+    /**
+     * Retourne la description des règles modifiées.
+     * 
+     * @return Description textuelle de la variante
+     */
     @Override
     public String getDescription() {
         return "3 trophées. Bonus +3 pour majorité Piques, Malus -3 pour majorité Carreaux.";
     }
 
+    /**
+     * Détermine le nombre de trophées pour cette variante.
+     * 
+     * @param nbJoueurs Le nombre de joueurs (non utilisé ici)
+     * @return Toujours 3 trophées
+     */
     @Override
     public int getNombreTrophees(int nbJoueurs) {
         return 3; // Plus de trophées
     }
 
+    /**
+     * Retourne le nombre de cartes distribuées par tour.
+     * 
+     * @return 2 cartes par tour
+     */
     @Override
     public int getCartesParTour() {
         return 2;
     }
 
+    /**
+     * Indique si les offres sont faites simultanément.
+     * 
+     * @return true
+     */
     @Override
     public boolean offresSimultanees() {
         return true;
     }
 
+    /**
+     * Applique les règles finales : bonus/malus sur Piques/Carreaux.
+     * <p>
+     * Ajoute +3 au joueur avec le plus de Piques.
+     * Soustrait -3 au joueur avec le plus de Carreaux.
+     * </p>
+     * 
+     * @param joueurs Liste de tous les joueurs
+     */
     @Override
     public void appliquerReglesFinales(List<Joueur> joueurs) {
         // Trouver le joueur avec le plus de Piques

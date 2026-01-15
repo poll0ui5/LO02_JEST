@@ -8,11 +8,6 @@ import fr.utt.lo02.jest.model.Carte;
 import fr.utt.lo02.jest.model.Joueur;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Représente l'état complet d'une partie pour la sauvegarde/chargement.
  * 
  * <p>
@@ -38,15 +33,34 @@ public class EtatPartie implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
+    /** Liste de tous les joueurs participant à la partie */
     private ArrayList<Joueur> joueurs;
+    
+    /** La pioche contenant les cartes à distribuer */
     private LinkedList<Carte> pioche;
+    
+    /** Les trophées en jeu pour cette partie */
     private ArrayList<Carte> trophees;
+    
+    /** Le numéro de la manche actuelle */
     private int numeroManche;
+    
+    /** Le nom de la variante appliquée (Classique, DoubleMise, SansTrophee) */
     private String nomVariante;
+    
+    /** Le nom de l'extension appliquée (null si aucune) */
     private String nomExtension;
+    
+    /** true si la partie est terminée */
     private boolean partieTerminee;
+    
+    /** Le nom du joueur qui doit jouer */
     private String nomJoueurActuel;
+    
+    /** true pendant la phase de création des offres */
     private boolean phaseOffre;
+    
+    /** true pendant la phase de sélection des cartes */
     private boolean phaseChoix;
     
     /**

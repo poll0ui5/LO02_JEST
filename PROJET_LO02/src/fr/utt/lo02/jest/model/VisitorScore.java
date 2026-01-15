@@ -6,11 +6,6 @@ import java.util.Map;
 import fr.utt.lo02.jest.model.*;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Implémentation du calcul de score selon les règles du Jest.
  * 
  * <p>
@@ -33,6 +28,8 @@ import fr.utt.lo02.jest.model.*;
  * @see <a href="https://github.com/poll0ui5/LO02_JEST">GitHub Repository</a>
  */
 public class VisitorScore implements Visitor {
+    
+    /** Map stockant les scores calculés pour chaque joueur */
     private Map<String, Integer> scores = new HashMap<>();
 
     /**
@@ -109,6 +106,10 @@ public class VisitorScore implements Visitor {
 
     /**
      * Visite une carte (non utilisé dans ce visiteur).
+     * <p>
+     * Cette méthode est présente pour implémenter l'interface Visitor
+     * mais n'effectue aucun traitement sur les cartes.
+     * </p>
      * 
      * @param carte La carte visitée
      */
@@ -118,6 +119,9 @@ public class VisitorScore implements Visitor {
 
     /**
      * Retourne la map des scores calculés.
+     * <p>
+     * Contient les scores de tous les joueurs visités jusqu'à présent.
+     * </p>
      * 
      * @return Map associant chaque nom de joueur à son score
      */

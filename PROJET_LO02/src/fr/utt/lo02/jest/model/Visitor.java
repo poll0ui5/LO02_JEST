@@ -5,11 +5,6 @@ import fr.utt.lo02.jest.model.Joueur;
 import fr.utt.lo02.jest.model.Trophee;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Interface du pattern Visitor pour le calcul des scores selon les règles.
  * 
  * <p>

@@ -2,11 +2,6 @@ package fr.utt.lo02.jest.model;
 import java.util.*;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Gère la pioche de cartes et la distribution aux joueurs.
  * 
  * <p>
@@ -30,8 +25,11 @@ import java.util.*;
  */
 public class JeuCartes {
 	
+	/** Le tas contenant toutes les cartes non distribuées */
 	private LinkedList<Carte> tasCartes;
-	public static final int NBR_CARTES = 17; // 16 cartes + 1 Joker
+	
+	/** Nombre total de cartes dans le jeu (16 cartes + 1 Joker) */
+	public static final int NBR_CARTES = 17;
 	
 	/**
 	 * Constructeur : crée le paquet de 17 cartes du Jest.
@@ -53,43 +51,68 @@ public class JeuCartes {
 		this.tasCartes.add(new Carte(Valeur.JOKER, null));
 	}
 	
-	// retire la premiére carte du tas de cartes (la carte du dessus)
+	/**
+	 * Distribue une carte du sommet du tas.
+	 * <p>
+	 * Retire et retourne la première carte du tas. Si le tas est vide,
+	 * une exception NoSuchElementException sera levée.
+	 * </p>
+	 * 
+	 * @return La carte distribuée
+	 * @throws NoSuchElementException si le tas est vide
+	 */
 	public Carte distribuerUneCarte(){ 
-		Carte c;
-		// on retire la carte du dessus du tas de cartes
-		 /* ... */ 
-		c = this.tasCartes.getFirst();
+		Carte c = this.tasCartes.getFirst();
 		this.tasCartes.remove(c);
-	return c;
-		
+		return c;
 	}
 	
-	// Mélange de toutes les cartes. Très simple ....Appel de shuffle de la classe Collections (à différencier de l'interface Collection)
+	/**
+	 * Mélange toutes les cartes du tas.
+	 * <p>
+	 * Utilise l'algorithme Fisher-Yates via Collections.shuffle().
+	 * À appeler au début de chaque partie.
+	 * </p>
+	 */
 	public void melanger(){
 		Collections.shuffle(tasCartes);
 	}
 	
-	
-	// le tas de cartes est-il vide?
+	/**
+	 * Vérifie si le tas de cartes est vide.
+	 * 
+	 * @return true si aucune carte n'est disponible, false sinon
+	 */
 	public boolean estVide() {
-		// le tas cartes est vide ?
-		/* .... */
-		boolean vide;
-		vide = this.tasCartes.isEmpty();
-		return vide;
+		return this.tasCartes.isEmpty();
 	}
 	
+	/**
+	 * Retourne une représentation textuelle du tas.
+	 * 
+	 * @return String représentant toutes les cartes du tas
+	 */
+	@Override
 	public String toString(){
 		return tasCartes.toString();
 	}
 	
+	/**
+	 * Récupère la liste complète des cartes du tas.
+	 * 
+	 * @return LinkedList contenant toutes les cartes restantes
+	 */
 	public LinkedList<Carte> getTasCartes(){
 		return tasCartes;
 	}
 	
 	/**
 	 * Ajoute une carte au tas (utilisé pour les extensions).
-	 * @param carte La carte à ajouter
+	 * <p>
+	 * Permet d'enrichir le jeu avec des cartes supplémentaires.
+	 * </p>
+	 * 
+	 * @param carte La carte à ajouter au tas
 	 */
 	public void ajouterCarte(Carte carte) {
 		this.tasCartes.add(carte);

@@ -4,11 +4,6 @@ import java.util.List;
 import fr.utt.lo02.jest.model.Strategie;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Joueur contrôlé par une IA avec stratégie configurable (offensive/défensive).
  * 
  * <p>

@@ -4,11 +4,6 @@ import java.io.Serializable;
 import fr.utt.lo02.jest.model.Visitor;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Représente une carte du jeu Jest avec sa couleur et sa valeur.
  * 
  * <p>
@@ -32,8 +27,14 @@ import fr.utt.lo02.jest.model.Visitor;
  */
 public class Carte implements Serializable {
     private static final long serialVersionUID = 1L;
+    
+    /** La couleur de la carte (Pique, Trèfle, Carreau, Cœur) */
     private Couleur couleur;
+    
+    /** La valeur de la carte (As, 2, 3, 4, ou Joker) */
     private Valeur valeur;
+    
+    /** État de visibilité : true si face visible, false si cachée */
     private boolean faceVisible;
 
     /**
@@ -133,10 +134,15 @@ public class Carte implements Serializable {
 
     /**
      * Accepte un visiteur (pattern Visitor).
+     * <p>
+     * Cette méthode permet au visiteur d'accéder à la carte
+     * pour effectuer un traitement (calcul de score, etc.).
+     * </p>
      * 
      * @param visitor Le visiteur à accepter
      */
     public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 
     @Override

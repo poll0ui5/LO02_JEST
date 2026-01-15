@@ -8,11 +8,6 @@ import fr.utt.lo02.jest.model.Joueur;
 import fr.utt.lo02.jest.model.JoueurVirtuel;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Stratégie agressive privilégiant les cartes de haute valeur et les Jest adverses.
  * 
  * <p>

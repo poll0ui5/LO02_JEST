@@ -7,11 +7,6 @@ import fr.utt.lo02.jest.model.Joueur;
 import fr.utt.lo02.jest.model.JoueurVirtuel;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Interface définissant le comportement d'une stratégie d'IA pour les joueurs virtuels.
  * 
  * <p>

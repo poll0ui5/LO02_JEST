@@ -4,11 +4,6 @@ import fr.utt.lo02.jest.model.Joueur;
 import java.util.List;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Interface définissant les règles d'une variante de jeu.
  * 
  * <p>

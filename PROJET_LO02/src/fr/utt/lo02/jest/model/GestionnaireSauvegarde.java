@@ -3,11 +3,6 @@ package fr.utt.lo02.jest.model;
 import java.io.*;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Gère la sérialisation et désérialisation des parties au format .jest.
  * 
  * <p>
@@ -31,11 +26,22 @@ import java.io.*;
  */
 public class GestionnaireSauvegarde {
     
+    /** Extension des fichiers de sauvegarde */
     private static final String EXTENSION = ".jest";
+    
+    /** Répertoire contenant les sauvegardes */
     private static final String DOSSIER_SAUVEGARDES = "sauvegardes/";
     
     /**
      * Sauvegarde un objet sérialisable dans un fichier.
+     * <p>
+     * Crée le répertoire de sauvegarde s'il n'existe pas,
+     * puis sérialise l'objet dans un fichier.
+     * </p>
+     * 
+     * @param objet L'objet à sauvegarder
+     * @param nomFichier Le nom du fichier (sans extension)
+     * @return true si la sauvegarde s'est bien déroulée, false en cas d'erreur
      */
     public static boolean sauvegarder(Serializable objet, String nomFichier) {
         // Créer le dossier s'il n'existe pas
@@ -59,6 +65,12 @@ public class GestionnaireSauvegarde {
     
     /**
      * Charge un objet depuis un fichier de sauvegarde.
+     * <p>
+     * Désérialise l'objet stocké dans le fichier spécifié.
+     * </p>
+     * 
+     * @param nomFichier Le nom du fichier à charger (sans extension)
+     * @return L'objet désérialisé, ou null en cas d'erreur
      */
     public static Object charger(String nomFichier) {
         String cheminComplet = DOSSIER_SAUVEGARDES + nomFichier + EXTENSION;
@@ -79,6 +91,12 @@ public class GestionnaireSauvegarde {
     
     /**
      * Liste les sauvegardes disponibles.
+     * <p>
+     * Parcourt le répertoire de sauvegarde et retourne les noms
+     * de tous les fichiers de sauvegarde (.jest).
+     * </p>
+     * 
+     * @return Tableau contenant les noms des sauvegardes disponibles
      */
     public static String[] listerSauvegardes() {
         File dossier = new File(DOSSIER_SAUVEGARDES);

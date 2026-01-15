@@ -1,0 +1,310 @@
+@startuml UML_JEST
+!define ABSTRACT_COLOR #E1F5FE
+!define INTERFACE_COLOR #FFF9C4
+!define ENUM_COLOR #F0F4C3
+!define CLASS_COLOR #FFFFFF
+
+title Jest - Jeu de Cartes Stratégique\nDiagramme UML Complet
+
+' =====================================================
+' ENUMS - Énumérations
+' =====================================================
+
+enum Couleur {
+    COEUR
+    CARREAU
+    TREFLE
+    PIQUE
+}
+
+enum Valeur {
+    AS
+    DEUX
+    TROIS
+    QUATRE
+    JOKER
+}
+
+' =====================================================
+' INTERFACES ET PATTERN VISITOR
+' =====================================================
+
+interface Visitor {
+    +visit(joueur: Joueur): void
+    +visit(carte: Carte): void
+    +visit(trophee: Trophee): void
+}
+
+interface Strategie {
+    +faireOffre(bot: JoueurVirtuel): void
+    +choisirAdversaire(bot: JoueurVirtuel, joueurs: List<Joueur>): Joueur
+    +prendreCarteOffre(bot: JoueurVirtuel, offre: CarteOffre[]): Carte
+}
+
+interface Variante {
+    +getNom(): String
+    +getDescription(): String
+    +getNombreTrophees(nbJoueurs: int): int
+    +getCartesParTour(): int
+    +offresSimultanees(): boolean
+}
+
+interface Extension {
+    +getNom(): String
+    +getDescription(): String
+    +getCartesExtension(): List<Carte>
+}
+
+' =====================================================
+' CLASSES - MODEL
+' =====================================================
+
+class Carte {
+    -couleur: Couleur
+    -valeur: Valeur
+    -faceVisible: boolean
+    +Carte(valeur: Valeur, couleur: Couleur)
+    +getCouleur(): Couleur
+    +getValeur(): Valeur
+    +estFaceVisible(): boolean
+    +show(): void
+    +accept(visitor: Visitor): void
+}
+
+class CarteOffre {
+    -carteVisible: Carte
+    -carteCachee: Carte
+    +CarteOffre(visible: Carte, cachee: Carte)
+    +getVisible(): Carte
+    +getCachee(): Carte
+    +revealer(): Carte
+}
+
+class JeuCartes {
+    -tasCartes: LinkedList<Carte>
+    +{static} NBR_CARTES: int
+    +JeuCartes()
+    +distribuerUneCarte(): Carte
+    +melanger(): void
+    +estVide(): boolean
+}
+
+abstract class Joueur {
+    #nom: String
+    #main: List<Carte>
+    #jest: List<Carte>
+    #score: int
+    #offre: CarteOffre[]
+    +Joueur(nom: String)
+    +getMain(): List<Carte>
+    +getJest(): List<Carte>
+    +getOffre(): CarteOffre[]
+    +getNom(): String
+    +getScore(): int
+    +setScore(score: int): void
+    +ajouterCarte(carte: Carte): void
+    +creerOffre(visible: Carte, cachee: Carte): void
+    +accept(visitor: Visitor): void
+    {abstract} +jouer(): void
+}
+
+class JoueurHumain {
+    +JoueurHumain(nom: String)
+    +jouer(): void
+    +creerOffre(): void
+}
+
+class JoueurVirtuel {
+    -strategie: Strategie
+    +JoueurVirtuel(nom: String, strategie: Strategie)
+    +getStrategie(): Strategie
+    +setStrategie(strategie: Strategie): void
+    +jouer(): void
+    +creerOffre(): void
+}
+
+class Trophee {
+    -carte: Carte
+    -condition: String
+    -estGagne: boolean
+    -estVisible: boolean
+    +Trophee(carte: Carte)
+    +Trophee(carte: Carte, condition: String)
+    +getCarte(): Carte
+    +getCondition(): String
+    +estGagne(): boolean
+    +gagner(): void
+    +accept(visitor: Visitor): void
+}
+
+class VisitorScore {
+    +visit(joueur: Joueur): void
+    +visit(carte: Carte): void
+    +visit(trophee: Trophee): void
+    +calculerScore(joueur: Joueur): int
+}
+
+class EtatPartie {
+    -joueurs: ArrayList<Joueur>
+    -pioche: LinkedList<Carte>
+    -trophees: ArrayList<Carte>
+    -numeroManche: int
+    -nomVariante: String
+    -nomExtension: String
+    -partieTerminee: boolean
+    -nomJoueurActuel: String
+    -phaseOffre: boolean
+    -phaseChoix: boolean
+    +EtatPartie()
+    +getJoueurs(): ArrayList<Joueur>
+    +getPioche(): LinkedList<Carte>
+    +getTrophees(): ArrayList<Carte>
+    +getNumeroManche(): int
+    +setNumeroManche(numero: int): void
+}
+
+class GestionnaireSauvegarde {
+    +sauvegarder(nom: String, etat: EtatPartie): void
+    +charger(nom: String): EtatPartie
+    +supprimer(nom: String): void
+    +listerSauvegardes(): List<String>
+}
+
+' =====================================================
+' IMPLEMENTATIONS - STRATEGIES
+' =====================================================
+
+class StrategieOffensive {
+    +faireOffre(bot: JoueurVirtuel): void
+    +choisirAdversaire(bot: JoueurVirtuel, joueurs: List<Joueur>): Joueur
+    +prendreCarteOffre(bot: JoueurVirtuel, offre: CarteOffre[]): Carte
+}
+
+class StrategieDefensive {
+    +faireOffre(bot: JoueurVirtuel): void
+    +choisirAdversaire(bot: JoueurVirtuel, joueurs: List<Joueur>): Joueur
+    +prendreCarteOffre(bot: JoueurVirtuel, offre: CarteOffre[]): Carte
+}
+
+' =====================================================
+' IMPLEMENTATIONS - VARIANTES
+' =====================================================
+
+class VarianteClassique {
+    +getNom(): String
+    +getDescription(): String
+    +getNombreTrophees(nbJoueurs: int): int
+    +getCartesParTour(): int
+    +offresSimultanees(): boolean
+}
+
+class VarianteDoubleMise {
+    +getNom(): String
+    +getDescription(): String
+    +getNombreTrophees(nbJoueurs: int): int
+    +getCartesParTour(): int
+    +offresSimultanees(): boolean
+}
+
+class VarianteSansTrophee {
+    +getNom(): String
+    +getDescription(): String
+    +getNombreTrophees(nbJoueurs: int): int
+    +getCartesParTour(): int
+    +offresSimultanees(): boolean
+}
+
+' =====================================================
+' IMPLEMENTATIONS - EXTENSIONS
+' =====================================================
+
+class CarteExtension {
+    -couleur: Couleur
+    -valeur: Valeur
+    -effet: String
+    +CarteExtension(valeur: Valeur, couleur: Couleur, effet: String)
+    +getEffet(): String
+}
+
+class ExtensionCartesSpeciales {
+    -cartes: List<CarteExtension>
+    +ExtensionCartesSpeciales()
+    +getNom(): String
+    +getDescription(): String
+    +getCartesExtension(): List<Carte>
+}
+
+' =====================================================
+' RELATIONS
+' =====================================================
+
+' Relations Composition/Agrégation
+Carte "1" o-- "1" Couleur
+Carte "1" o-- "1" Valeur
+CarteOffre "1" *-- "2" Carte
+Joueur "1" *-- "*" Carte : main
+Joueur "1" *-- "*" Carte : jest
+Joueur "1" *-- "2" CarteOffre : offre
+Trophee "1" *-- "1" Carte
+JeuCartes "1" *-- "*" Carte : tasCartes
+EtatPartie "1" *-- "*" Joueur : joueurs
+EtatPartie "1" *-- "*" Carte : pioche
+EtatPartie "1" *-- "*" Carte : trophees
+
+' Relations Héritage
+JoueurHumain --|> Joueur
+JoueurVirtuel --|> Joueur
+
+' Relations Implémentation
+StrategieOffensive ..|> Strategie
+StrategieDefensive ..|> Strategie
+VarianteClassique ..|> Variante
+VarianteDoubleMise ..|> Variante
+VarianteSansTrophee ..|> Variante
+ExtensionCartesSpeciales ..|> Extension
+VisitorScore ..|> Visitor
+CarteExtension --|> Carte
+
+' Relations Utilisation
+JoueurVirtuel "1" o-- "1" Strategie
+Joueur ..|> Visitor : peut être visité
+Carte ..|> Visitor : peut être visité
+Trophee ..|> Visitor : peut être visité
+VisitorScore --> Joueur
+VisitorScore --> Carte
+VisitorScore --> Trophee
+GestionnaireSauvegarde --> EtatPartie
+
+' =====================================================
+' NOTES
+' =====================================================
+
+note right of Joueur
+  Classe abstraite représentant
+  un joueur du jeu Jest.
+  Contient la logique commune
+  aux joueurs humains et virtuels.
+end note
+
+note right of JeuCartes
+  Gère le paquet de 17 cartes
+  (16 cartes + 1 Joker).
+  Permet la distribution et
+  le mélange des cartes.
+end note
+
+note right of Strategie
+  Pattern Strategy pour
+  les stratégies d'IA.
+  Permet de changer le
+  comportement des bots.
+end note
+
+note right of Visitor
+  Pattern Visitor pour
+  le calcul des scores
+  et les traitements
+  génériques.
+end note
+
+@enduml

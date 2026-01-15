@@ -5,11 +5,6 @@ import java.util.List;
 import fr.utt.lo02.jest.view.terminal.TerminalView;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Joueur contrôlé par un humain via saisie clavier ou interface graphique.
  * 
  * <p>

@@ -6,11 +6,6 @@ import java.util.List;
 import fr.utt.lo02.jest.model.Visitor;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Classe abstraite représentant un joueur (humain ou virtuel).
  * 
  * <p>
@@ -34,10 +29,20 @@ import fr.utt.lo02.jest.model.Visitor;
  */
 public abstract class Joueur implements Serializable {
     private static final long serialVersionUID = 1L;
+    
+    /** Le nom du joueur */
     protected String nom;
+    
+    /** Les cartes actuellement en main du joueur */
     protected List<Carte> main;
+    
+    /** Le Jest du joueur (cartes accumulées au cours du jeu) */
     protected List<Carte> jest;
+    
+    /** Le score actuel du joueur */
     protected int score;
+    
+    /** L'offre du joueur (tableau de 2 CarteOffre : visible et cachée) */
     protected CarteOffre[] offre;
 
     /**

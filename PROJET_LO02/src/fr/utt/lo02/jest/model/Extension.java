@@ -4,11 +4,6 @@ import fr.utt.lo02.jest.model.Carte;
 import java.util.List;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Interface pour les extensions de jeu ajoutant de nouvelles mécaniques.
  * 
  * <p>

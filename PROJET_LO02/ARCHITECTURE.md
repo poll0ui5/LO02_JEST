@@ -33,6 +33,9 @@ src/fr/utt/lo02/jest/
 │   ├── ExtensionCartesSpeciales.java
 │   ├── Visitor.java
 │   ├── VisitorScore.java
+│   ├── Observer.java          # 🆕 Pattern Observer
+│   ├── Observable.java        # 🆕 Pattern Observer
+│   ├── GameModel.java         # 🆕 Modèle observable
 │   ├── EtatPartie.java
 │   └── GestionnaireSauvegarde.java
 │
@@ -99,19 +102,26 @@ View (TerminalView ou Swing)
 - **View** ne contient aucune logique métier
 - **Controller** coordonne Model et View
 
-### **2. Strategy Pattern**
+### **2. Observer/Observable** 🆕
+- **Fichiers** : `Observer.java`, `Observable.java`, `GameModel.java`
+- **Usage** : Communication Model → View sans couplage fort
+- **Principe** : Le Model notifie automatiquement les Views des changements d'état
+- **Avantage** : Synchronisation automatique de toutes les interfaces
+- **Documentation** : Voir `PATTERN_OBSERVER.md`
+
+### **3. Strategy Pattern**
 - **Fichiers** : `Strategie.java`, `StrategieOffensive.java`, `StrategieDefensive.java`
 - **Usage** : IA des bots (changement de comportement dynamique)
 
-### **3. Visitor Pattern**
+### **4. Visitor Pattern**
 - **Fichiers** : `Visitor.java`, `VisitorScore.java`
 - **Usage** : Calcul des scores selon les règles
 
-### **4. Factory Pattern**
+### **5. Factory Pattern**
 - **Fichiers** : `Variante.java`, `Extension.java`
 - **Usage** : Création dynamique des modes de jeu et extensions
 
-### **5. Template Method**
+### **6. Template Method**
 - **Fichier** : `Joueur.java` (classe abstraite)
 - **Usage** : Définit le squelette des méthodes communes aux joueurs
 

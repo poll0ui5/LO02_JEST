@@ -37,10 +37,11 @@ import fr.utt.lo02.jest.controller.swing.SwingController;
  * 
  * @see <a href="https://github.com/poll0ui5/LO02_JEST">GitHub Repository</a>
  */
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements Observer {
 
 	private static final long serialVersionUID = 1L;
 	private SwingController controller;
+	private GameModel gameModel;
 	private JLabel lblMessage;
 	private JLabel lblManche;
 	private JLabel lblPioche;
@@ -498,5 +499,52 @@ public class GamePanel extends JPanel {
 	
 	public void showMessage(String msg) {
 		lblMessage.setText(msg);
+	}
+	
+	/**
+	 * Définit le modèle de jeu et s'abonne aux notifications.
+	 * 
+	 * @param model Le modèle de jeu observable
+	 */
+	public void setGameModel(GameModel model) {
+		if (this.gameModel != null) {
+			this.gameModel.removeObserver(this);
+		}
+		this.gameModel = model;
+		if (model != null) {
+			model.addObserver(this);
+		}
+	}
+	
+	/**
+	 * Méthode appelée lorsque le modèle change d'état.
+	 * Met à jour l'affichage en fonction de l'événement reçu.
+	 * 
+	 * @param observable Le modèle qui a changé
+	 * @param data L'événement (type de changement)
+	 */
+	@Override
+	public void update(Observable observable, Object data) {
+		if (data == null) return;
+		
+		String event = data.toString();
+		switch (event) {
+			case "JOUEURS_UPDATED":
+			case "OFFRES_UPDATED":
+			case "MANCHE_UPDATED":
+			case "TROPHEES_UPDATED":
+				// Rafraîchir l'affichage complet
+				updateDisplay();
+				break;
+			case "MESSAGE":
+				if (gameModel != null) {
+					showMessage(gameModel.getMessageActuel());
+				}
+				break;
+			case "PARTIE_TERMINEE":
+				// Géré par le controller
+				break;
+		}
+		repaint();
 	}
 }

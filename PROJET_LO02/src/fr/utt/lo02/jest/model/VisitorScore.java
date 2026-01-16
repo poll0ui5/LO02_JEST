@@ -118,6 +118,19 @@ public class VisitorScore implements Visitor {
     }
 
     /**
+     * Visite un trophée (non utilisé dans ce visiteur).
+     * <p>
+     * Cette méthode est présente pour implémenter l'interface Visitor
+     * mais n'effectue aucun traitement sur les trophées.
+     * </p>
+     * 
+     * @param trophee Le trophée visité
+     */
+    @Override
+    public void visit(Trophee trophee) {
+    }
+
+    /**
      * Retourne la map des scores calculés.
      * <p>
      * Contient les scores de tous les joueurs visités jusqu'à présent.

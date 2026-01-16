@@ -41,5 +41,5 @@ public interface Visitor {
     /**
      * Visite un trophée pour effectuer un traitement
      */
-    
+    void visit(Trophee trophee);
 }

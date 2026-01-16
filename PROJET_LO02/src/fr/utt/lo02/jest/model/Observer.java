@@ -1,11 +1,6 @@
 package fr.utt.lo02.jest.model;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Interface Observer du pattern Observer/Observable.
  * 
  * <p>

@@ -7,11 +7,6 @@ import fr.utt.lo02.jest.model.CarteOffre;
 import fr.utt.lo02.jest.model.Joueur;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Vue en ligne de commande pour l'affichage et la saisie utilisateur.
  * 
  * <p>

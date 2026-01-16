@@ -4,11 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Classe Observable du pattern Observer/Observable.
  * 
  * <p>

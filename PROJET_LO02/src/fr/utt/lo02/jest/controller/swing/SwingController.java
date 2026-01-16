@@ -13,12 +13,7 @@ import fr.utt.lo02.jest.model.VisitorScore;
 import fr.utt.lo02.jest.view.swing.*;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
- * Interface Swing du projet Jest.
+ * Contrôleur Swing du projet Jest.
  * 
  * <p>
  * Ce projet implémente le jeu de cartes Jest avec une architecture MVC stricte,

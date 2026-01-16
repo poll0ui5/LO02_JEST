@@ -3,11 +3,6 @@ package fr.utt.lo02.jest.model;
 import java.util.ArrayList;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Modèle de jeu observable contenant l'état complet de la partie.
  * 
  * <p>

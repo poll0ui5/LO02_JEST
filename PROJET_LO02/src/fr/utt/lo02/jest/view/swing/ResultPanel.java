@@ -9,11 +9,6 @@ import fr.utt.lo02.jest.model.Joueur;
 import fr.utt.lo02.jest.controller.swing.SwingController;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Panel d'affichage des résultats finaux et du classement.
  * 
  * <p>

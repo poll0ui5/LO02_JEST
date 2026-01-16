@@ -6,11 +6,6 @@ import java.awt.*;
 import fr.utt.lo02.jest.controller.swing.SwingController;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Panel du menu de configuration de la partie (variante, extension, joueurs).
  * 
  * <p>

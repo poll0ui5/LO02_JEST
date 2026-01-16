@@ -5,11 +5,6 @@ import java.awt.*;
 import fr.utt.lo02.jest.controller.swing.SwingController;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Fenêtre principale de l'interface graphique Swing du jeu Jest.
  * 
  * <p>

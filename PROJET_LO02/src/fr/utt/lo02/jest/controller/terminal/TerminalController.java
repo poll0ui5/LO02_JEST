@@ -11,11 +11,6 @@ import fr.utt.lo02.jest.view.terminal.TerminalView;
 import fr.utt.lo02.jest.model.VisitorScore;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║                         🎮 PROJET LO02 - JEST 🎮                         ║
- * ║                         Jeu de Cartes Stratégique                        ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- * 
  * Contrôleur gérant le flux du jeu en mode terminal (pattern MVC).
  * 
  * <p>
